@@ -1,19 +1,21 @@
 package Clases;
 
-public class VotosComentarios {
-	private String usuario;
-	private int comentario;
+public class VotoComentario {
+	private Usuario usuario;
+	private Comentario comentario;
 	private boolean voto;
-	public String getUsuario() {
+	
+	
+	public Usuario getUsuario() {
 		return usuario;
 	}
-	public void setUsuario(String usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public int getComentario() {
+	public Comentario getComentario() {
 		return comentario;
 	}
-	public void setComentario(int comentario) {
+	public void setComentario(Comentario comentario) {
 		this.comentario = comentario;
 	}
 	public boolean isVoto() {
@@ -22,6 +24,9 @@ public class VotosComentarios {
 	public void setVoto(boolean voto) {
 		this.voto = voto;
 	}
+	
+	
+	
 	
 	
 }
