@@ -1,13 +1,12 @@
-package modelo;
+package Clases;
 
-public class Etiqueta {
+public class Categoria {
 	
 	private int id;
 	private String nombre;
 	
 	
 	
-
 	public int getId() {
 		return id;
 	}
@@ -22,6 +21,5 @@ public class Etiqueta {
 	}
 	
 	
-	
-	
+
 }

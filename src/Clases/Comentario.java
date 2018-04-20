@@ -1,4 +1,4 @@
-package modelo;
+package Clases;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ public class Comentario {
 	
 	private int id;
 	private String autor;
-	private Imagen imagen;
+	private Publicacion imagen;
 	private String texto;
 	private Date fecha;
 	private int respuesta;
@@ -27,10 +27,10 @@ public class Comentario {
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
-	public Imagen getImagen() {
+	public Publicacion getImagen() {
 		return imagen;
 	}
-	public void setImagen(Imagen imagen) {
+	public void setImagen(Publicacion imagen) {
 		this.imagen = imagen;
 	}
 	public String getTexto() {

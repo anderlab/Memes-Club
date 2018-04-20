@@ -1,9 +1,9 @@
-package modelo;
+package Clases;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Imagen {
+public class Publicacion {
 	
 	private String id;
 	private String titulo;

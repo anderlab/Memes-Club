@@ -1,4 +1,4 @@
-package modelo;
+package Clases;
 
 import java.util.ArrayList;
 
@@ -6,10 +6,10 @@ public class Usuario {
 	
 	private String nombre;
 	private String password;
-	private Imagen imagenPerfil;
+	private String imagenPerfil;
 	private String rol;
 	
-	private ArrayList <Imagen> imagenes;
+	private ArrayList <Publicacion> imagenes;
 	
 	
 	public String getNombre() {
@@ -31,17 +31,18 @@ public class Usuario {
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
-	public Imagen getImagenPerfil() {
-		return imagenPerfil;
-	}
-	public void setImagenPerfil(Imagen imagenPerfil) {
-		this.imagenPerfil = imagenPerfil;
-	}
-	public ArrayList<Imagen> getImagenes() {
+
+	public ArrayList<Publicacion> getImagenes() {
 		return imagenes;
 	}
-	public void setImagenes(ArrayList<Imagen> imagenes) {
+	public void setImagenes(ArrayList<Publicacion> imagenes) {
 		this.imagenes = imagenes;
+	}
+	public String getImagenPerfil() {
+		return imagenPerfil;
+	}
+	public void setImagenPerfil(String imagenPerfil) {
+		this.imagenPerfil = imagenPerfil;
 	}
 
 	
