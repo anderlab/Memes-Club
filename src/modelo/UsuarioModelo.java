@@ -15,7 +15,7 @@ public class UsuarioModelo extends Conector {
 
 		try {
 			PreparedStatement pst;
-			pst = super.conexion.prepareStatement("select * from usuarios");
+			pst = super.conexion.prepareStatement("SELECT * from usuarios");
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
@@ -41,10 +41,10 @@ public class UsuarioModelo extends Conector {
 
 	}
 
-	public void insertar(Usuario usuario) {
+	public void insert(Usuario usuario) {
 		try {
 			PreparedStatement pst = super.conexion
-					.prepareStatement("insert into usuarios (nombre,contrasena,imagen,rol) values(?,?,?,?)");
+					.prepareStatement("INSERT INTO usuarios (nombre,contrasena,imagen,rol) values(?,?,?,?)");
 			pst.setString(1, usuario.getNombre());
 			pst.setString(2, usuario.getPassword());
 			pst.setString(3, usuario.getImagenPerfil());
@@ -53,21 +53,21 @@ public class UsuarioModelo extends Conector {
 			pst.execute();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
 	}
 
-	public void eliminar(String nombre) {
+	public void delete(String nombre) {
 
 		try {
-			PreparedStatement pst = super.conexion.prepareStatement("delete from usuarios where nombre=?");
+			PreparedStatement pst = super.conexion.prepareStatement("DELETE from usuarios WHERE nombre=?");
 			pst.setString(1, nombre);
 			pst.execute();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
@@ -75,9 +75,18 @@ public class UsuarioModelo extends Conector {
 
 	public void update(Usuario usuario) {
 		try {
-			PreparedStatement pst= super.conexion.prepareStatement("update usuarios contrasena=?,");
+			PreparedStatement pst = super.conexion
+					.prepareStatement("UPDATE usuarios SET contrasena=?,imagen=?, rol=? WHERE nombre=?");
+
+			pst.setString(1, usuario.getPassword());
+			pst.setString(2, usuario.getImagenPerfil());
+			pst.setString(3, usuario.getRol());
+			pst.setString(4, usuario.getNombre());
+
+			pst.execute();
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 	}
