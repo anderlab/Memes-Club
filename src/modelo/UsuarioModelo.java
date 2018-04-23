@@ -40,6 +40,47 @@ public class UsuarioModelo extends Conector {
 		return null;
 
 	}
+	
+	
+	
+	public Usuario select(String nombre) {
+
+		try {
+			PreparedStatement pst = super.conexion.prepareStatement("select * from usuarios where nombre =?");
+			pst.setString(1, nombre);
+			ResultSet rs = pst.executeQuery();
+			
+
+			Usuario usuario = null;
+			while (rs.next()) {
+
+				usuario = new Usuario();
+
+				usuario.setNombre(rs.getString("nombre"));
+				usuario.setPassword(rs.getString("contrasena"));
+				usuario.setImagenPerfil(rs.getString("imagen"));
+				usuario.setRol(rs.getString("rol"));
+
+			}
+
+			return usuario;
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public void insert(Usuario usuario) {
 		try {
