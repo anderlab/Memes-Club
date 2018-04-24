@@ -25,6 +25,7 @@ public class UsuarioModelo extends Conector {
 				usuario.setNombre(rs.getString("nombre"));
 				usuario.setPassword(rs.getString("contrasena"));
 				usuario.setRol(rs.getString("rol"));
+				usuario.setEmail(rs.getString("email"));
 				usuario.setImagenPerfil(rs.getString("imagen"));
 
 				usuarios.add(usuario);
@@ -59,6 +60,7 @@ public class UsuarioModelo extends Conector {
 				usuario.setNombre(rs.getString("nombre"));
 				usuario.setPassword(rs.getString("contrasena"));
 				usuario.setImagenPerfil(rs.getString("imagen"));
+				usuario.setEmail(rs.getString("email"));
 				usuario.setRol(rs.getString("rol"));
 
 			}
@@ -85,11 +87,13 @@ public class UsuarioModelo extends Conector {
 	public void insert(Usuario usuario) {
 		try {
 			PreparedStatement pst = super.conexion
-					.prepareStatement("INSERT INTO usuarios (nombre,contrasena,imagen,rol) values(?,?,?,?)");
+					.prepareStatement("INSERT INTO usuarios (nombre,contrasena,imagen,rol, email) values(?,?,?,?,?)");
 			pst.setString(1, usuario.getNombre());
 			pst.setString(2, usuario.getPassword());
 			pst.setString(3, usuario.getImagenPerfil());
 			pst.setString(4, usuario.getRol());
+			pst.setString(5, usuario.getEmail());
+			
 
 			pst.execute();
 
@@ -117,12 +121,14 @@ public class UsuarioModelo extends Conector {
 	public void update(Usuario usuario) {
 		try {
 			PreparedStatement pst = super.conexion
-					.prepareStatement("UPDATE usuarios SET contrasena=?,imagen=?, rol=? WHERE nombre=?");
+					.prepareStatement("UPDATE usuarios SET contrasena=?,imagen=?, rol=?, email=? WHERE nombre=?");
 
 			pst.setString(1, usuario.getPassword());
 			pst.setString(2, usuario.getImagenPerfil());
 			pst.setString(3, usuario.getRol());
 			pst.setString(4, usuario.getNombre());
+			pst.setString(5, usuario.getEmail());
+			
 
 			pst.execute();
 

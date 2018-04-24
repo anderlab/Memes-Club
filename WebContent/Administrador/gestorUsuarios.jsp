@@ -87,6 +87,15 @@
 			%>
 		</tbody>
 	</table>
+	
+		<ul class="pagination">
+
+		<%
+				out.print("<li><a href='crearUsuario.jsp' style:'float: left'>Añadir Usuario</a></li>");
+			
+		%>
+
+	</ul>
 
 
 

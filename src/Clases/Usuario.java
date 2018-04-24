@@ -7,6 +7,7 @@ public class Usuario {
 	private String nombre;
 	private String password;
 	private String imagenPerfil;
+	private String email;
 	private String rol;
 	
 	private ArrayList <Publicacion> imagenes;
@@ -43,6 +44,12 @@ public class Usuario {
 	}
 	public void setImagenPerfil(String imagenPerfil) {
 		this.imagenPerfil = imagenPerfil;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	
