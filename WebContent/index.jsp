@@ -14,45 +14,35 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <title>Blog Home - Start Bootstrap Template</title>
+    <title>Memes Club</title>
 
     <!-- Bootstrap core CSS -->
 
 
     <!-- Custom styles for this template -->
-    <link href="css/blog-home.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
   </head>
 
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">IMAGEN</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Mejores</a></li>
+      <li><a href="#">Ultimos</a></li>
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Registrarse</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesion</a></li>
+    </ul>
+  </div>
+</nav> 
 
     <!-- Page Content -->
     <div class="container">
@@ -62,17 +52,27 @@
         <!-- Blog Entries Column -->
         <div class="col-md-8">
 
-          <h1 class="my-4">Page Heading
-            <small>Secondary Text</small>
-          </h1>
 
           <!-- Blog Post -->
           <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            
             <div class="card-body">
               <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
+              <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+              <div class="opciones">
+              	<a href=#>
+              		<button type="button" class="btn btn-outline-primary">
+              			<span class="glyphicon glyphicon-thumbs-up"></span>
+              		</button>
+              	</a>
+              	<a href=#>
+              		<button type="button" class="btn btn-outline-danger">
+              			<span class="glyphicon glyphicon-thumbs-down"></span>
+              		</button>
+              	</a>
+              </div>
+              <p class="card-text etiquetas" ><b><a href="?tag=facebook">#Facebook</a></b><b><a href="?tag=tags are useless">#Tags are useless</a></b></p>
+              
             </div>
             <div class="card-footer text-muted">
               Posted on January 1, 2017 by
