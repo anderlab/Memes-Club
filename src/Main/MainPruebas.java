@@ -10,13 +10,13 @@ public class MainPruebas {
 		Usuario usuario= new Usuario();
 		UsuarioModelo um= new UsuarioModelo();
 		
-		usuario.setNombre("Leerooyy");
-		usuario.setPassword("salu3");
-		usuario.setRol("elputoamo");
+		usuario.setNombre("usuario2");
+		usuario.setPassword("salu5");
+		usuario.setRol("usuarioMindundi");
 		
 		
 		
-		um.update(usuario);
+	um.insert(usuario);
 		
 
 	
