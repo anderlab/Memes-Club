@@ -12,11 +12,18 @@ public class Publicacion {
 	
 	private ArrayList <Categoria> categorias;
 	private ArrayList <Etiqueta> etiquetas;
+	private ArrayList<VotoPublicacion>  votos;
 	
 	
 	
 	
 	
+	public ArrayList<VotoPublicacion> getVotos() {
+		return votos;
+	}
+	public void setVotos(ArrayList<VotoPublicacion> votos) {
+		this.votos = votos;
+	}
 	public String getId() {
 		return id;
 	}
