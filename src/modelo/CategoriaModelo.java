@@ -14,7 +14,7 @@ public class CategoriaModelo extends Conector{
 		PreparedStatement pst;
 		Categoria categoria=null;
 		try {
-			pst = super.conexion.prepareStatement("Selet * from categorias where id=?");
+			pst = super.conexion.prepareStatement("Select * from categorias where id=?");
 			pst.setInt(1, id);
 			ResultSet rs=pst.executeQuery();
 			CategoriaModelo categoriaModelo=new CategoriaModelo();
@@ -28,6 +28,14 @@ public class CategoriaModelo extends Conector{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return categoria;
+
+	}
+	public ArrayList<Categoria> selectConPublicaciones() {
+		// TODO Auto-generated method stub
+		PreparedStatement pst;
+		
 		
 		return categoria;
 

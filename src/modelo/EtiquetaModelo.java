@@ -14,7 +14,7 @@ public class EtiquetaModelo extends Conector{
 			PreparedStatement pst;
 			Etiqueta etiqueta=null;
 			try {
-				pst = super.conexion.prepareStatement("Selet * from etiqueta where id=?");
+				pst = super.conexion.prepareStatement("Select * from etiquetas where id=?");
 				pst.setInt(1, id);
 				ResultSet rs=pst.executeQuery();
 				EtiquetaModelo etiquetaModelo=new EtiquetaModelo();

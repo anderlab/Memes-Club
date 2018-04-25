@@ -13,7 +13,7 @@ public class CatPubliModelo extends Conector{
 		PreparedStatement pst;
 		ArrayList<Categoria> categorias=new ArrayList<>();
 		try {
-			pst = super.conexion.prepareStatement("Selet * from esta_categorias where publicacion=?");
+			pst = super.conexion.prepareStatement("Select * from esta_categorias where publicacion=?");
 			pst.setString(1, idPublicacion);
 			ResultSet rs=pst.executeQuery();
 			CategoriaModelo categoriaModelo=new CategoriaModelo();

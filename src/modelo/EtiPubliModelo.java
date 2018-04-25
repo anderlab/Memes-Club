@@ -15,7 +15,7 @@ public class EtiPubliModelo extends Conector{
 		PreparedStatement pst;
 		ArrayList<Etiqueta> etiquetas=new ArrayList<>();
 		try {
-			pst = super.conexion.prepareStatement("Selet * from tiene_e where publicacion=?");
+			pst = super.conexion.prepareStatement("Select * from tiene_e where publicacion=?");
 			pst.setString(1, idPublicacion);
 			ResultSet rs=pst.executeQuery();
 			EtiquetaModelo etiquetaModelo=new EtiquetaModelo();

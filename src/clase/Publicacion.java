@@ -2,6 +2,7 @@ package clase;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 public class Publicacion {
 	
@@ -15,7 +16,30 @@ public class Publicacion {
 	private ArrayList<VotoPublicacion>  votos;
 	
 	
-	
+	public ArrayList<VotoPublicacion> getVotosPositivos(){
+		ArrayList<VotoPublicacion> votosPositivos=new ArrayList<>();
+		Iterator<VotoPublicacion> i=this.votos.iterator();
+		while(i.hasNext()){
+			VotoPublicacion voto=i.next();
+			if (voto.isVoto()){
+				
+				votosPositivos.add(voto);
+			}
+		}
+		
+		return votosPositivos;
+	}
+	public ArrayList<VotoPublicacion> getVotosNegativos(){
+		ArrayList<VotoPublicacion> votosNegativos=new ArrayList<>();
+		Iterator<VotoPublicacion> i=this.votos.iterator();
+		while(i.hasNext()){
+			VotoPublicacion voto=i.next();
+			if (!voto.isVoto()){
+				votosNegativos.add(voto);
+			}
+		}
+		return votosNegativos;
+	}
 	
 	
 	public ArrayList<VotoPublicacion> getVotos() {

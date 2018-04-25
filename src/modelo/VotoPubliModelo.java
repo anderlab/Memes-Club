@@ -15,7 +15,7 @@ public class VotoPubliModelo extends Conector{
 		PreparedStatement pst;
 		ArrayList<VotoPublicacion> votos=new ArrayList<>();
 		try {
-			pst = super.conexion.prepareStatement("Selet * from voto_p where publicacion=?");
+			pst = super.conexion.prepareStatement("Select * from votar_p where publicacion=?");
 			pst.setString(1, idPublicacion);
 			ResultSet rs=pst.executeQuery();
 			VotoPubliModelo votoPubliModelo=new VotoPubliModelo();

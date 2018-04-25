@@ -1,3 +1,9 @@
+<%@page import="clase.Categoria"%>
+<%@page import="modelo.CategoriaModelo"%>
+<%@page import="clase.Etiqueta"%>
+<%@page import="clase.EtiquetaPublicacion"%>
+<%@page import="clase.VotoPublicacion"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modelo.PublicacionModelo"%>
 <%@page import="clase.Publicacion"%>
@@ -61,13 +67,20 @@
         <!-- Blog Entries Column -->
         <div class="col-md-8">
 
-
+		<%
+		Iterator<Publicacion> i=ultimasPublicaciones.iterator();
+    		while(i.hasNext()){
+    			Publicacion publicacion=i.next();
+		%>
           <!-- Blog Post -->
           <div class="card mb-4">
             
             <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+              <h2 class="card-title"><%=publicacion.getTitulo()%></h2>
+              <div class="text-muted">
+              Subido el <%=publicacion.getFecha_subida() %> por <a href="#"><%=publicacion.getUsuario().getNombre() %></a>
+            </div>
+              <img class="card-img-top" src="./imagenesDePublicaciones/<%=publicacion.getId() %>" alt="Card image cap">
               <div class="opciones">
               	<a href=#>
               		<button type="button" class="btn activo">
@@ -79,59 +92,41 @@
               			<span class="glyphicon glyphicon-thumbs-down"></span>
               		</button>
               	</a>
-              	100 puntos
+              	<%=publicacion.getVotosPositivos().size()%>
               </div>
              <p class="card-text etiquetas" >
+             <%
+             	Iterator<Etiqueta> j=publicacion.getEtiquetas().iterator();
+             	while (j.hasNext()){
+             		Etiqueta etiqueta=j.next();
+             	
+             %>
               	<b>
-              		<a href="?tag=facebook">#Facebook</a>
-              	</b>
-				<b>
-					<a href="?tag=tags are useless">#Tags are useless</a>
-				</b>
+              		<a href="?etiqueta=<%=etiqueta.getNombre()%>">#<%=etiqueta.getNombre()%></a>
+              	</b> 
+			<%
+			}
+			%>
 			</p>
               
             </div>
-            <div class="card-footer text-muted">
-              Posted on January 1, 2017 by
-              <a href="#">Start Bootstrap</a>
-            </div>
+            
           </div>
+		<%
+    		}
+		%>
 
-          <!-- Blog Post -->
-          <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              Posted on January 1, 2017 by
-              <a href="#">Start Bootstrap</a>
-            </div>
-          </div>
 
-          <!-- Blog Post -->
-          <div class="card mb-4">
-            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-            <div class="card-body">
-              <h2 class="card-title">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              Posted on January 1, 2017 by
-              <a href="#">Start Bootstrap</a>
-            </div>
-          </div>
+
+          
 
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
           	<li class="page-item disabled">
-              <a class="page-link" href="#">Newer &rarr;</a>
+              <a class="page-link" href="#">&larr; Nuevos </a>
             </li>
             <li class="page-item">
-              <a class="page-link" href="#">&larr; Older</a>
+              <a class="page-link" href="#">Viejos &rarr;</a>
             </li>
           </ul>
 
@@ -158,7 +153,11 @@
             <h5 class="card-header">Categorias</h5>
             <div class="card-body">
               <div class="list-group">
-				  <a href="?etiqueta='Kaixo'" class="list-group-item">Kaixo<span class="badge">12</span></a>
+              	<%
+              	CategoriaModelo categoriaModelo=new CategoriaModelo();
+              	ArrayList<Categoria> categorias=categoriaModelo.selectConPublicaciones();
+              	%>
+				  <a href="?categoria='Kaixo'" class="list-group-item">Kaixo<span class="badge">12</span></a>
 				  <a href="#" class="list-group-item">Mundua<span class="badge">12</span></a>
 				  <a href="#" class="list-group-item">Patata<span class="badge">12</span></a>
 				</div> 

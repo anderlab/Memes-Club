@@ -19,7 +19,7 @@ public class PublicacionModelo extends Conector{
 		VotoPubliModelo votoPubliModelo=new VotoPubliModelo();
 		
 		try {
-			pst = super.conexion.prepareStatement("Select * from publicaciones order by fecha_subida limit=10");
+			pst = super.conexion.prepareStatement("SELECT * FROM publicaciones ORDER BY fecha_subida LIMIT 10");
 			ResultSet rs=pst.executeQuery();
 			while (rs.next()){
 				Publicacion publicacion=new Publicacion();
@@ -41,4 +41,6 @@ public class PublicacionModelo extends Conector{
 		}
 		return publicaciones;
 	}
+	
+	
 }
