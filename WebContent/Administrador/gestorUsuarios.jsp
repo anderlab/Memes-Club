@@ -38,7 +38,7 @@
 	<%@ page import="java.util.List"%>
 	<%@ page import="java.util.ArrayList"%>
 	<%@ page import="java.util.Iterator"%>
-	<%@ page import ="Clases.*" %>
+	<%@ page import ="clase.*" %>
 
 	<table id="tabla" class="display">
 		<thead>
