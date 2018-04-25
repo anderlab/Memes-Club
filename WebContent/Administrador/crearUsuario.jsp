@@ -22,6 +22,17 @@
 
 <script type="text/javascript"></script>
 <style type="text/css">
+div{
+	width:400px;
+	margin-left: 30%;
+}
+#guardar{
+	margin-left: 30%;
+}
+#volver{
+	margin-left: 30%;
+}
+
 .estaVacio {
 	background-color: #F08080;
 }
@@ -127,7 +138,7 @@
 			<label for="email"> Email:</label> <input type="email"
 				class="form-control <%=emailClass%>" id="email" name="email">
 		</div>
-		<button type="submit" name="guardar" class="btn btn-default">Guardar</button>
+		<button  id= "guardar" type="submit" name="guardar" class="btn btn-default">Crear</button>
 	</form>
 
 	<%
@@ -161,7 +172,7 @@
 
 
 
-	<a href="gestorUsuarios.jsp">Ir a la lista</a>
+	<a  id ="volver" href="gestorUsuarios.jsp">Ir a la lista</a>
 	<br>
 
 
