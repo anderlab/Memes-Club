@@ -1,4 +1,4 @@
-package Clases;
+package clase;
 
 public class VotoComentario {
 	private Usuario usuario;

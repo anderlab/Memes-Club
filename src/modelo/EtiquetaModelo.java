@@ -4,8 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import Clases.Categoria;
-import Clases.Etiqueta;
+import clase.Categoria;
+import clase.Etiqueta;
 
 public class EtiquetaModelo extends Conector{
 	

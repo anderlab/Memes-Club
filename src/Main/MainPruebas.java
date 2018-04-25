@@ -1,6 +1,6 @@
 package Main;
 
-import Clases.Usuario;
+import clase.Usuario;
 import modelo.UsuarioModelo;
 
 public class MainPruebas {

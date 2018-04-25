@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Clases.Categoria;
+import clase.Categoria;
 
 public class CategoriaModelo extends Conector{
 

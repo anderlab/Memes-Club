@@ -2,11 +2,11 @@ package modelo;
 
 import java.util.ArrayList;
 
+import clase.Categoria;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import Clases.Categoria;
 
 public class CatPubliModelo extends Conector{
 	public ArrayList<Categoria> selectCatPorPublicacion(String idPublicacion){

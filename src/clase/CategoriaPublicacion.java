@@ -1,4 +1,4 @@
-package Clases;
+package clase;
 
 public class CategoriaPublicacion {
 	private Publicacion publicacion;

@@ -1,9 +1,12 @@
-package Clases;
+package clase;
+
+import java.util.Date;
 
 public class VotoPublicacion {
 	private Usuario usuario;
 	private Publicacion publicacion;
 	private boolean voto;
+	private Date fecha;
 	
 	
 	public Usuario getUsuario() {
@@ -23,6 +26,12 @@ public class VotoPublicacion {
 	}
 	public void setVoto(boolean voto) {
 		this.voto = voto;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 	
 	

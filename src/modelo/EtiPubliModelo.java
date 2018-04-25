@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Clases.Categoria;
-import Clases.Etiqueta;
+import clase.Categoria;
+import clase.Etiqueta;
 
 public class EtiPubliModelo extends Conector{
 

@@ -1,5 +1,14 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="modelo.PublicacionModelo"%>
+<%@page import="clase.Publicacion"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+    
+    <%
+    PublicacionModelo publicacionModelo=new PublicacionModelo();
+    ArrayList<Publicacion> ultimasPublicaciones=publicacionModelo.selectUltimasPublicaciones();
+    %>
 <!DOCTYPE html>
 <html lang="en">
 

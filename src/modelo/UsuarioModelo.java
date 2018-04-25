@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Clases.Usuario;
+import clase.Usuario;
 
 public class UsuarioModelo extends Conector {
 

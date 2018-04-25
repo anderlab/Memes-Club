@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Clases.Categoria;
-import Clases.VotoPublicacion;
+import clase.Categoria;
+import clase.VotoPublicacion;
 
 public class VotoPubliModelo extends Conector{
 
@@ -18,18 +18,21 @@ public class VotoPubliModelo extends Conector{
 			pst = super.conexion.prepareStatement("Selet * from voto_p where publicacion=?");
 			pst.setString(1, idPublicacion);
 			ResultSet rs=pst.executeQuery();
-			CategoriaModelo categoriaModelo=new CategoriaModelo();
-			
+			VotoPubliModelo votoPubliModelo=new VotoPubliModelo();
+			UsuarioModelo usuarioModelo = new UsuarioModelo();
 			while(rs.next()){
-				Categoria categoria=categoriaModelo.select(rs.getInt("categoria"));
-				categorias.add(categoria);
+				VotoPublicacion votoPublicacion=new VotoPublicacion();
+				votoPublicacion.setUsuario(usuarioModelo.select(rs.getString("usuario")));
+				votoPublicacion.setVoto(rs.getBoolean("voto"));
+				votoPublicacion.setFecha(rs.getDate("fecha"));
+				votos.add(votoPublicacion);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return null;
+		return votos;
 	}
 
 }
