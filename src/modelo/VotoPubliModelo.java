@@ -27,6 +27,7 @@ public class VotoPubliModelo extends Conector{
 				votoPublicacion.setFecha(rs.getDate("fecha"));
 				votos.add(votoPublicacion);
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

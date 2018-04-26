@@ -24,6 +24,7 @@ public class EtiquetaModelo extends Conector{
 					etiqueta.setId(id);
 					etiqueta.setNombre(rs.getString("nombre"));
 				}
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

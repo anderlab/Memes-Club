@@ -24,6 +24,7 @@ public class CategoriaModelo extends Conector{
 				categoria.setId(id);
 				categoria.setNombre(rs.getString("nombre"));
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -32,12 +33,31 @@ public class CategoriaModelo extends Conector{
 		return categoria;
 
 	}
-	public ArrayList<Categoria> selectConPublicaciones() {
+	public ArrayList<Categoria> selectAllConPublicaciones() {
 		// TODO Auto-generated method stub
+		ArrayList<Categoria> categorias=new ArrayList<>();
 		PreparedStatement pst;
+		try {
+			pst = super.conexion.prepareStatement("Select * from categorias");
+			ResultSet rs=pst.executeQuery();
+			CatPubliModelo catPubliModelo=new CatPubliModelo();
+			
+			while(rs.next()){
+				Categoria categoria=new Categoria();
+				categoria.setId(rs.getInt("id"));
+				categoria.setNombre(rs.getString("nombre"));
+				categoria.setPublicaciones(catPubliModelo.selectPubliPorCat(rs.getInt("id")));
+				
+				categorias.add(categoria);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		
-		return categoria;
+		return categorias;
 
 	}
 

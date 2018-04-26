@@ -24,6 +24,7 @@ public class EtiPubliModelo extends Conector{
 				Etiqueta etiqueta=etiquetaModelo.select(rs.getInt("etiqueta"));
 				etiquetas.add(etiqueta);
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

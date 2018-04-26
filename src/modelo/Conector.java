@@ -25,6 +25,7 @@ public class Conector {
 
 	}
 	
+	
 	//getters y setters
 
 	public Connection getConexion() {

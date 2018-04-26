@@ -35,12 +35,44 @@ public class PublicacionModelo extends Conector{
 				publicaciones.add(publicacion);
 				
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return publicaciones;
 	}
 	
+	
+	public Publicacion select(String id){
+		Publicacion publicacion=null;
+		
+		UsuarioModelo usuarioModelo=new UsuarioModelo();
+		CatPubliModelo catPubliModelo=new CatPubliModelo();
+		EtiPubliModelo etiPubliModelo=new EtiPubliModelo();
+		VotoPubliModelo votoPubliModelo=new VotoPubliModelo();
+		
+		try {
+			PreparedStatement pst = super.conexion.prepareStatement("SELECT * FROM publicaciones where id=?");
+			pst.setString(1, id);
+			ResultSet rs=pst.executeQuery();
+			while (rs.next()){
+				publicacion=new Publicacion();
+				
+				publicacion.setId(rs.getString("id"));
+				publicacion.setTitulo(rs.getString("titulo"));
+				publicacion.setFecha_subida(rs.getDate("fecha_subida"));
+				publicacion.setCategorias(catPubliModelo.selectCatPorPublicacion(rs.getString("id")));
+				publicacion.setEtiquetas(etiPubliModelo.selectEtiPorPublicacion(rs.getString("id")));
+				publicacion.setVotos(votoPubliModelo.selectPorPublicacion(rs.getString("id")));
+			}
+			this.conexion.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return publicacion;
+	}
 	
 }

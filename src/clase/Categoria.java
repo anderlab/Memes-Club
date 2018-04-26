@@ -1,12 +1,21 @@
 package clase;
 
+import java.util.ArrayList;
+
 public class Categoria {
 	
 	private int id;
 	private String nombre;
+	private ArrayList<Publicacion> publicaciones;
 	
 	
 	
+	public ArrayList<Publicacion> getPublicaciones() {
+		return publicaciones;
+	}
+	public void setPublicaciones(ArrayList<Publicacion> publicaciones) {
+		this.publicaciones = publicaciones;
+	}
 	public int getId() {
 		return id;
 	}

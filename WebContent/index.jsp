@@ -155,11 +155,13 @@
               <div class="list-group">
               	<%
               	CategoriaModelo categoriaModelo=new CategoriaModelo();
-              	ArrayList<Categoria> categorias=categoriaModelo.selectConPublicaciones();
+              	ArrayList<Categoria> categorias=categoriaModelo.selectAllConPublicaciones();
+              	Iterator<Categoria> j =categorias.iterator();
+              	while (j.hasNext()){
+              		Categoria categoria=j.next();
               	%>
-				  <a href="?categoria='Kaixo'" class="list-group-item">Kaixo<span class="badge">12</span></a>
-				  <a href="#" class="list-group-item">Mundua<span class="badge">12</span></a>
-				  <a href="#" class="list-group-item">Patata<span class="badge">12</span></a>
+				  <a href="?categoria='<%=categoria.getNombre() %>'" class="list-group-item"><%=categoria.getNombre() %><span class="badge"><%=categoria.getPublicaciones().size() %></span></a>
+				 <%} %>
 				</div> 
             </div>
           </div>
