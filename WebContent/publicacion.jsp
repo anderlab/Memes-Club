@@ -35,7 +35,21 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
 
+ 
+
+    .pb-cmnt-textarea {
+        resize: none;
+        padding: 20px;
+        height: 130px;
+        width: 100%;
+        border: 1px solid #F2F2F2;
+        
+    }
+
+
+</style>
     <title>Memes Club</title>
 
     <!-- Bootstrap core CSS -->
@@ -114,21 +128,29 @@
             </div>
             
           </div>
-	
 
 
 
-          
 
-          <!-- Pagination -->
-          <ul class="pagination justify-content-center mb-4">
-          	<li class="page-item disabled">
-              <a class="page-link" href="#">&larr; Nuevos </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">Viejos &rarr;</a>
-            </li>
-          </ul>
+<div class="container pb-cmnt-container">
+    <div class="row">
+        <div style="width:50%">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                   <textarea placeholder="Escribe tu comentario aqui " class="pb-cmnt-textarea text-muted"></textarea> 
+                    <form class="form-inline">
+                        <button class="btn btn-primary pull-right" type="button" style="margin-top:10px">Comentar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
         </div>
 
