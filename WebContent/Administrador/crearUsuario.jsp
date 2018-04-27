@@ -4,7 +4,7 @@
 
 <%@ page import="java.util.List"%>
 <%@ page import="modelo.*"%>
-<%@ page import="Clases.*"%>
+<%@ page import="clase.*"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Iterator"%>
 
@@ -22,6 +22,17 @@
 
 <script type="text/javascript"></script>
 <style type="text/css">
+div{
+	width:400px;
+	margin-left: 30%;
+}
+#guardar{
+	margin-left: 30%;
+}
+#volver{
+	margin-left: 30%;
+}
+
 .estaVacio {
 	background-color: #F08080;
 }
@@ -37,6 +48,8 @@
 		String nombre = request.getParameter("nombre");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
+		String error = request.getParameter("error");
+	
 
 		if (nombre == null || password == null || email == null || nombre == "" || password == "" || email == "") {
 
@@ -83,6 +96,32 @@
 	</div>
 	<%
 		}
+
+ 			if (error != null){
+			
+				if (error.contains("email")) {
+		
+	%>
+
+	<div class="alert alert-danger">
+		<span class="glyphicon glyphicon-exclamation-sign"></span> <span
+			class="sr-only">Error:</span> Ese email ya esta en uso
+	</div>
+
+	<%
+				} 
+				
+				if (error.contains("usuario")) {
+	%>
+	<div class="alert alert-danger">
+		<span class="glyphicon glyphicon-exclamation-sign"></span> <span
+			class="sr-only">Error:</span> Ese usuario ya esta en uso
+	</div>
+
+
+	<%
+					}
+		}
 	%>
 	<form action="#" method="post">
 		<div class="form-group">
@@ -99,7 +138,7 @@
 			<label for="email"> Email:</label> <input type="email"
 				class="form-control <%=emailClass%>" id="email" name="email">
 		</div>
-		<button type="submit" name="guardar" class="btn btn-default">Guardar</button>
+		<button  id= "guardar" type="submit" name="guardar" class="btn btn-default">Crear</button>
 	</form>
 
 	<%
@@ -113,30 +152,27 @@
 
 			UsuarioModelo um = new UsuarioModelo();
 
-			if (um.select(nombre) == null) {
+			if (um.select(nombre) == null && um.selectPorEmail(email) == null) {
 				um.insert(usuario);
 				out.print(
 						"	<div class='alert alert-success'> <span class='glyphicon glyphicon-ok'></span> <span class='sr-only'></span> USUARIO CREADO</div>");
 			} else {
-				
-				
-	%>
-
-	<div class="alert alert-danger">
-		<span class="glyphicon glyphicon-exclamation-sign"></span> <span
-			class="sr-only">Error:</span> Ese usuario ya EXISTE
-	</div>
-
-	<%
-	response.sendRedirect("crearUsuario.jsp"); // esto esta mal jeje salu3
-		}
+				error="";
+				if (um.select(nombre) != null) {
+					error="usuario";
+				} 
+				if(um.selectPorEmail(email)!=null) {
+					error=error+"email";
+				}
+				response.sendRedirect("crearUsuario.jsp?error="+error);
+			}
 
 		}
 	%>
 
 
 
-	<a href="gestorUsuarios.jsp">Ir a la lista</a>
+	<a  id ="volver" href="gestorUsuarios.jsp">Ir a la lista</a>
 	<br>
 
 

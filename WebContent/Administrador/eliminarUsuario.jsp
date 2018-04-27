@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     	<%@ page import="java.util.List"%>
 	<%@ page import="modelo.*"%>
-	<%@ page import="Clases.*"%>
+	<%@ page import="clase.*"%>
 	<%@ page import="java.util.ArrayList"%>
 	<%@ page import="java.util.Iterator"%>
 
@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Eliminar Libro</title>
+<title>Eliminar Usuario</title>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -43,7 +43,7 @@
 		
 					"	<div class='alert alert-success'> <span class='glyphicon glyphicon-ok'></span> <span class='sr-only'></span> USUARIO ELIMINADO</div>");
 			
-			out.print("<a href='listarUsuarios.jsp'><button type='button' class='btn btn-info'>Volver atras</button></a>");
+			out.print("<a href='gestorUsuarios.jsp'><button type='button' class='btn btn-info'>Volver atras</button></a>");
 		}
 		
 	}else{%>
@@ -51,12 +51,12 @@
 		
 		<div class="panel panel-primary">
       <div class="panel-heading">¿Estas seguro de eliminar el siguiente usuario?</div>
-      <div class="panel-body">Usuario: 
-         <%out.print("<div class='panel-body'><b>Titulo</b>: "+usuario.getNombre()+"</div>"); %>
+      <div class="panel-body">
+         <%out.print("<div class='panel-body'><b>USUARIO</b>: "+usuario.getNombre()+"</div>"); %>
 		
 		
 		<a class="btn btn-success" href="eliminarUsuario.jsp?seguro=yes&nombre=<%=request.getParameter("nombre")%>">Si, estoy seguro</a>
-		<a href="listarUsuarios.jsp"><button type="button" class="btn btn-danger">No, volver atras</button></a>
+		<a href="gestorUsuarios.jsp"><button type="button" class="btn btn-danger">No, volver atras</button></a>
 		
 		
       </div>
@@ -76,4 +76,4 @@
   
 
 </body>
-</html>ml>
+</html>
