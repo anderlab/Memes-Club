@@ -19,7 +19,6 @@ public class EtiquetaModelo{
 				pst = conexion.prepareStatement("Select * from etiquetas where id=?");
 				pst.setInt(1, id);
 				ResultSet rs=pst.executeQuery();
-				EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
 				
 				while(rs.next()){
 					etiqueta=new Etiqueta();
@@ -42,7 +41,6 @@ public class EtiquetaModelo{
 			try {
 				pst = conexion.prepareStatement("Select * from etiquetas");
 				ResultSet rs=pst.executeQuery();
-				EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
 				
 				while(rs.next()){
 					Etiqueta etiqueta=new Etiqueta();
