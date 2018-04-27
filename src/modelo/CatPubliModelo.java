@@ -5,16 +5,18 @@ import java.util.ArrayList;
 import clase.Categoria;
 import clase.Publicacion;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CatPubliModelo extends Conector{
+public class CatPubliModelo{
+	Connection conexion=ConectorDB.conectarDB();
 	public ArrayList<Categoria> selectCatPorPublicacion(String idPublicacion){
 		PreparedStatement pst;
 		ArrayList<Categoria> categorias=new ArrayList<>();
 		try {
-			pst = super.conexion.prepareStatement("Select * from esta_categorias where publicacion=?");
+			pst = conexion.prepareStatement("Select * from esta_categorias where publicacion=?");
 			pst.setString(1, idPublicacion);
 			ResultSet rs=pst.executeQuery();
 			CategoriaModelo categoriaModelo=new CategoriaModelo();
@@ -36,7 +38,7 @@ public class CatPubliModelo extends Conector{
 		PreparedStatement pst;
 		ArrayList<Publicacion> publicaciones=new ArrayList<>();
 		try {
-			pst = super.conexion.prepareStatement("Select * from esta_categorias where categoria=?");
+			pst = conexion.prepareStatement("Select * from esta_categorias where categoria=?");
 			pst.setInt(1, idCategoria);
 			ResultSet rs=pst.executeQuery();
 			PublicacionModelo publicacionModelo=new PublicacionModelo();

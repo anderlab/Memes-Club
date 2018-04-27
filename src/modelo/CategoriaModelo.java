@@ -1,20 +1,23 @@
 package modelo;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.sun.corba.se.impl.ior.GenericTaggedComponent;
+
 import clase.Categoria;
 
-public class CategoriaModelo extends Conector{
-
+public class CategoriaModelo{
+	Connection conexion=ConectorDB.conectarDB();
 	public Categoria select(int id) {
 		// TODO Auto-generated method stub
 		PreparedStatement pst;
 		Categoria categoria=null;
 		try {
-			pst = super.conexion.prepareStatement("Select * from categorias where id=?");
+			pst = conexion.prepareStatement("Select * from categorias where id=?");
 			pst.setInt(1, id);
 			ResultSet rs=pst.executeQuery();
 			CategoriaModelo categoriaModelo=new CategoriaModelo();
@@ -38,7 +41,7 @@ public class CategoriaModelo extends Conector{
 		ArrayList<Categoria> categorias=new ArrayList<>();
 		PreparedStatement pst;
 		try {
-			pst = super.conexion.prepareStatement("Select * from categorias");
+			pst = conexion.prepareStatement("Select * from categorias");
 			ResultSet rs=pst.executeQuery();
 			CatPubliModelo catPubliModelo=new CatPubliModelo();
 			

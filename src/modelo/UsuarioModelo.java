@@ -1,5 +1,6 @@
 package modelo;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,15 +8,15 @@ import java.util.ArrayList;
 
 import clase.Usuario;
 
-public class UsuarioModelo extends Conector {
-
+public class UsuarioModelo{
+	Connection conexion=ConectorDB.conectarDB();
 	public ArrayList<Usuario> selectAll() {
 
 		ArrayList<Usuario> usuarios = new ArrayList();
 
 		try {
 			PreparedStatement pst;
-			pst = super.conexion.prepareStatement("SELECT * from usuarios");
+			pst = conexion.prepareStatement("SELECT * from usuarios");
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
@@ -47,7 +48,7 @@ public class UsuarioModelo extends Conector {
 	public Usuario select(String nombre) {
 
 		try {
-			PreparedStatement pst = super.conexion.prepareStatement("select * from usuarios where nombre =?");
+			PreparedStatement pst = conexion.prepareStatement("select * from usuarios where nombre =?");
 			pst.setString(1, nombre);
 			ResultSet rs = pst.executeQuery();
 			
@@ -78,7 +79,7 @@ public class UsuarioModelo extends Conector {
 	public Usuario selectPorEmail(String email) {
 
 		try {
-			PreparedStatement pst = super.conexion.prepareStatement("select * from usuarios where email =?");
+			PreparedStatement pst = conexion.prepareStatement("select * from usuarios where email =?");
 			pst.setString(1, email);
 			ResultSet rs = pst.executeQuery();
 			
@@ -115,7 +116,7 @@ public class UsuarioModelo extends Conector {
 
 	public void insert(Usuario usuario) {
 		try {
-			PreparedStatement pst = super.conexion
+			PreparedStatement pst = conexion
 					.prepareStatement("INSERT INTO usuarios (nombre,contrasena,imagen,rol, email) values(?,?,?,?,?)");
 			pst.setString(1, usuario.getNombre());
 			pst.setString(2, usuario.getPassword());
@@ -136,7 +137,7 @@ public class UsuarioModelo extends Conector {
 	public void delete(String nombre) {
 
 		try {
-			PreparedStatement pst = super.conexion.prepareStatement("DELETE from usuarios WHERE nombre=?");
+			PreparedStatement pst = conexion.prepareStatement("DELETE from usuarios WHERE nombre=?");
 			pst.setString(1, nombre);
 			pst.execute();
 
@@ -149,7 +150,7 @@ public class UsuarioModelo extends Conector {
 
 	public void update(Usuario usuario) {
 		try {
-			PreparedStatement pst = super.conexion
+			PreparedStatement pst = conexion
 					.prepareStatement("UPDATE usuarios SET contrasena=?,imagen=?, rol=?, email=? WHERE nombre=?");
 
 			pst.setString(1, usuario.getPassword());
