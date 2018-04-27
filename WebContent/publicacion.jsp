@@ -10,13 +10,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-    <%String id= request.getParameter("id"); 
-    
+    <%
+    String id= request.getParameter("id"); 
+    id="a1.jpg";
 	if(id==null){
+		 // response.sendRedirect("index.jsp");
+		  
 	}else{
-		
     PublicacionModelo publicacionModelo=new PublicacionModelo();
    Publicacion publicacion=publicacionModelo.select(id);
+   
+ 
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,9 +114,7 @@
             </div>
             
           </div>
-		<%
-    		}
-		%>
+	
 
 
 
@@ -154,9 +156,9 @@
               	<%
               	CategoriaModelo categoriaModelo=new CategoriaModelo();
               	ArrayList<Categoria> categorias=categoriaModelo.selectAllConPublicaciones();
-              	Iterator<Categoria> j =categorias.iterator();
-              	while (j.hasNext()){
-              		Categoria categoria=j.next();
+              	Iterator<Categoria> n =categorias.iterator();
+              	while (n.hasNext()){
+              		Categoria categoria=n.next();
               	%>
 				  <a href="?categoria='<%=categoria.getNombre() %>'" class="list-group-item"><%=categoria.getNombre() %><span class="badge"><%=categoria.getPublicaciones().size() %></span></a>
 				 <%} %>
@@ -221,3 +223,6 @@
   </body>
 
 </html>
+<%
+	}
+%>
