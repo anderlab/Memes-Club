@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import clase.Categoria;
 import clase.Etiqueta;
@@ -32,5 +33,30 @@ public class EtiquetaModelo{
 			}
 			
 			return etiqueta;
+		}
+		public ArrayList<Etiqueta> selectAll() {
+			// TODO Auto-generated method stub
+			PreparedStatement pst;
+			ArrayList<Etiqueta> etiquetas=new ArrayList<>();
+
+			try {
+				pst = conexion.prepareStatement("Select * from etiquetas");
+				ResultSet rs=pst.executeQuery();
+				EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
+				
+				while(rs.next()){
+					Etiqueta etiqueta=new Etiqueta();
+					etiqueta=new Etiqueta();
+					etiqueta.setId(rs.getInt("id"));
+					etiqueta.setNombre(rs.getString("nombre"));
+					etiquetas.add(etiqueta);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return etiquetas;
 		}
 }

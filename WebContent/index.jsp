@@ -1,3 +1,4 @@
+<%@page import="modelo.EtiquetaModelo"%>
 <%@page import="clase.Categoria"%>
 <%@page import="modelo.CategoriaModelo"%>
 <%@page import="clase.Etiqueta"%>
@@ -171,34 +172,39 @@
           <!-- Side Widget -->
           <div class="card my-4">
             <h5 class="card-header">Etiquetas</h5>
-            	 
-            	<div class="row">
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">Web Design</a>
-                    </li>
-                    <li>
-                      <a href="#">HTML</a>
-                    </li>
-                    <li>
-                      <a href="#">Freebies</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">JavaScript</a>
-                    </li>
-                    <li>
-                      <a href="#">CSS</a>
-                    </li>
-                    <li>
-                      <a href="#">Tutorials</a>
-                    </li>
-                  </ul>
-                </div>
+            <div class="row">
+            	 <%
+            	 EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
+            	 ArrayList<Etiqueta> etiquetas=etiquetaModelo.selectAll();
+            	 Iterator<Etiqueta> k=etiquetas.iterator();
+            	 int countEti=0;
+            	 while(k.hasNext()){
+            		 Etiqueta etiqueta=k.next();
+            		 if (countEti==0){
+            			 %>
+            			 <div class="col-lg-6">
+                         	<ul class="list-unstyled mb-0">
+                         <%
+            		 }
+            		 countEti++;
+	            		 %>
+	            		 <li>
+	                    	 <a href="?etiqueta=<%=etiqueta.getNombre()%>"><%=etiqueta.getNombre()%></a>
+	                   	</li>
+	                   <%
+                   if (countEti==2){
+                	   %>
+                	   </ul>
+                   </div>
+                   <%
+                   		countEti=0;
+                   }
+            	 }
+            	 %>
+            	
+                
+                    
+                   
               </div>
           </div>
 
