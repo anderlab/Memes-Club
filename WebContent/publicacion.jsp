@@ -10,10 +10,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
+    <%String id= request.getParameter("id"); 
     
-    <%
+	if(id==null){
+	}else{
+		
     PublicacionModelo publicacionModelo=new PublicacionModelo();
-    ArrayList<Publicacion> ultimasPublicaciones=publicacionModelo.selectUltimasPublicaciones();
+   Publicacion publicacion=publicacionModelo.select(id);
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,12 +69,7 @@
 
         <!-- Blog Entries Column -->
         <div class="col-md-8">
-
-		<%
-		Iterator<Publicacion> i=ultimasPublicaciones.iterator();
-    		while(i.hasNext()){
-    			Publicacion publicacion=i.next();
-		%>
+        
           <!-- Blog Post -->
           <div class="card mb-4">
             
@@ -80,9 +78,7 @@
               <div class="text-muted">
               Subido el <%=publicacion.getFecha_subida() %> por <a href="#"><%=publicacion.getUsuario().getNombre() %></a>
             </div>
-              <a href="publicacion.jsp?id=<%=publicacion.getId() %>">
-              	<img class="card-img-top"  src="./imagenesDePublicaciones/<%=publicacion.getId() %>" alt="Card image cap">
-              	</a>
+              <img class="card-img-top" src="./imagenesDePublicaciones/<%=publicacion.getId() %>" alt="Card image cap">
               <div class="opciones">
               	<a href=#>
               		<button type="button" class="btn activo">
