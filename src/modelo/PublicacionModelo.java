@@ -65,6 +65,7 @@ public class PublicacionModelo{
 				publicacion.setId(rs.getString("id"));
 				publicacion.setTitulo(rs.getString("titulo"));
 				publicacion.setFecha_subida(rs.getDate("fecha_subida"));
+				publicacion.setUsuario(usuarioModelo.select(rs.getString("autor")));
 				publicacion.setCategorias(catPubliModelo.selectCatPorPublicacion(rs.getString("id")));
 				publicacion.setEtiquetas(etiPubliModelo.selectEtiPorPublicacion(rs.getString("id")));
 				publicacion.setVotos(votoPubliModelo.selectPorPublicacion(rs.getString("id")));
