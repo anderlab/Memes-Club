@@ -40,7 +40,7 @@ public class PublicacionModelo extends Conector{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		cerrarConexion();
 		return publicaciones;
 	}
 	
@@ -72,6 +72,7 @@ public class PublicacionModelo extends Conector{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return publicacion;
 	}
 	

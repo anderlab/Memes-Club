@@ -24,7 +24,14 @@ public class Conector {
 		}
 
 	}
-	
+	public void cerrarConexion(){
+		try {
+			this.conexion.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	//getters y setters
 

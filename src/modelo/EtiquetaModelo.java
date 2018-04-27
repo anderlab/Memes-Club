@@ -29,6 +29,7 @@ public class EtiquetaModelo extends Conector{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			return etiqueta;
 		}
 }
