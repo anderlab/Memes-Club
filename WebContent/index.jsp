@@ -1,3 +1,4 @@
+<%@page import="modelo.MejorPublicacionModelo"%>
 <%@page import="modelo.EtiquetaModelo"%>
 <%@page import="clase.Categoria"%>
 <%@page import="modelo.CategoriaModelo"%>
@@ -13,8 +14,25 @@
     
     
     <%
+    String opcion=request.getParameter("opcion");
+    String categoria=request.getParameter("categoria");
+    String etiqueta=request.getParameter("etiqueta");
+    
     PublicacionModelo publicacionModelo=new PublicacionModelo();
-    ArrayList<Publicacion> ultimasPublicaciones=publicacionModelo.selectUltimasPublicaciones();
+	if (opcion!=null){
+	    ArrayList<Publicacion> publicaciones=publicacionModelo.selectUltimasPublicaciones();
+	}else if(categoria!=null){
+		ArrayList<Publicacion> publicaciones=publicacionModelo.selectAllPorCategoria(categoria);
+	}else if(etiqueta!=null){
+		EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
+		ArrayList<Publicacion> publicaciones=publicacionModelo.selectAllPorEtiqueta(etiqueta);
+	}else{
+		MejorPublicacionModelo mejorPublicacionModelo=new MejorPublicacionModelo();
+	    ArrayList<Publicacion> publicaciones=mejorPublicacionModelo.selectMejoresPublicaciones();
+	}
+
+    
+    
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +87,7 @@
         <div class="col-md-8">
 
 		<%
-		Iterator<Publicacion> i=ultimasPublicaciones.iterator();
+		Iterator<Publicacion> i=publicaciones.iterator();
     		while(i.hasNext()){
     			Publicacion publicacion=i.next();
 		%>
