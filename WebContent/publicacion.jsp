@@ -1,3 +1,4 @@
+<%@page import="modelo.EtiquetaModelo"%>
 <%@page import="clase.Categoria"%>
 <%@page import="modelo.CategoriaModelo"%>
 <%@page import="clase.Etiqueta"%>
@@ -35,7 +36,21 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
 
+ 
+
+    .pb-cmnt-textarea {
+        resize: none;
+        padding: 20px;
+        height: 130px;
+        width: 100%;
+        border: 1px solid #F2F2F2;
+        
+    }
+
+
+</style>
     <title>Memes Club</title>
 
     <!-- Bootstrap core CSS -->
@@ -114,21 +129,29 @@
             </div>
             
           </div>
-	
 
 
 
-          
 
-          <!-- Pagination -->
-          <ul class="pagination justify-content-center mb-4">
-          	<li class="page-item disabled">
-              <a class="page-link" href="#">&larr; Nuevos </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">Viejos &rarr;</a>
-            </li>
-          </ul>
+<div class="container pb-cmnt-container">
+    <div class="row">
+        <div style="width:50%">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                   <textarea placeholder="Escribe tu comentario aqui " class="pb-cmnt-textarea text-muted"></textarea> 
+                    <form class="form-inline">
+                        <button class="btn btn-primary pull-right" type="button" style="margin-top:10px">Comentar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
         </div>
 
@@ -171,32 +194,38 @@
             <h5 class="card-header">Etiquetas</h5>
             	 
             	<div class="row">
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">Web Design</a>
-                    </li>
-                    <li>
-                      <a href="#">HTML</a>
-                    </li>
-                    <li>
-                      <a href="#">Freebies</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">JavaScript</a>
-                    </li>
-                    <li>
-                      <a href="#">CSS</a>
-                    </li>
-                    <li>
-                      <a href="#">Tutorials</a>
-                    </li>
-                  </ul>
-                </div>
+         <%
+            	 EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
+            	 ArrayList<Etiqueta> etiquetas=etiquetaModelo.selectAll();
+            	 Iterator<Etiqueta> k=etiquetas.iterator();
+            	 int countEti=0;
+            	 while(k.hasNext()){
+            		 Etiqueta etiqueta=k.next();
+            		 if (countEti==0){
+            			 %>
+            			 <div class="col-lg-6">
+                         	<ul class="list-unstyled mb-0">
+                         <%
+            		 }
+            		 countEti++;
+	            		 %>
+	            		 <li>
+	                    	 <a href="?etiqueta=<%=etiqueta.getNombre()%>"><%=etiqueta.getNombre()%></a>
+	                   	</li>
+	                   <%
+                   if (countEti==2){
+                	   %>
+                	   </ul>
+                   </div>
+                   <%
+                   		countEti=0;
+                   }
+            	 }
+            	 %>
+            	
+                
+                    
+                   
               </div>
           </div>
 
