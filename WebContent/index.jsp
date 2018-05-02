@@ -50,7 +50,7 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Mejores</a></li>
-      <li><a href="#">Ultimos</a></li>
+      <li><a href="?opcion=ultimos">Ultimos</a></li>
 
     </ul>
     <ul class="nav navbar-nav navbar-right">

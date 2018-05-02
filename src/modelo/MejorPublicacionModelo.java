@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import clase.Etiqueta;
 import clase.MejorPublicacion;
+import clase.Publicacion;
 
 public class MejorPublicacionModelo {
 	Connection conexion=ConectorDB.conectarDB();
@@ -35,6 +36,18 @@ public class MejorPublicacionModelo {
 		}
 		
 		return mejorPublicaciones;
+		
+	}
+	
+	public void insert(Publicacion publicacion){
+		try {
+			PreparedStatement pst=conexion.prepareStatement("insert into mejores_publicaciones(publicacion,fecha_llegada) values(?,now())");
+			pst.setString(1,publicacion.getId());
+			pst.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 }

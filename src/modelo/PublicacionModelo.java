@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import clase.MejorPublicacion;
 import clase.Publicacion;
 
 import java.sql.Connection;
@@ -79,4 +80,28 @@ public class PublicacionModelo{
 		return publicacion;
 	}
 	
+	public ArrayList<Publicacion> buscarNuevosMejoresPubli(int dias){
+		/*
+		 * select de los publicaciones, que todabia no estan en mejores
+		 * 		y que en la fecha limite(dias introducidos) conseguieron mas votos. solo seleccionar 10	
+		 */
+		ArrayList<Publicacion> publicaciones=new ArrayList<>();
+		try {
+			PreparedStatement pst=conexion.prepareStatement("select id from publicaciones p, votar_p v where p.id=v.publicacion and p.id not in(select publicacion from mejores_publicaciones) and v.fecha between (current_date() - interval ? day) and current_date group by p.id order by count(v.voto) desc limit 10");
+			pst.setInt(1, dias);
+			ResultSet rs= pst.executeQuery();
+			PublicacionModelo publicacionModelo=new PublicacionModelo();
+			while(rs.next()){
+				Publicacion publicacion=new Publicacion();
+				publicacion=publicacionModelo.select(rs.getString("id"));
+				
+				publicaciones.add(publicacion);
+			}
+		} catch (SQLException e) { 
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return publicaciones;		
+	}
 }
