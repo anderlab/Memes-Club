@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import clase.Categoria;
 import clase.Etiqueta;
+import clase.Publicacion;
 
 public class EtiPubliModelo{
 	Connection conexion=ConectorDB.conectarDB();
@@ -33,6 +34,29 @@ public class EtiPubliModelo{
 		
 		return etiquetas;
 
+	}
+	
+	
+	public ArrayList<Publicacion> selectPubliPorEti(int idEtiqueta){
+		PreparedStatement pst;
+		ArrayList<Publicacion> publicaciones=new ArrayList<>();
+		try {
+			pst = conexion.prepareStatement("Select * from tiene_e where etiqueta=?");
+			pst.setInt(1, idEtiqueta);
+			ResultSet rs=pst.executeQuery();
+			PublicacionModelo publicacionModelo=new PublicacionModelo();
+			
+			while(rs.next()){
+				Publicacion publicacion=publicacionModelo.select(rs.getString("publicacion"));
+				publicaciones.add(publicacion);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return publicaciones;
 	}
 
 }

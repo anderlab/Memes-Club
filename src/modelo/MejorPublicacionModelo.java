@@ -12,9 +12,9 @@ import clase.Publicacion;
 
 public class MejorPublicacionModelo {
 	Connection conexion=ConectorDB.conectarDB();
-	public ArrayList<MejorPublicacion> selectMejores(){
+	public ArrayList<Publicacion> selectMejores(){
 		PreparedStatement pst;
-		ArrayList<MejorPublicacion> mejorPublicaciones=new ArrayList<>();
+		ArrayList<Publicacion> publicaciones=new ArrayList<>();
 
 		try {
 			pst = conexion.prepareStatement("Select * from mejores_publicaciones order by fecha_llegada limit 10");
@@ -22,12 +22,10 @@ public class MejorPublicacionModelo {
 			PublicacionModelo publicacionModelo=new PublicacionModelo();
 			
 			while(rs.next()){
-				MejorPublicacion mejorPublicacion=new MejorPublicacion();
-				mejorPublicacion=new MejorPublicacion();
-				mejorPublicacion.setPublicacion(publicacionModelo.select(rs.getString("id")));
-				mejorPublicacion.setFechaLlegada(rs.getDate("fecha_llegada"));
+				Publicacion publicacion=new Publicacion();
+				publicacion=publicacionModelo.select(rs.getString("publicacion"));
 				
-				mejorPublicaciones.add(mejorPublicacion);
+				publicaciones.add(publicacion);
 			}
 			
 		} catch (SQLException e) {
@@ -35,7 +33,7 @@ public class MejorPublicacionModelo {
 			e.printStackTrace();
 		}
 		
-		return mejorPublicaciones;
+		return publicaciones;
 		
 	}
 	

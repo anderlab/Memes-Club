@@ -1,3 +1,4 @@
+<%@page import="modelo.CatPubliModelo"%>
 <%@page import="modelo.MejorPublicacionModelo"%>
 <%@page import="modelo.EtiquetaModelo"%>
 <%@page import="clase.Categoria"%>
@@ -14,21 +15,25 @@
     
     
     <%
-    String opcion=request.getParameter("opcion");
-    String categoria=request.getParameter("categoria");
-    String etiqueta=request.getParameter("etiqueta");
-    
+    String o=request.getParameter("opcion");
+    String c=request.getParameter("categoria");
+    String e=request.getParameter("etiqueta");
+    ArrayList<Publicacion> publicaciones=new ArrayList();
     PublicacionModelo publicacionModelo=new PublicacionModelo();
-	if (opcion!=null){
-	    ArrayList<Publicacion> publicaciones=publicacionModelo.selectUltimasPublicaciones();
-	}else if(categoria!=null){
-		ArrayList<Publicacion> publicaciones=publicacionModelo.selectAllPorCategoria(categoria);
-	}else if(etiqueta!=null){
+	if (o!=null){
+	    publicaciones=publicacionModelo.selectUltimasPublicaciones();
+	}else if(c!=null){
+		CategoriaModelo categoriaModelo=new CategoriaModelo();
+		Categoria categoria=categoriaModelo.selectCatConPubli(c);
+		publicaciones=categoria.getPublicaciones();
+	}else if(e!=null){
 		EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
-		ArrayList<Publicacion> publicaciones=publicacionModelo.selectAllPorEtiqueta(etiqueta);
+		Etiqueta etiqueta=etiquetaModelo.selectEtiConPubli(e);
+		publicaciones=etiqueta.getPublicaciones();
+		
 	}else{
 		MejorPublicacionModelo mejorPublicacionModelo=new MejorPublicacionModelo();
-	    ArrayList<Publicacion> publicaciones=mejorPublicacionModelo.selectMejoresPublicaciones();
+	    publicaciones=mejorPublicacionModelo.selectMejores();
 	}
 
     
@@ -100,7 +105,7 @@
               Subido el <%=publicacion.getFecha_subida() %> por <a href="#"><%=publicacion.getUsuario().getNombre() %></a>
             </div>
               <a href="publicacion.jsp?id=<%=publicacion.getId() %>">
-              	<img class="card-img-top"  src="./imagenesDePublicaciones/<%=publicacion.getId() %>" alt="Card image cap">
+              	<img class="card-img-top"  src="./imagenesDePublicaciones/<%=publicacion.getId() %>" alt="Card image cap" width="750px" onerror="this.src='./imagenesDePublicaciones/404meme.jpg';">
               	</a>
               <div class="opciones">
               	<a href=#>

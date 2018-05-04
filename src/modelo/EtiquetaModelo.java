@@ -57,4 +57,29 @@ public class EtiquetaModelo{
 			
 			return etiquetas;
 		}
+		
+		public Etiqueta selectEtiConPubli(String nombre) {
+			// TODO Auto-generated method stub
+			PreparedStatement pst;
+			Etiqueta etiqueta=null;
+			try {
+				pst = conexion.prepareStatement("Select * from categorias where nombre=?");
+				pst.setString(1, nombre);
+				ResultSet rs=pst.executeQuery();
+				EtiPubliModelo etiPubliModelo=new EtiPubliModelo();
+				while(rs.next()){
+					etiqueta=new Etiqueta();
+					etiqueta.setId(rs.getInt("id"));
+					etiqueta.setNombre(rs.getString("nombre"));
+					etiqueta.setPublicaciones(etiPubliModelo.selectPubliPorEti(rs.getInt("id")));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return etiqueta;
+
+		}
 }
