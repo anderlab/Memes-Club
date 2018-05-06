@@ -17,7 +17,7 @@ public class MejorPublicacionModelo {
 		ArrayList<Publicacion> publicaciones=new ArrayList<>();
 
 		try {
-			pst = conexion.prepareStatement("Select * from mejores_publicaciones order by fecha_llegada limit 10");
+			pst = conexion.prepareStatement("Select * from mejores_publicaciones order by fecha_llegada desc limit 10");
 			ResultSet rs=pst.executeQuery();
 			PublicacionModelo publicacionModelo=new PublicacionModelo();
 			

@@ -30,6 +30,7 @@ public class CategoriaModelo{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 		
 		return categoria;

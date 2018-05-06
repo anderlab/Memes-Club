@@ -63,7 +63,7 @@ public class EtiquetaModelo{
 			PreparedStatement pst;
 			Etiqueta etiqueta=null;
 			try {
-				pst = conexion.prepareStatement("Select * from categorias where nombre=?");
+				pst = conexion.prepareStatement("Select * from etiquetas where nombre=?");
 				pst.setString(1, nombre);
 				ResultSet rs=pst.executeQuery();
 				EtiPubliModelo etiPubliModelo=new EtiPubliModelo();

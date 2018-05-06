@@ -18,24 +18,24 @@
     String o=request.getParameter("opcion");
     String c=request.getParameter("categoria");
     String e=request.getParameter("etiqueta");
-    ArrayList<Publicacion> publicaciones=new ArrayList();
+    ArrayList<Publicacion> publicaciones=new ArrayList<Publicacion>();
     PublicacionModelo publicacionModelo=new PublicacionModelo();
-	if (o!=null){
-	    publicaciones=publicacionModelo.selectUltimasPublicaciones();
-	}else if(c!=null){
-		CategoriaModelo categoriaModelo=new CategoriaModelo();
-		Categoria categoria=categoriaModelo.selectCatConPubli(c);
-		publicaciones=categoria.getPublicaciones();
-	}else if(e!=null){
-		EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
-		Etiqueta etiqueta=etiquetaModelo.selectEtiConPubli(e);
-		publicaciones=etiqueta.getPublicaciones();
-		
-	}else{
-		MejorPublicacionModelo mejorPublicacionModelo=new MejorPublicacionModelo();
-	    publicaciones=mejorPublicacionModelo.selectMejores();
-	}
 
+	    if (o!=null){
+		    publicaciones=publicacionModelo.selectUltimasPublicaciones();
+		}else if(c!=null){
+			CategoriaModelo categoriaModelo=new CategoriaModelo();
+			Categoria categoria=categoriaModelo.selectCatConPubli(c);
+			publicaciones=categoria.getPublicaciones();
+		}else if(e!=null){
+			EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
+			Etiqueta etiqueta=etiquetaModelo.selectEtiConPubli(e);
+			publicaciones=etiqueta.getPublicaciones();
+			
+		}else{
+			MejorPublicacionModelo mejorPublicacionModelo=new MejorPublicacionModelo();
+		    publicaciones=mejorPublicacionModelo.selectMejores();
+		}
     
     
     %>
@@ -64,15 +64,15 @@
   </head>
 
   <body>
-
+<%=o %><%=c %><%=e %>
     <!-- Navigation -->
  <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">IMAGEN</a>
+      <a class="navbar-brand" href="?">IMAGEN</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Mejores</a></li>
+      <li class="active"><a href="?">Mejores</a></li>
       <li><a href="?opcion=ultimos">Ultimos</a></li>
 
     </ul>
@@ -186,50 +186,13 @@
               	while (j.hasNext()){
               		Categoria categoria=j.next();
               	%>
-				  <a href="?categoria='<%=categoria.getNombre() %>'" class="list-group-item"><%=categoria.getNombre() %><span class="badge"><%=categoria.getPublicaciones().size() %></span></a>
+				  <a href="?categoria=<%=categoria.getNombre() %>" class="list-group-item"><%=categoria.getNombre() %><span class="badge"><%=categoria.getPublicaciones().size() %></span></a>
 				 <%} %>
 				</div> 
             </div>
           </div>
 
-          <!-- Side Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Etiquetas</h5>
-            <div class="row">
-            	 <%
-            	 EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
-            	 ArrayList<Etiqueta> etiquetas=etiquetaModelo.selectAll();
-            	 Iterator<Etiqueta> k=etiquetas.iterator();
-            	 int countEti=0;
-            	 while(k.hasNext()){
-            		 Etiqueta etiqueta=k.next();
-            		 if (countEti==0){
-            			 %>
-            			 <div class="col-lg-6">
-                         	<ul class="list-unstyled mb-0">
-                         <%
-            		 }
-            		 countEti++;
-	            		 %>
-	            		 <li>
-	                    	 <a href="?etiqueta=<%=etiqueta.getNombre()%>"><%=etiqueta.getNombre()%></a>
-	                   	</li>
-	                   <%
-                   if (countEti==2){
-                	   %>
-                	   </ul>
-                   </div>
-                   <%
-                   		countEti=0;
-                   }
-            	 }
-            	 %>
-            	
-                
-                    
-                   
-              </div>
-          </div>
+          
 
         </div>
 
