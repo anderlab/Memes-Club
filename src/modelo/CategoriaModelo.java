@@ -36,6 +36,34 @@ public class CategoriaModelo{
 		return categoria;
 
 	}
+	
+	public ArrayList<Categoria> selectAll() {
+		// TODO Auto-generated method stub
+		ArrayList<Categoria> categorias=new ArrayList<>();
+		PreparedStatement pst;
+		Categoria categoria=null;
+		try {
+			pst = conexion.prepareStatement("Select * from categorias");
+			ResultSet rs=pst.executeQuery();
+			
+			while(rs.next()){
+				categoria=new Categoria();
+				categoria.setId(rs.getInt("id"));
+				categoria.setNombre(rs.getString("nombre"));
+				
+				categorias.add(categoria);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+		return categorias;
+
+	}
+	
 	public Categoria selectCatConPubli(String nombre) {
 		// TODO Auto-generated method stub
 		PreparedStatement pst;
