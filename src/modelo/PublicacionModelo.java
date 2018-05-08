@@ -105,5 +105,34 @@ public class PublicacionModelo{
 		return publicaciones;		
 	}
 	
-	
+	public Publicacion selectUltimaPublicacion(){
+		Publicacion publicacion=null;
+		
+		UsuarioModelo usuarioModelo=new UsuarioModelo();
+		CatPubliModelo catPubliModelo=new CatPubliModelo();
+		EtiPubliModelo etiPubliModelo=new EtiPubliModelo();
+		VotoPubliModelo votoPubliModelo=new VotoPubliModelo();
+		
+		try {
+			PreparedStatement pst = conexion.prepareStatement("SELECT * FROM publicaciones order by id desc limit 1");
+			ResultSet rs=pst.executeQuery();
+			while (rs.next()){
+				publicacion=new Publicacion();
+				
+				publicacion.setId(rs.getString("id"));
+				publicacion.setTitulo(rs.getString("titulo"));
+				publicacion.setFecha_subida(rs.getDate("fecha_subida"));
+				publicacion.setUsuario(usuarioModelo.select(rs.getString("autor")));
+				publicacion.setCategorias(catPubliModelo.selectCatPorPublicacion(rs.getString("id")));
+				publicacion.setEtiquetas(etiPubliModelo.selectEtiPorPublicacion(rs.getString("id")));
+				publicacion.setVotos(votoPubliModelo.selectPorPublicacion(rs.getString("id")));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return publicacion;
+	}
 }

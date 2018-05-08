@@ -42,12 +42,22 @@ public class MainPruebas {
 		/*CatPubliModelo catPubliModelo=new CatPubliModelo();
 		ArrayList<Publicacion> publicaciones=catPubliModelo.selectPubliPorCat(1);
 		System.out.println("jaja");
-		publicaciones.add(null);**/
+		publicaciones.add(null);
 		
 		CategoriaModelo categoriaModelo=new CategoriaModelo();
 		Categoria categoria=categoriaModelo.selectCatConPubli("Humor");
 		ArrayList<Publicacion> publicaciones = categoria.getPublicaciones();
 		publicaciones.add(null);
+		*/
+		
+		String fileName="/dfh/fgj/so.hjc";
+		String filePath="./imagenesDePublicaciones/";
+	    if( fileName.lastIndexOf("\\") >= 0 ) {
+	        System.out.println( filePath + fileName.substring( fileName.lastIndexOf("\\"))) ;
+	     } else {
+	    	 
+	    	 System.out.println( filePath + fileName.substring(fileName.lastIndexOf("\\")+1)+" gei 1") ;
+	     }
 		
 	}
 

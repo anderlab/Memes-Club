@@ -1,19 +1,18 @@
 
-<%@page import="org.apache.tomcat.util.http.fileupload.RequestContext"%>
-<%@page import="java.io.*"%>
-<%@page import="java.util.*"%>
- 
-<%@page import="javax.servlet.ServletConfig"%>
-<%@page import="javax.servlet.ServletException"%>
-<%@page import="javax.servlet.http.HttpServlet"%>
-<%@page import="javax.servlet.http.HttpServletRequest"%>
-<%@page import="javax.servlet.http.HttpServletResponse"%>
- 
+
+
+
+<%@page import="clase.Publicacion"%>
+<%@page import="modelo.PublicacionModelo"%>
+<%@page import="org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext"%>
+<%@page import="org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload"%>
+<%@page import="java.io.File"%>
 <%@page import="org.apache.tomcat.util.http.fileupload.FileItem"%>
-<%@page import="org.apache.tomcat.util.http.fileupload.FileUploadException"%>
+
+<%@page import="java.util.List"%>
+
 <%@page import="org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory"%>
-<%@page import="org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload"%>
-<%@page import="org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload"%>
+<%@page import="org.apache.tomcat.util.http.fileupload.FileItemFactory"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,65 +27,50 @@
 <body>
 <%
 
-boolean isMultipart;
+FileItemFactory factory = new DiskFileItemFactory();
+ServletFileUpload upload = new ServletFileUpload(factory);
 
 
-File file ;
-// Check that we have a file upload request
-      isMultipart = ServletFileUpload.isMultipartContent(request);
-      response.setContentType("text/html");
-   
-      if( !isMultipart ) {
-         out.println("<p>No se subio ninguna imagen</p>");
-         out.println("<a href='nueva_publicacion'>Volver a intentar</a>");
-      }
-  
-      DiskFileItemFactory factory = new DiskFileItemFactory();
+//req es la HttpServletRequest que recibimos del formulario.
+//Los items obtenidos serán cada uno de los campos del formulario,
+//tanto campos normales como ficheros subidos.
+//RequestContext req=(RequestContext) request;
+List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(new ServletRequestContext(request));
 
-
-      // Create a new file upload handler
-      ServletFileUpload upload = new ServletFileUpload(factory);
-      RequestContext requestContext=(RequestContext) request;
-      
-
-      try { 
-         // Parse the request to get file items.
-         List fileItems = upload.parseRequest(requestContext);
+//Se recorren todos los items, que son de tipo FileItem
+for (Object item : items) {
+	FileItem uploaded = (FileItem) item;
 	
-         // Process the uploaded file items
-         Iterator i = fileItems.iterator();
-
-         out.println("<html>");
-         out.println("<head>");
-         out.println("<title>Servlet upload</title>");  
-         out.println("</head>");
-         out.println("<body>");
-   		String filePath="./imagenesDePublicaciones/";
-         while ( i.hasNext () ) {
-            FileItem fi = (FileItem)i.next();
-            if ( !fi.isFormField () ) {
-               // Get the uploaded file parameters
-               String fieldName = fi.getFieldName();
-               String fileName = fi.getName();
-               String contentType = fi.getContentType();
-               boolean isInMemory = fi.isInMemory();
-               long sizeInBytes = fi.getSize();
-            	
-               // Write the file
-               if( fileName.lastIndexOf("\\") >= 0 ) {
-                  file = new File( filePath + fileName.substring( fileName.lastIndexOf("\\"))) ;
-               } else {
-                  file = new File( filePath + fileName.substring(fileName.lastIndexOf("\\")+1)) ;
-               }
-               fi.write( file ) ;
-               out.println("Uploaded Filename: " + fileName + "<br>");
-            }
-         }
-         out.println("</body>");
-         out.println("</html>");
-         } catch(Exception ex) {
-            System.out.println(ex);
-         }
+	// Hay que comprobar si es un campo de formulario. Si no lo es, se guarda el fichero
+	// subido donde nos interese
+	if (!uploaded.isFormField()) {
+	   // No es campo de formulario, guardamos el fichero en algún sitio
+	   String carpeta="D:/proyectos de java/Memes/WebContent/imagenesDePublicaciones/";
+		String formatoDeArchivo=uploaded.getName();
+		
+		//cortar direccion hasta sacar formato
+		
+		formatoDeArchivo=formatoDeArchivo.substring(formatoDeArchivo.lastIndexOf("."));
+		
+		//buscar nuevo nombre, ultima publicacion+1
+		PublicacionModelo publicacionModelo=new PublicacionModelo();
+		Publicacion ultimaPublicacion=publicacionModelo.selectUltimaPublicacion();
+		
+		//quitar la parte de fromato y sacar id
+		String ultimaId=ultimaPublicacion.getId();
+		int nuevaId=Integer.parseInt(ultimaId.substring(0,ultimaId.lastIndexOf(".")));
+		
+		
+		
+	   File fichero = new File(carpeta, (++nuevaId)+formatoDeArchivo);
+	   uploaded.write(fichero);
+	} else {
+	   // es un campo de formulario, podemos obtener clave y valor
+	   String key = uploaded.getFieldName();
+	   String valor = uploaded.getString();
+	}
+}
+      
       %>
       
 </body>
