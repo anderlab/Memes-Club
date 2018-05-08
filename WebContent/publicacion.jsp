@@ -210,7 +210,7 @@
 					%>
 					
 					<div  class="panel panel-default" style="width:70%">
-					  <div class="panel-heading"><b><%=comentario.getAutor()%></b><%=" Fecha: " + comentario.getFecha() %></div>
+					  <div class="panel-heading"><b><%=comentario.getAutor().getNombre()%></b><%=" Fecha: " + comentario.getFecha() %></div>
 					  
 					  <div class="panel-body">
 					    <%=comentario.getTexto() %>
