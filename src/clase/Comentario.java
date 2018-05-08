@@ -5,8 +5,8 @@ import java.util.Date;
 public class Comentario {
 	
 	private int id;
-	private String autor;
-	private Publicacion imagen;
+	private Usuario autor;
+	private Publicacion publicacion;
 	private String texto;
 	private Date fecha;
 	private int respuesta;
@@ -15,24 +15,20 @@ public class Comentario {
 	
 	
 	
+	public Usuario getAutor() {
+		return autor;
+	}
+	public void setAutor(Usuario autor) {
+		this.autor = autor;
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getAutor() {
-		return autor;
-	}
-	public void setAutor(String autor) {
-		this.autor = autor;
-	}
-	public Publicacion getImagen() {
-		return imagen;
-	}
-	public void setImagen(Publicacion imagen) {
-		this.imagen = imagen;
-	}
+
+	
 	public String getTexto() {
 		return texto;
 	}
@@ -50,6 +46,12 @@ public class Comentario {
 	}
 	public void setRespuesta(int respuesta) {
 		this.respuesta = respuesta;
+	}
+	public Publicacion getPublicacion() {
+		return publicacion;
+	}
+	public void setPublicacion(Publicacion publicacion) {
+		this.publicacion = publicacion;
 	}
 	
 	

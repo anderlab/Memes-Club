@@ -8,20 +8,43 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="modelo.PublicacionModelo"%>
 <%@page import="clase.Publicacion"%>
+<%@page import="clase.Comentario"%>
+<%@page import="modelo.ComentarioModelo"%>
+<%@page import="clase.Usuario"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
     <%
+    
+    Usuario usuario= null;
+    Object u= session.getAttribute("iniciado");
+  
     String id= request.getParameter("id"); 
-    id="a1.jpg";
+    
+
+    
+    
+    id="1.jpg";
+    
 	if(id==null){
 		 // response.sendRedirect("index.jsp");
 		  
 	}else{
     PublicacionModelo publicacionModelo=new PublicacionModelo();
-   Publicacion publicacion=publicacionModelo.select(id);
+    Publicacion publicacion=publicacionModelo.select(id);
    
  
+ 
+ 	
+
+   
+ /*   id
+   comentario
+   sesion */
+   
+   
+   
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,8 +98,30 @@
 
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Registrarse</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesion</a></li>
+    
+            <%    
+ 
+   		if(u!=null){
+   			usuario= (Usuario) u;
+   	    	if(usuario.getRol().equals("usuario")|| usuario.getRol().equals("admin")){
+   	    		out.print("<li class='dropdown'>");
+   	    		out.print ("<a class='dropdown-toggle' data-toggle='dropdown' href='#'>"+usuario.getNombre());
+   	    	%>
+   	        <span class="caret"></span></a>
+   	        <ul class="dropdown-menu">
+   	         
+   	           <li><a href="logout.jsp">Cerrar Sesion</a></li>
+   	        </ul>
+   	      </li>
+   	      <% 
+   	        }
+   		}else{
+   			out.print(" <li><a href='loginForm.jsp?idPub="+id+"><span class='glyphicon glyphicon-user'></span> Iniciar Sesion</a></li>");
+   			out.print(" <li><a href='#'><span class='glyphicon glyphicon-user'></span> Registrarse</a></li>");
+   		}
+   		
+      %>
+      
     </ul>
   </div>
 </nav> 
@@ -138,9 +183,11 @@
         <div style="width:50%">
             <div class="panel panel-info">
                 <div class="panel-body">
-                   <textarea placeholder="Escribe tu comentario aqui " class="pb-cmnt-textarea text-muted"></textarea> 
-                    <form class="form-inline">
-                        <button class="btn btn-primary pull-right" type="button" style="margin-top:10px">Comentar</button>
+                <form class="form-inline" method="get" action=#>
+                <input type="text" hidden name="id" value="<%=id%>">
+                   <input type="textarea" placeholder="Escribe tu comentario aqui " class="pb-cmnt-textarea text-muted" name="comentario"> 
+                    
+                        <input type="submit" class="btn btn-primary pull-right" style="margin-top:10px" value="Comentar">
                     </form>
                 </div>
             </div>
@@ -148,12 +195,59 @@
     </div>
 </div>
 
+<% 				Comentario comentario=new Comentario();			
+			
+				ComentarioModelo cm = new ComentarioModelo();
+			
 
+				ArrayList<Comentario> comentarios= cm.selectAllPublicacion(id);
 
+				Iterator<Comentario> i = comentarios.iterator();
+				
+				while(i.hasNext()){
+					comentario=i.next();
+					
+					%>
+					
+					<div  class="panel panel-default" style="width:70%">
+					  <div class="panel-heading"><b><%=comentario.getAutor().getNombre()%></b><%=" Fecha: " + comentario.getFecha() %></div>
+					  
+					  <div class="panel-body">
+					    <%=comentario.getTexto() %>
+					    
+					  </div>
+					      <div class="opciones">
+              	<a href=#>
+              		<button type="button" class="btn btn-outline-danger">
+              			<span class="glyphicon glyphicon-thumbs-up"></span>
+              		</button>
+              	</a>
+              	<a href=#>
+              		<button type="button" class="btn btn-outline-danger">
+              			<span class="glyphicon glyphicon-thumbs-down"></span>
+              		</button>
+              	</a>
+              	<%=comentario.getRespuesta()%>
+              	 
+                        <button class="btn btn-primary pull-right" type="button" style="margin-right:10px">Responder</button>
 
-
+              	
+              </div>
+              
+              
+					</div>
+					 
+			
+		
+				<%} %>
 
         </div>
+
+ <!-- COMENTARIOS -->
+
+
+
+
 
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
@@ -236,6 +330,10 @@
 
     </div>
     <!-- /.container -->
+    
+    
+    
+    
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
