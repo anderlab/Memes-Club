@@ -58,7 +58,7 @@
       		}
       			%>
 	      		<td class="categoria">
-	      			<input class="form-check-input" type="checkbox" id="gridCheck1" name="categoria" value="<%=categoria.getNombre() %>">
+	      			<input class="form-check-input" type="checkbox" id="gridCheck1" name="<%=categoria.getNombre()%>" value="<%=categoria.getNombre()%>">
 			        <label class="form-check-label" for="gridCheck1">
 			          <%=categoria.getNombre() %>
 			        </label>
@@ -78,7 +78,7 @@
   <div class="form-group row">
     <label for="etiquetas" class="col-sm-2 col-form-label">Etiquetas</label>
     <div class="col-sm-10">
-      <input type="text" name="etiqueta" class="form-control" placeholder="etiqueta1, etiqueta2, etiqueta3">
+      <input type="text" name="etiquetas" class="form-control" placeholder="etiqueta1, etiqueta2, etiqueta3">
       <p style="color:orange;">*Separa las etiquetas por coma y espacio*</p>
     </div>
   </div>

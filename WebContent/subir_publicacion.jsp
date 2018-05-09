@@ -1,7 +1,11 @@
 
-
-
-
+<%@page import="clase.Usuario"%>
+<%@page import="modelo.UsuarioModelo"%>
+<%@page import="clase.Etiqueta"%>
+<%@page import="modelo.EtiquetaModelo"%>
+<%@page import="clase.Categoria"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="modelo.CategoriaModelo"%>
 <%@page import="clase.Publicacion"%>
 <%@page import="modelo.PublicacionModelo"%>
 <%@page import="org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext"%>
@@ -26,11 +30,21 @@
 </head>
 <body>
 <%
-
+final String carpeta="D:/proyectos de java/Memes/WebContent/imagenesDePublicaciones/";
 FileItemFactory factory = new DiskFileItemFactory();
 ServletFileUpload upload = new ServletFileUpload(factory);
+UsuarioModelo usuarioModelo=new UsuarioModelo();
+Usuario usuario=usuarioModelo.select("artola");
+
+//obtener datos
+String id=null;
+String titulo=null;
+ArrayList<Categoria> categorias=new ArrayList();
+String etiquetasPara=null;
+CategoriaModelo categoriaModelo= new CategoriaModelo();
 
 
+PublicacionModelo publicacionModelo=new PublicacionModelo();
 //req es la HttpServletRequest que recibimos del formulario.
 //Los items obtenidos serán cada uno de los campos del formulario,
 //tanto campos normales como ficheros subidos.
@@ -45,7 +59,7 @@ for (Object item : items) {
 	// subido donde nos interese
 	if (!uploaded.isFormField()) {
 	   // No es campo de formulario, guardamos el fichero en algún sitio
-	   String carpeta="D:/proyectos de java/Memes/WebContent/imagenesDePublicaciones/";
+	   
 		String formatoDeArchivo=uploaded.getName();
 		
 		//cortar direccion hasta sacar formato
@@ -53,23 +67,102 @@ for (Object item : items) {
 		formatoDeArchivo=formatoDeArchivo.substring(formatoDeArchivo.lastIndexOf("."));
 		
 		//buscar nuevo nombre, ultima publicacion+1
-		PublicacionModelo publicacionModelo=new PublicacionModelo();
+		
 		Publicacion ultimaPublicacion=publicacionModelo.selectUltimaPublicacion();
 		
 		//quitar la parte de fromato y sacar id
 		String ultimaId=ultimaPublicacion.getId();
-		int nuevaId=Integer.parseInt(ultimaId.substring(0,ultimaId.lastIndexOf(".")));
+		int nuevaId=Integer.parseInt(ultimaId.substring(0,ultimaId.lastIndexOf(".")))+1;
 		
+		id=(nuevaId+formatoDeArchivo);
 		
+	   
+	   // guardar la publicacion en la base de datos
+	   
+	   
+
+	   
+	 //poner nuevo nombre y subirlo
 		
-	   File fichero = new File(carpeta, (++nuevaId)+formatoDeArchivo);
+	   File fichero = new File(carpeta, (nuevaId)+formatoDeArchivo);
 	   uploaded.write(fichero);
 	} else {
 	   // es un campo de formulario, podemos obtener clave y valor
+	   
+	   //cojer los valores que no son imagenes
 	   String key = uploaded.getFieldName();
-	   String valor = uploaded.getString();
+	   
+	   
+	   if (key.equals("titulo")){
+		   titulo=uploaded.getString();
+		   
+	   }else if(key.equals("etiquetas")){
+		   etiquetasPara=uploaded.getString();
+		   
+		   
+	   }else{
+		   //ir añadiendo uno por uno al array
+			String categoriaTemp=uploaded.getString();
+		   // ver si existe
+		   
+			Categoria categoria =categoriaModelo.selectPorNombre(categoriaTemp);
+			if(categoria!=null)
+				categorias.add(categoria);
+		   
+	   }
+	   
+
+	   
+	   
+	   
+	   
 	}
+
+	   
+	   
+	   
 }
+	
+	
+	
+	
+	
+
+	
+	   
+
+	   //buscar etiquetas
+	   String[] etiquetas1=etiquetasPara.split(", ");
+	   EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
+	   ArrayList<Etiqueta> etiquetas=new ArrayList();
+	   Etiqueta etiqueta;
+		
+		for(int i=0;i<etiquetas1.length;i++){
+			etiqueta =etiquetaModelo.selectPorNombre(etiquetas1[i]);
+			if(etiqueta==null){
+				etiqueta.setNombre(etiquetas1[i]);
+				etiquetaModelo.insert(etiqueta);
+				etiqueta =etiquetaModelo.selectPorNombre(etiquetas1[i]);
+				
+			}
+			etiquetas.add(etiqueta);
+		}
+	   
+	   
+	   
+	   
+	   
+	   // crear publicacion
+	   Publicacion publicacion =new Publicacion();
+	   publicacion.setId(id);
+	   publicacion.setTitulo(titulo);
+	   publicacion.setUsuario(usuario);
+	   publicacion.setCategorias(categorias);
+	   publicacion.setEtiquetas(etiquetas);
+	   
+	   
+	   publicacionModelo.insertarCompleto(publicacion);
+
       
       %>
       

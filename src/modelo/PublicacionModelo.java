@@ -3,7 +3,12 @@ package modelo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import clase.Categoria;
+import clase.CategoriaPublicacion;
+import clase.Etiqueta;
+import clase.EtiquetaPublicacion;
 import clase.MejorPublicacion;
 import clase.Publicacion;
 
@@ -134,5 +139,44 @@ public class PublicacionModelo{
 		}
 
 		return publicacion;
+	}
+	
+	public void insertarCompleto(Publicacion publicacion){
+		try {
+			PreparedStatement pst=conexion.prepareStatement("INSERT INTO publicaciones(id,titulo,fecha_subida,autor) values(?,?,curdate(),?)");
+			pst.setString(1, publicacion.getId());
+			pst.setString(2, publicacion.getTitulo());
+			pst.setString(3, publicacion.getUsuario().getNombre());
+			pst.execute();
+			
+			// categorias
+			CatPubliModelo catPubliModelo=new CatPubliModelo();
+			CategoriaPublicacion categoriaPublicacion =new CategoriaPublicacion();
+			categoriaPublicacion.setPublicacion(publicacion);
+			Iterator<Categoria> i=publicacion.getCategorias().iterator();
+			
+			while(i.hasNext()){
+				categoriaPublicacion.setCategoria(i.next());
+				catPubliModelo.insert(categoriaPublicacion);
+			}
+			
+			//etiquetas
+			EtiPubliModelo etiPubliModelo=new EtiPubliModelo();
+			EtiquetaPublicacion etiquetaPublicacion=new EtiquetaPublicacion();
+			etiquetaPublicacion.setPublicacion(publicacion);
+			
+			Iterator<Etiqueta> j=publicacion.getEtiquetas().iterator();
+			
+			while(j.hasNext()){
+				etiquetaPublicacion.setEtiqueta(j.next());
+				etiPubliModelo.insert(etiquetaPublicacion);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -3,6 +3,7 @@ package modelo;
 import java.util.ArrayList;
 
 import clase.Categoria;
+import clase.CategoriaPublicacion;
 import clase.Publicacion;
 
 import java.sql.Connection;
@@ -54,6 +55,20 @@ public class CatPubliModelo{
 		}
 		
 		return publicaciones;
+	}
+
+	public void insert(CategoriaPublicacion categoriaPublicacion) {
+		// TODO Auto-generated method stub
+		try {
+			PreparedStatement pst=conexion.prepareStatement("INSERT INTO esta_categorias(publicacion,categoria) values(?,?)");
+			pst.setString(1, categoriaPublicacion.getPublicacion().getId());
+			pst.setInt(2, categoriaPublicacion.getCategoria().getId());
+			pst.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import clase.Categoria;
 import clase.Etiqueta;
+import clase.EtiquetaPublicacion;
 import clase.Publicacion;
 
 public class EtiPubliModelo{
@@ -57,6 +58,21 @@ public class EtiPubliModelo{
 		}
 		
 		return publicaciones;
+	}
+
+
+	public void insert(EtiquetaPublicacion etiquetaPublicacion) {
+		// TODO Auto-generated method stub
+		try {
+			
+			PreparedStatement pst=conexion.prepareStatement("INSERT INTO tiene_e(publicacion,etiqueta) values(?,?)");
+			pst.setString(1, etiquetaPublicacion.getPublicacion().getId());
+			pst.setInt(2, etiquetaPublicacion.getEtiqueta().getId());
+			pst.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
