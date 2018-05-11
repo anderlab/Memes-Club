@@ -21,10 +21,9 @@
 
 	String id = request.getParameter("id");
 
-	id = "1.jpg";
 
 	if (id == null) {
-		// response.sendRedirect("index.jsp");
+		response.sendRedirect("index.jsp");
 
 	} else {
 		PublicacionModelo publicacionModelo = new PublicacionModelo();
