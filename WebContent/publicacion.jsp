@@ -114,6 +114,7 @@
 				<ul class="dropdown-menu">
 
 					<li><a href="logout.jsp">Cerrar Sesion</a></li>
+					<li><a href="#" ><span class="glyphicon glyphicon-plus"></span>Añadir publicacion</a></li>
 				</ul>
 				</li>
 				<%
@@ -352,7 +353,7 @@
 	
 <script>
 
-function responder(id,publi){
+/* function responder(id,publi){
 	var publi =String(publi);
 	var id = parseInt(id)
 	alert(publi);
@@ -361,7 +362,7 @@ function responder(id,publi){
 	var prueba="hola prueba";
 	document.getElementsByClassName("resp").innerHTML= tabla; */
  
-}
+} */
 
 </script>
 </body>
