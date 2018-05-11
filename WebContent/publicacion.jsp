@@ -44,7 +44,7 @@
 			
 			ComentarioModelo cm = new ComentarioModelo();
 			
-			/* comentario.setRespuestas(cm.selectDeRespuestas(comentario.getId())); //?? */
+		
 			cm.insert(comentario);
 
 		}
@@ -105,20 +105,23 @@
 				<%
 					if (u != null) {
 							usuario = (Usuario) u;
-							if (usuario.getRol().equals("usuario") || usuario.getRol().equals("admin")) {
+							
 								out.print("<li class='dropdown'>");
 								out.print("<a class='dropdown-toggle' data-toggle='dropdown' href='#'>" + usuario.getNombre());
 				%>
 				<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-
+					<%if(usuario.getRol().equals("admin")){
+						%>
+						<li><a href="Administrador/gestor.jsp">Gestion</a></li>
+					<% }%>
 					<li><a href="logout.jsp">Cerrar Sesion</a></li>
 					<li><a href="#" ><span class="glyphicon glyphicon-plus"></span>Añadir publicacion</a></li>
 				</ul>
 				</li>
 				<%
-					}
+					
 						} else {
 							out.print(" <li><a href='loginForm.jsp?idPub=" + id
 									+ "'><span class='glyphicon glyphicon-user'></span> Iniciar Sesion</a></li>");
@@ -180,15 +183,15 @@
 
 				</div>
 
-
-
+<%	if (usuario!=null) { %>
+			
 
 				<div class="container pb-cmnt-container">
 					<div class="row">
 						<div style="width: 50%">
 							<div class="panel panel-info">
 								<div class="panel-body">
-									<form class="form-inline" method="get" action=#>
+									<form class="form-inline" method="post" action=#>
 										<input type="text" hidden name="id" value="<%=id%>"> <input
 											type="textarea" placeholder="Escribe tu comentario aqui "
 											class="pb-cmnt-textarea text-muted" name="comentario">
@@ -202,7 +205,7 @@
 					</div>
 				</div>
 
-				<%
+				<%}
 					Comentario comentario = new Comentario();
 
 						ComentarioModelo cm = new ComentarioModelo();
@@ -233,14 +236,9 @@
 								<span class="glyphicon glyphicon-thumbs-down"></span>
 							</button>
 						</a>
-						
-						
+			
 					</div>
-					
-
-						
-
-
+	
 				</div>
 
 

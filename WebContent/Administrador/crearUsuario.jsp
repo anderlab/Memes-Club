@@ -172,8 +172,8 @@ div{
 	%>
 
 
+	
 
-	<a  id ="volver" href="gestorUsuarios.jsp">Ir a la lista</a>
 	<br>
 	<a id ="irIndex"   href="../index.jsp" class="btn btn-primary pull-left" >Volver a la Pagina Principal</a>
 	

@@ -54,7 +54,7 @@ public class ComentarioModelo extends ConectorDB {
 		try {
 
 			PreparedStatement pst = conexion
-					.prepareStatement("INSERT INTO comentarios (autor,publicacion,texto, fecha) values(?,?,?,CURDATE())");
+					.prepareStatement("INSERT INTO comentarios (autor,publicacion,texto, fecha) values(?,?,?,NOW())");
 
 			pst.setString(1, comentario.getAutor().getNombre());
 			pst.setString(2, comentario.getPublicacion().getId());

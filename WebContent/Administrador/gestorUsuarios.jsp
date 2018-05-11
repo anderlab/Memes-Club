@@ -2,6 +2,20 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="modelo.*"%>
 
+<%
+	Usuario usuarioA = null;
+	Object u = session.getAttribute("iniciado");
+%>
+
+<%
+	if (u != null) {
+		usuarioA = (Usuario) u;
+		if (usuarioA.getRol().equals("admin")) {
+%>
+
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,7 +52,7 @@
 	<%@ page import="java.util.List"%>
 	<%@ page import="java.util.ArrayList"%>
 	<%@ page import="java.util.Iterator"%>
-	<%@ page import ="clase.*" %>
+	<%@ page import="clase.*"%>
 
 	<table id="tabla" class="display">
 		<thead>
@@ -54,45 +68,45 @@
 
 
 			<%
-				Usuario usuario=new Usuario();			
-			
-				UsuarioModelo um = new UsuarioModelo();
-			
+				Usuario usuario = new Usuario();
 
-				ArrayList<Usuario> usuarios= um.selectAll();
+						UsuarioModelo um = new UsuarioModelo();
 
-				Iterator<Usuario> i = usuarios.iterator();
+						ArrayList<Usuario> usuarios = um.selectAll();
 
-				while (i.hasNext()) {
-					 usuario = i.next();
+						Iterator<Usuario> i = usuarios.iterator();
 
-					out.println("<tr> <td> " + usuario.getNombre() + "</td>");
-					out.println("<td>" + usuario.getPassword() + "</td>");
-					
+						while (i.hasNext()) {
+							usuario = i.next();
 
-		
+							out.println("<tr> <td> " + usuario.getNombre() + "</td>");
+							out.println("<td>" + usuario.getPassword() + "</td>");
 
 							out.println("<td><a href='infoUsuario.jsp?nombre=" + usuario.getNombre()
 									+ "'>Ver</a>   <a href='eliminarUsuario.jsp?nombre=" + usuario.getNombre()
 									+ "'>/Eliminar</a> <a href='banearUsuario.jsp?nombre=" + usuario.getNombre()
 									+ "'>/Banear</a></td> ");
-						
+
 							out.println("<td>" + usuario.getRol() + "</td>");
 							out.println("<td>" + usuario.getImagenPerfil() + "</td>");
-					}
-		
+						}
 
-				
-				out.println("</tr>");
+						out.println("</tr>");
 			%>
 		</tbody>
 	</table>
-	
-		<ul class="pagination">
+
+	<ul class="pagination">
 
 		<%
-				out.print("<li><a href='crearUsuario.jsp' style:'float: left'>Añadir Usuario</a></li>");
-			
+			out.print("<li><a href='crearUsuario.jsp' style:'float: left'>Añadir Usuario</a></li>");
+
+				}else{
+					response.sendRedirect("../index.jsp");
+				}
+			}else{
+				response.sendRedirect("../loginForm.jsp");
+			}
 		%>
 
 	</ul>
