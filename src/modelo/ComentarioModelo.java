@@ -20,7 +20,7 @@ public class ComentarioModelo extends ConectorDB {
 
 		try {
 			PreparedStatement pst = conexion.prepareStatement(
-					"SELECT * FROM comentarios left JOIN votar_c ON comentarios.id = votar_c.comentario where respuesta_de is null and publicacion=? order by votar_c.voto ");
+					"SELECT * FROM comentarios left JOIN votar_c ON comentarios.id = votar_c.comentario where  publicacion=? order by fecha desc ");
 			pst.setString(1, publicacion);
 			ResultSet rs = pst.executeQuery();
 
@@ -47,17 +47,19 @@ public class ComentarioModelo extends ConectorDB {
 
 	}
 
+	
+
 	public void insert(Comentario comentario) {
 		Connection conexion = ConectorDB.conectarDB();
 		try {
 
 			PreparedStatement pst = conexion
-					.prepareStatement("INSERT INTO comentarios (autor,publicacion,texto, fecha) values(?,?,?,?)");
+					.prepareStatement("INSERT INTO comentarios (autor,publicacion,texto, fecha) values(?,?,?,CURDATE())");
 
 			pst.setString(1, comentario.getAutor().getNombre());
 			pst.setString(2, comentario.getPublicacion().getId());
 			pst.setString(3, comentario.getTexto());
-			pst.setDate(4, utilToSqlDate(comentario.getFecha()));
+		
 
 			pst.execute();
 

@@ -7,7 +7,7 @@
 <%@ page import="clase.*"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Iterator"%>
-
+<%@page import="org.mindrot.jbcrypt.BCrypt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -146,7 +146,8 @@ div{
 			Usuario usuario = new Usuario();
 
 			usuario.setNombre(nombre);
-			usuario.setPassword(password);
+			usuario.setPassword(BCrypt.hashpw(password,BCrypt.gensalt(12)));
+			//usuario.setPassword(password);
 			usuario.setEmail(email);
 			usuario.setRol("usuario");
 
@@ -174,6 +175,9 @@ div{
 
 	<a  id ="volver" href="gestorUsuarios.jsp">Ir a la lista</a>
 	<br>
+	<a id ="irIndex"   href="../index.jsp" class="btn btn-primary pull-left" >Volver a la Pagina Principal</a>
+	
+	
 
 
 </body>

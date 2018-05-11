@@ -6,6 +6,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="modelo.UsuarioModelo"%>
 <%@page import="clase.Usuario"%>
+<%@page import="org.mindrot.jbcrypt.BCrypt"%>
     
 <%
 	String nombre = request.getParameter("usuario");
@@ -14,8 +15,8 @@
 
 	UsuarioModelo usuarioModelo = new UsuarioModelo();
 	Usuario usuario = usuarioModelo.get(nombre, password);
-
-	if (usuario != null) {
+	if (usuario != null && BCrypt.checkpw(password,usuario.getPassword())==true) {
+	//if (usuario != null) {
 		
 		session.setAttribute("iniciado", usuario);//"si"
 		if(idPub==null){
