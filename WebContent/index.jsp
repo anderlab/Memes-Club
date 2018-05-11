@@ -18,23 +18,31 @@
     String o=request.getParameter("opcion");
     String c=request.getParameter("categoria");
     String e=request.getParameter("etiqueta");
+    String paginaSTR=request.getParameter("pagina");
+    
+    int pagina=1;
+    if(paginaSTR!=null){
+    	pagina=Integer.parseInt(paginaSTR);
+    	
+    }
+    
     ArrayList<Publicacion> publicaciones=new ArrayList<Publicacion>();
     PublicacionModelo publicacionModelo=new PublicacionModelo();
 
 	    if (o!=null){
-		    publicaciones=publicacionModelo.selectUltimasPublicaciones();
+		    publicaciones=publicacionModelo.selectUltimasPublicaciones(pagina);
 		}else if(c!=null){
 			CategoriaModelo categoriaModelo=new CategoriaModelo();
-			Categoria categoria=categoriaModelo.selectCatConPubli(c);
+			Categoria categoria=categoriaModelo.selectCatConPubli(c,pagina);
 			publicaciones=categoria.getPublicaciones();
 		}else if(e!=null){
 			EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
-			Etiqueta etiqueta=etiquetaModelo.selectEtiConPubli(e);
+			Etiqueta etiqueta=etiquetaModelo.selectEtiConPubli(e,pagina);
 			publicaciones=etiqueta.getPublicaciones();
 			
 		}else{
 			MejorPublicacionModelo mejorPublicacionModelo=new MejorPublicacionModelo();
-		    publicaciones=mejorPublicacionModelo.selectMejores();
+		    publicaciones=mejorPublicacionModelo.selectMejores(pagina);
 		}
     
     
@@ -142,16 +150,45 @@
 		%>
 
 
+<%
+	
+	int anteriorPagina=0;
+	int proximaPagina=2;
+	if(paginaSTR!=null){
+		anteriorPagina=pagina-1;
+		proximaPagina=pagina+1;
+	}
 
+	String extrasLink="";
+	if (o!=null){
+		extrasLink="opcion="+o+"&&";
+	}else if(c!=null){
+		extrasLink="categoria="+c+"&&";
+	}else if(e!=null){
+		extrasLink="etiqueta="+e+"&&";
+	}
+
+%>
           
 
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
-          	<li class="page-item disabled">
-              <a class="page-link" href="#">&larr; Nuevos </a>
+          <%
+          	if(anteriorPagina==0){
+		          %>
+		          	<li class="page-item disabled">
+		          	<a class="page-link" href="?<%=extrasLink%>">&larr; Nuevos </a>
+		          <%
+          	}else{
+          		 %>
+               	<li class="page-item">
+               	<a class="page-link" href="?<%=extrasLink%>pagina=<%=anteriorPagina%>">&larr; Nuevos </a>
+               <%
+          	}
+          %>
             </li>
             <li class="page-item">
-              <a class="page-link" href="#">Viejos &rarr;</a>
+              <a class="page-link" href="?<%=extrasLink%>pagina=<%=proximaPagina%>">Viejos &rarr;</a>
             </li>
           </ul>
 
