@@ -38,12 +38,13 @@ public class EtiPubliModelo{
 	}
 	
 	
-	public ArrayList<Publicacion> selectPubliPorEti(int idEtiqueta){
+	public ArrayList<Publicacion> selectPubliPorEti(int idEtiqueta,int pagina){
 		PreparedStatement pst;
 		ArrayList<Publicacion> publicaciones=new ArrayList<>();
 		try {
-			pst = conexion.prepareStatement("Select * from tiene_e where etiqueta=?");
+			pst = conexion.prepareStatement("Select * from tiene_e where etiqueta=? ORDER BY publicacion desc LIMIT ?,5");
 			pst.setInt(1, idEtiqueta);
+			pst.setInt(2, (pagina-1)*5);
 			ResultSet rs=pst.executeQuery();
 			PublicacionModelo publicacionModelo=new PublicacionModelo();
 			

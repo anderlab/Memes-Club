@@ -35,6 +35,30 @@ public class CatPubliModelo{
 		return categorias;
 	}
 	
+	public ArrayList<Publicacion> selectPubliPorCat(int idCategoria, int pagina){
+		PreparedStatement pst;
+		ArrayList<Publicacion> publicaciones=new ArrayList<>();
+		try {
+			pst = conexion.prepareStatement("Select * from esta_categorias where categoria=? ORDER BY publicacion desc LIMIT ?,5");
+			pst.setInt(1, idCategoria);
+			pst.setInt(2, (pagina-1)*5);
+			ResultSet rs=pst.executeQuery();
+			PublicacionModelo publicacionModelo=new PublicacionModelo();
+			
+			while(rs.next()){
+				Publicacion publicacion=publicacionModelo.select(rs.getString("publicacion"));
+				publicaciones.add(publicacion);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("hementxe jajajaj");
+		}
+		
+		return publicaciones;
+	}
+	
 	public ArrayList<Publicacion> selectPubliPorCat(int idCategoria){
 		PreparedStatement pst;
 		ArrayList<Publicacion> publicaciones=new ArrayList<>();

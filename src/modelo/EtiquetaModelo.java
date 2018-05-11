@@ -63,16 +63,16 @@ public class EtiquetaModelo{
 			PreparedStatement pst;
 			Etiqueta etiqueta=null;
 			try {
-				pst = conexion.prepareStatement("Select * from etiquetas where nombre=? ORDER BY fecha_subida desc, id desc LIMIT ?,5");
+				pst = conexion.prepareStatement("Select * from etiquetas where nombre=?");
 				pst.setString(1, nombre);
-				pst.setInt(2, (pagina-1)*5);
+				
 				ResultSet rs=pst.executeQuery();
 				EtiPubliModelo etiPubliModelo=new EtiPubliModelo();
 				while(rs.next()){
 					etiqueta=new Etiqueta();
 					etiqueta.setId(rs.getInt("id"));
 					etiqueta.setNombre(rs.getString("nombre"));
-					etiqueta.setPublicaciones(etiPubliModelo.selectPubliPorEti(rs.getInt("id")));
+					etiqueta.setPublicaciones(etiPubliModelo.selectPubliPorEti(rs.getInt("id"),pagina));
 				}
 				
 			} catch (SQLException e) {

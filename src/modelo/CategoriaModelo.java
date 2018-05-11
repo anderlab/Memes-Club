@@ -69,21 +69,22 @@ public class CategoriaModelo{
 		PreparedStatement pst;
 		Categoria categoria=null;
 		try {
-			pst = conexion.prepareStatement("Select * from categorias where nombre=? ORDER BY fecha_subida desc, id desc LIMIT ?,5");
+			pst = conexion.prepareStatement("Select * from categorias where nombre=? ");
 			pst.setString(1, nombre);
-			pst.setInt(2, (pagina-1)*5);
+
 			ResultSet rs=pst.executeQuery();
 			CatPubliModelo catPubliModelo=new CatPubliModelo();
 			while(rs.next()){
 				categoria=new Categoria();
 				categoria.setId(rs.getInt("id"));
 				categoria.setNombre(rs.getString("nombre"));
-				categoria.setPublicaciones(catPubliModelo.selectPubliPorCat(rs.getInt("id")));
+				categoria.setPublicaciones(catPubliModelo.selectPubliPorCat(rs.getInt("id"),pagina));
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("hementxe jajajaj cate");
 		}
 		
 		return categoria;
