@@ -1,5 +1,6 @@
 package clase;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Comentario {
@@ -9,7 +10,7 @@ public class Comentario {
 	private Publicacion publicacion;
 	private String texto;
 	private Date fecha;
-	private int respuesta;
+	
 	
 	
 	
@@ -41,19 +42,15 @@ public class Comentario {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public int getRespuesta() {
-		return respuesta;
-	}
-	public void setRespuesta(int respuesta) {
-		this.respuesta = respuesta;
-	}
+
 	public Publicacion getPublicacion() {
 		return publicacion;
 	}
 	public void setPublicacion(Publicacion publicacion) {
 		this.publicacion = publicacion;
 	}
-	
+
+
 	
 	
 
