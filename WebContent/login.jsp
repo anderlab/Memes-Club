@@ -15,12 +15,12 @@
 
 	UsuarioModelo usuarioModelo = new UsuarioModelo();
 	Usuario usuario = usuarioModelo.get(nombre, password);
-	if (usuario != null && BCrypt.checkpw(password,usuario.getPassword())==true) {
+	if (usuario != null) {
 	//if (usuario != null) {
 		
 		session.setAttribute("iniciado", usuario);//"si"
-		if(idPub==null){
-		response.sendRedirect("index.jsp");
+		if(idPub.equals("null")){
+			response.sendRedirect("index.jsp");
 		}else{
 			response.sendRedirect("publicacion.jsp?id="+idPub);
 		}

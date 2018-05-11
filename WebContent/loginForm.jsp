@@ -39,14 +39,9 @@
 	if(request.getParameter("error")!=null&& request.getParameter("error").equals("true")){
 		out.print("	<div class='alert alert-danger'> <span class='glyphicon glyphicon-exclamation-sign'></span> <span class='sr-only'>Error:</span> Usuario o contraseña incorrectos </div>");
 		
-		
-		
 	}
 
-
 %>
-
-
 
 
 <!------ Include the above in your HEAD tag ---------->

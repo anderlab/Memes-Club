@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import clase.Usuario;
 
 public class UsuarioModelo {
@@ -189,22 +191,23 @@ public class UsuarioModelo {
 		Connection conexion=ConectorDB.conectarDB();
 		PreparedStatement pst;
 		try {
-			pst = conexion.prepareStatement("select * from usuarios where nombre=? and contrasena=? ");
+			pst = conexion.prepareStatement("select * from usuarios where nombre=?");
 		
-		pst.setString(1, nombre);
-		pst.setString(2, password);
-		
-		ResultSet rs= pst.executeQuery();
-		
-		while(rs.next()){
-			Usuario usuario= new Usuario();
-			usuario.setNombre(rs.getString("nombre"));
-			usuario.setEmail(rs.getString("email"));
-			usuario.setImagenPerfil(rs.getString("imagen"));
-			usuario.setRol(rs.getString("rol"));
+			pst.setString(1, nombre);
 			
-			return usuario;
-		}
+			ResultSet rs= pst.executeQuery();
+			
+			while(rs.next()){
+				if (BCrypt.checkpw(password,rs.getString("contrasena"))){
+					Usuario usuario= new Usuario();
+					usuario.setNombre(rs.getString("nombre"));
+					usuario.setEmail(rs.getString("email"));
+					usuario.setImagenPerfil(rs.getString("imagen"));
+					usuario.setRol(rs.getString("rol"));
+					
+					return usuario;
+				}
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
