@@ -3,7 +3,12 @@ package modelo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import clase.Categoria;
+import clase.CategoriaPublicacion;
+import clase.Etiqueta;
+import clase.EtiquetaPublicacion;
 import clase.MejorPublicacion;
 import clase.Publicacion;
 
@@ -105,5 +110,73 @@ public class PublicacionModelo{
 		return publicaciones;		
 	}
 	
+	public Publicacion selectUltimaPublicacion(){
+		Publicacion publicacion=null;
+		
+		UsuarioModelo usuarioModelo=new UsuarioModelo();
+		CatPubliModelo catPubliModelo=new CatPubliModelo();
+		EtiPubliModelo etiPubliModelo=new EtiPubliModelo();
+		VotoPubliModelo votoPubliModelo=new VotoPubliModelo();
+		
+		try {
+			PreparedStatement pst = conexion.prepareStatement("SELECT * FROM publicaciones order by id desc limit 1");
+			ResultSet rs=pst.executeQuery();
+			while (rs.next()){
+				publicacion=new Publicacion();
+				
+				publicacion.setId(rs.getString("id"));
+				publicacion.setTitulo(rs.getString("titulo"));
+				publicacion.setFecha_subida(rs.getDate("fecha_subida"));
+				publicacion.setUsuario(usuarioModelo.select(rs.getString("autor")));
+				publicacion.setCategorias(catPubliModelo.selectCatPorPublicacion(rs.getString("id")));
+				publicacion.setEtiquetas(etiPubliModelo.selectEtiPorPublicacion(rs.getString("id")));
+				publicacion.setVotos(votoPubliModelo.selectPorPublicacion(rs.getString("id")));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return publicacion;
+	}
 	
+	public void insertarCompleto(Publicacion publicacion){
+		try {
+			PreparedStatement pst=conexion.prepareStatement("INSERT INTO publicaciones(id,titulo,fecha_subida,autor) values(?,?,curdate(),?)");
+			pst.setString(1, publicacion.getId());
+			pst.setString(2, publicacion.getTitulo());
+			pst.setString(3, publicacion.getUsuario().getNombre());
+			pst.execute();
+			
+			// categorias
+			CatPubliModelo catPubliModelo=new CatPubliModelo();
+			CategoriaPublicacion categoriaPublicacion =new CategoriaPublicacion();
+			categoriaPublicacion.setPublicacion(publicacion);
+			Iterator<Categoria> i=publicacion.getCategorias().iterator();
+			
+			while(i.hasNext()){
+				categoriaPublicacion.setCategoria(i.next());
+				catPubliModelo.insert(categoriaPublicacion);
+			}
+			
+			//etiquetas
+			EtiPubliModelo etiPubliModelo=new EtiPubliModelo();
+			EtiquetaPublicacion etiquetaPublicacion=new EtiquetaPublicacion();
+			etiquetaPublicacion.setPublicacion(publicacion);
+			
+			Iterator<Etiqueta> j=publicacion.getEtiquetas().iterator();
+			
+			while(j.hasNext()){
+				etiquetaPublicacion.setEtiqueta(j.next());
+				etiPubliModelo.insert(etiquetaPublicacion);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

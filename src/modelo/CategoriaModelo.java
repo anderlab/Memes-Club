@@ -115,5 +115,42 @@ public class CategoriaModelo{
 		return categorias;
 
 	}
+	
+	public ArrayList<Categoria> selectEstos(String[] categorias){
+		ArrayList<Categoria> categoriasList=new ArrayList<>();
+		
+		
+		for(int i=0;i<categorias.length;i++){
+			Categoria categoria= new Categoria();
+			categoria =this.selectPorNombre(categorias[i]);
+			if(categoria!=null)
+				categoriasList.add(categoria);
+		}
+		return categoriasList;
+	}
 
+	public Categoria selectPorNombre(String nombre) {
+		// TODO Auto-generated method stub
+		PreparedStatement pst;
+		Categoria categoria=null;
+		try {
+			pst = conexion.prepareStatement("Select * from categorias where nombre=?");
+			pst.setString(1, nombre);
+			ResultSet rs=pst.executeQuery();
+			
+			while(rs.next()){
+				categoria=new Categoria();
+				categoria.setId(rs.getInt("id"));
+				categoria.setNombre(rs.getString("nombre"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+		return categoria;
+
+	}
 }

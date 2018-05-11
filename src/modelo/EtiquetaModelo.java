@@ -82,4 +82,53 @@ public class EtiquetaModelo{
 			return etiqueta;
 
 		}
+		
+		public Etiqueta selectPorNombre(String nombre) {
+			// TODO Auto-generated method stub
+			Etiqueta etiqueta=null;
+			try {
+				PreparedStatement pst=conexion.prepareStatement("select * from etiquetas where nombre=?");
+				pst.setString(1, nombre);
+				ResultSet rs=pst.executeQuery();
+				while (rs.next()){
+					etiqueta=new Etiqueta();
+					etiqueta.setId(rs.getInt("id"));
+					etiqueta.setNombre(rs.getString("nombre"));
+				}
+					
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return etiqueta;
+		}
+		public void insert(Etiqueta etiqueta) {
+			// TODO Auto-generated method stub
+			try {
+			PreparedStatement pst=conexion.prepareStatement("insert into etiquetas(nombre) values(?)");
+			pst.setString(1, etiqueta.getNombre());
+			pst.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public ArrayList<Etiqueta> selectEstos(String[] etiquetas){
+			ArrayList<Etiqueta> etiquetasList=new ArrayList<>();
+			Etiqueta etiqueta;
+			
+			for(int i=0;i<etiquetas.length;i++){
+				etiqueta =this.selectPorNombre(etiquetas[i]);
+				if(etiqueta==null){
+					etiqueta.setNombre(etiquetas[i]);
+					insert(etiqueta);
+					etiqueta =this.selectPorNombre(etiquetas[i]);
+					
+				}
+				etiquetasList.add(etiqueta);
+			}
+			return etiquetasList;
+		}
 }

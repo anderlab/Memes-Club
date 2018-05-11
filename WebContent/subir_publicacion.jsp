@@ -1,19 +1,22 @@
 
-<%@page import="org.apache.tomcat.util.http.fileupload.RequestContext"%>
-<%@page import="java.io.*"%>
-<%@page import="java.util.*"%>
- 
-<%@page import="javax.servlet.ServletConfig"%>
-<%@page import="javax.servlet.ServletException"%>
-<%@page import="javax.servlet.http.HttpServlet"%>
-<%@page import="javax.servlet.http.HttpServletRequest"%>
-<%@page import="javax.servlet.http.HttpServletResponse"%>
- 
+<%@page import="clase.Usuario"%>
+<%@page import="modelo.UsuarioModelo"%>
+<%@page import="clase.Etiqueta"%>
+<%@page import="modelo.EtiquetaModelo"%>
+<%@page import="clase.Categoria"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="modelo.CategoriaModelo"%>
+<%@page import="clase.Publicacion"%>
+<%@page import="modelo.PublicacionModelo"%>
+<%@page import="org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext"%>
+<%@page import="org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload"%>
+<%@page import="java.io.File"%>
 <%@page import="org.apache.tomcat.util.http.fileupload.FileItem"%>
-<%@page import="org.apache.tomcat.util.http.fileupload.FileUploadException"%>
+
+<%@page import="java.util.List"%>
+
 <%@page import="org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory"%>
-<%@page import="org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload"%>
-<%@page import="org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload"%>
+<%@page import="org.apache.tomcat.util.http.fileupload.FileItemFactory"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -27,66 +30,140 @@
 </head>
 <body>
 <%
+final String carpeta="D:/proyectos de java/Memes/WebContent/imagenesDePublicaciones/";
+FileItemFactory factory = new DiskFileItemFactory();
+ServletFileUpload upload = new ServletFileUpload(factory);
+UsuarioModelo usuarioModelo=new UsuarioModelo();
+Usuario usuario=usuarioModelo.select("artola");
 
-boolean isMultipart;
-
-
-File file ;
-// Check that we have a file upload request
-      isMultipart = ServletFileUpload.isMultipartContent(request);
-      response.setContentType("text/html");
-   
-      if( !isMultipart ) {
-         out.println("<p>No se subio ninguna imagen</p>");
-         out.println("<a href='nueva_publicacion'>Volver a intentar</a>");
-      }
-  
-      DiskFileItemFactory factory = new DiskFileItemFactory();
+//obtener datos
+String id=null;
+String titulo=null;
+ArrayList<Categoria> categorias=new ArrayList();
+String etiquetasPara=null;
+CategoriaModelo categoriaModelo= new CategoriaModelo();
 
 
-      // Create a new file upload handler
-      ServletFileUpload upload = new ServletFileUpload(factory);
-      RequestContext requestContext=(RequestContext) request;
-      
+PublicacionModelo publicacionModelo=new PublicacionModelo();
+//req es la HttpServletRequest que recibimos del formulario.
+//Los items obtenidos serán cada uno de los campos del formulario,
+//tanto campos normales como ficheros subidos.
+//RequestContext req=(RequestContext) request;
+List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(new ServletRequestContext(request));
 
-      try { 
-         // Parse the request to get file items.
-         List fileItems = upload.parseRequest(requestContext);
+//Se recorren todos los items, que son de tipo FileItem
+for (Object item : items) {
+	FileItem uploaded = (FileItem) item;
 	
-         // Process the uploaded file items
-         Iterator i = fileItems.iterator();
+	// Hay que comprobar si es un campo de formulario. Si no lo es, se guarda el fichero
+	// subido donde nos interese
+	if (!uploaded.isFormField()) {
+	   // No es campo de formulario, guardamos el fichero en algún sitio
+	   
+		String formatoDeArchivo=uploaded.getName();
+		
+		//cortar direccion hasta sacar formato
+		
+		formatoDeArchivo=formatoDeArchivo.substring(formatoDeArchivo.lastIndexOf("."));
+		
+		//buscar nuevo nombre, ultima publicacion+1
+		
+		Publicacion ultimaPublicacion=publicacionModelo.selectUltimaPublicacion();
+		
+		//quitar la parte de fromato y sacar id
+		String ultimaId=ultimaPublicacion.getId();
+		int nuevaId=Integer.parseInt(ultimaId.substring(0,ultimaId.lastIndexOf(".")))+1;
+		
+		id=(nuevaId+formatoDeArchivo);
+		
+	   
+	   // guardar la publicacion en la base de datos
+	   
+	   
 
-         out.println("<html>");
-         out.println("<head>");
-         out.println("<title>Servlet upload</title>");  
-         out.println("</head>");
-         out.println("<body>");
-   		String filePath="./imagenesDePublicaciones/";
-         while ( i.hasNext () ) {
-            FileItem fi = (FileItem)i.next();
-            if ( !fi.isFormField () ) {
-               // Get the uploaded file parameters
-               String fieldName = fi.getFieldName();
-               String fileName = fi.getName();
-               String contentType = fi.getContentType();
-               boolean isInMemory = fi.isInMemory();
-               long sizeInBytes = fi.getSize();
-            	
-               // Write the file
-               if( fileName.lastIndexOf("\\") >= 0 ) {
-                  file = new File( filePath + fileName.substring( fileName.lastIndexOf("\\"))) ;
-               } else {
-                  file = new File( filePath + fileName.substring(fileName.lastIndexOf("\\")+1)) ;
-               }
-               fi.write( file ) ;
-               out.println("Uploaded Filename: " + fileName + "<br>");
-            }
-         }
-         out.println("</body>");
-         out.println("</html>");
-         } catch(Exception ex) {
-            System.out.println(ex);
-         }
+	   
+	 //poner nuevo nombre y subirlo
+		
+	   File fichero = new File(carpeta, (nuevaId)+formatoDeArchivo);
+	   uploaded.write(fichero);
+	} else {
+	   // es un campo de formulario, podemos obtener clave y valor
+	   
+	   //cojer los valores que no son imagenes
+	   String key = uploaded.getFieldName();
+	   
+	   
+	   if (key.equals("titulo")){
+		   titulo=uploaded.getString();
+		   
+	   }else if(key.equals("etiquetas")){
+		   etiquetasPara=uploaded.getString();
+		   
+		   
+	   }else{
+		   //ir añadiendo uno por uno al array
+			String categoriaTemp=uploaded.getString();
+		   // ver si existe
+		   
+			Categoria categoria =categoriaModelo.selectPorNombre(categoriaTemp);
+			if(categoria!=null)
+				categorias.add(categoria);
+		   
+	   }
+	   
+
+	   
+	   
+	   
+	   
+	}
+
+	   
+	   
+	   
+}
+	
+	
+	
+	
+	
+
+	
+	   
+
+	   //buscar etiquetas
+	   String[] etiquetas1=etiquetasPara.split(", ");
+	   EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
+	   ArrayList<Etiqueta> etiquetas=new ArrayList();
+	   Etiqueta etiqueta;
+		
+		for(int i=0;i<etiquetas1.length;i++){
+			etiqueta =etiquetaModelo.selectPorNombre(etiquetas1[i]);
+			if(etiqueta==null){
+				etiqueta.setNombre(etiquetas1[i]);
+				etiquetaModelo.insert(etiqueta);
+				etiqueta =etiquetaModelo.selectPorNombre(etiquetas1[i]);
+				
+			}
+			etiquetas.add(etiqueta);
+		}
+	   
+	   
+	   
+	   
+	   
+	   // crear publicacion
+	   Publicacion publicacion =new Publicacion();
+	   publicacion.setId(id);
+	   publicacion.setTitulo(titulo);
+	   publicacion.setUsuario(usuario);
+	   publicacion.setCategorias(categorias);
+	   publicacion.setEtiquetas(etiquetas);
+	   
+	   
+	   publicacionModelo.insertarCompleto(publicacion);
+
+      
       %>
       
 </body>
