@@ -121,7 +121,7 @@
 						} else {
 							out.print(" <li><a href='loginForm.jsp?idPub=" + id
 									+ "'><span class='glyphicon glyphicon-user'></span> Iniciar Sesion</a></li>");
-							out.print(" <li><a href='#'><span class='glyphicon glyphicon-user'></span> Registrarse</a></li>");
+							out.print(" <li><a href='Administrador/crearUsuario.jsp'><span class='glyphicon glyphicon-user'></span> Registrarse</a></li>");
 						}
 				%>
 
