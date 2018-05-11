@@ -58,13 +58,14 @@ public class EtiquetaModelo{
 			return etiquetas;
 		}
 		
-		public Etiqueta selectEtiConPubli(String nombre) {
+		public Etiqueta selectEtiConPubli(String nombre, int pagina) {
 			// TODO Auto-generated method stub
 			PreparedStatement pst;
 			Etiqueta etiqueta=null;
 			try {
-				pst = conexion.prepareStatement("Select * from etiquetas where nombre=?");
+				pst = conexion.prepareStatement("Select * from etiquetas where nombre=? ORDER BY fecha_subida desc, id desc LIMIT ?,5");
 				pst.setString(1, nombre);
+				pst.setInt(2, (pagina-1)*5);
 				ResultSet rs=pst.executeQuery();
 				EtiPubliModelo etiPubliModelo=new EtiPubliModelo();
 				while(rs.next()){

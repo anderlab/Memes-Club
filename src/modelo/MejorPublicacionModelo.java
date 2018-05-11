@@ -12,12 +12,13 @@ import clase.Publicacion;
 
 public class MejorPublicacionModelo {
 	Connection conexion=ConectorDB.conectarDB();
-	public ArrayList<Publicacion> selectMejores(){
+	public ArrayList<Publicacion> selectMejores(int pagina){
 		PreparedStatement pst;
 		ArrayList<Publicacion> publicaciones=new ArrayList<>();
 
 		try {
-			pst = conexion.prepareStatement("Select * from mejores_publicaciones order by fecha_llegada desc limit 10");
+			pst = conexion.prepareStatement("Select * from mejores_publicaciones order by fecha_llegada desc LIMIT ?,5");
+			pst.setInt(1, (pagina-1)*5);
 			ResultSet rs=pst.executeQuery();
 			PublicacionModelo publicacionModelo=new PublicacionModelo();
 			

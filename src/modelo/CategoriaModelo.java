@@ -64,13 +64,14 @@ public class CategoriaModelo{
 
 	}
 	
-	public Categoria selectCatConPubli(String nombre) {
+	public Categoria selectCatConPubli(String nombre, int pagina) {
 		// TODO Auto-generated method stub
 		PreparedStatement pst;
 		Categoria categoria=null;
 		try {
-			pst = conexion.prepareStatement("Select * from categorias where nombre=?");
+			pst = conexion.prepareStatement("Select * from categorias where nombre=? ORDER BY fecha_subida desc, id desc LIMIT ?,5");
 			pst.setString(1, nombre);
+			pst.setInt(2, (pagina-1)*5);
 			ResultSet rs=pst.executeQuery();
 			CatPubliModelo catPubliModelo=new CatPubliModelo();
 			while(rs.next()){

@@ -17,7 +17,7 @@ import java.sql.PreparedStatement;
 
 public class PublicacionModelo{
 	Connection conexion=ConectorDB.conectarDB();
-	public ArrayList<Publicacion> selectUltimasPublicaciones(){
+	public ArrayList<Publicacion> selectUltimasPublicaciones(int pagina){
 		PreparedStatement pst;
 		ArrayList<Publicacion> publicaciones=new ArrayList<>();
 		
@@ -27,7 +27,8 @@ public class PublicacionModelo{
 		VotoPubliModelo votoPubliModelo=new VotoPubliModelo();
 		
 		try {
-			pst = conexion.prepareStatement("SELECT * FROM publicaciones ORDER BY fecha_subida desc, id desc LIMIT 10");
+			pst = conexion.prepareStatement("SELECT * FROM publicaciones ORDER BY fecha_subida desc, id desc LIMIT ?,5");
+			pst.setInt(1, (pagina-1)*5);
 			ResultSet rs=pst.executeQuery();
 			while (rs.next()){
 				Publicacion publicacion=new Publicacion();
