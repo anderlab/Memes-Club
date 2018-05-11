@@ -130,28 +130,31 @@ for (Object item : items) {
 
 	
 	   
-
+ArrayList<Etiqueta> etiquetas=new ArrayList();
 	   //buscar etiquetas
-	   String[] etiquetas1=etiquetasPara.split(", ");
-	   EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
-	   ArrayList<Etiqueta> etiquetas=new ArrayList();
-	   Etiqueta etiqueta;
-		
-		for(int i=0;i<etiquetas1.length;i++){
-			etiqueta =etiquetaModelo.selectPorNombre(etiquetas1[i]);
-			if(etiqueta==null){
-				etiqueta.setNombre(etiquetas1[i]);
-				etiquetaModelo.insert(etiqueta);
+	   if(etiquetasPara!=null){
+		   String[] etiquetas1=etiquetasPara.split(", ");
+		   EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
+		   
+		   Etiqueta etiqueta;
+			
+			for(int i=0;i<etiquetas1.length;i++){
 				etiqueta =etiquetaModelo.selectPorNombre(etiquetas1[i]);
-				
+				if(etiqueta==null){
+					etiqueta= new Etiqueta();
+					etiqueta.setNombre(etiquetas1[i]);
+					etiquetaModelo.insert(etiqueta);
+					etiqueta =etiquetaModelo.selectPorNombre(etiquetas1[i]);
+					
+				}
+				etiquetas.add(etiqueta);
 			}
-			etiquetas.add(etiqueta);
-		}
+	   }
 	   
 	   
 	   
 	   
-	   
+	   if (id!=null && titulo!=null && usuario!=null){
 	   // crear publicacion
 	   Publicacion publicacion =new Publicacion();
 	   publicacion.setId(id);
@@ -162,9 +165,25 @@ for (Object item : items) {
 	   
 	   
 	   publicacionModelo.insertarCompleto(publicacion);
+	   
+	   %>
+	   <h3>Publicacion subida</h3>
+	   <a href="nueva_publicacion.jsp">Volver</a>
+	   
+	   <%
+	   
+	   }else{
+		   %>
+		   <h3>Falta algun dato</h3>
+		   <a href="nueva_publicacion.jsp">Volver a intentar</a>
+		   
+		   <%
+	   }
 
       
       %>
+      
+      
       
 </body>
 </html>
