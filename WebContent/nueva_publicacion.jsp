@@ -76,7 +76,7 @@
     </div>
   </div>
   <div class="form-group row">
-    <label for="etiquetas" class="col-sm-2 col-form-label">Etiquetas</label>
+    <label for="etiquetas" class="col-sm-2 col-form-label">Etiquetas (opcional)</label>
     <div class="col-sm-10">
       <input type="text" name="etiquetas" class="form-control" placeholder="etiqueta1, etiqueta2, etiqueta3">
       <p style="color:orange;">*Separa las etiquetas por coma y espacio*</p>

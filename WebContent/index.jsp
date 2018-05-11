@@ -71,8 +71,8 @@
       <a class="navbar-brand" href="?">IMAGEN</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="?">Mejores</a></li>
-      <li><a href="?opcion=ultimos">Ultimos</a></li>
+      <li class="active"><a href="index.jsp">Mejores</a></li>
+      <li><a href="index.jsp?opcion=ultimos">Ultimos</a></li>
 
     </ul>
     <ul class="nav navbar-nav navbar-right">
