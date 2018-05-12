@@ -39,7 +39,7 @@ public class CatPubliModelo{
 		PreparedStatement pst;
 		ArrayList<Publicacion> publicaciones=new ArrayList<>();
 		try {
-			pst = conexion.prepareStatement("Select * from esta_categorias where categoria=? ORDER BY publicacion desc LIMIT ?,5");
+			pst = conexion.prepareStatement("Select * from esta_categorias where categoria=? ORDER BY fecha_subida desc LIMIT ?,5");
 			pst.setInt(1, idCategoria);
 			pst.setInt(2, (pagina-1)*5);
 			ResultSet rs=pst.executeQuery();

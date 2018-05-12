@@ -58,8 +58,8 @@
       		}
       			%>
 	      		<td class="categoria">
-	      			<input class="form-check-input" type="checkbox" id="gridCheck1" name="<%=categoria.getNombre()%>" value="<%=categoria.getNombre()%>">
-			        <label class="form-check-label" for="gridCheck1">
+	      			<input class="form-check-input" type="checkbox" id="<%=categoria.getId()%>" name="<%=categoria.getNombre()%>" value="<%=categoria.getNombre()%>">
+			        <label class="form-check-label" for="<%=categoria.getId()%>">
 			          <%=categoria.getNombre() %>
 			        </label>
 	        	</td>

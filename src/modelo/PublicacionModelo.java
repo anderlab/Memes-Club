@@ -121,7 +121,7 @@ public class PublicacionModelo{
 		VotoPubliModelo votoPubliModelo=new VotoPubliModelo();
 		
 		try {
-			PreparedStatement pst = conexion.prepareStatement("SELECT * FROM publicaciones order by id desc limit 1");
+			PreparedStatement pst = conexion.prepareStatement("SELECT * FROM publicaciones order by fecha_subida desc limit 1");
 			ResultSet rs=pst.executeQuery();
 			while (rs.next()){
 				publicacion=new Publicacion();
@@ -145,7 +145,7 @@ public class PublicacionModelo{
 	
 	public void insertarCompleto(Publicacion publicacion){
 		try {
-			PreparedStatement pst=conexion.prepareStatement("INSERT INTO publicaciones(id,titulo,fecha_subida,autor) values(?,?,curdate(),?)");
+			PreparedStatement pst=conexion.prepareStatement("INSERT INTO publicaciones(id,titulo,fecha_subida,autor) values(?,?,NOW(),?)");
 			pst.setString(1, publicacion.getId());
 			pst.setString(2, publicacion.getTitulo());
 			pst.setString(3, publicacion.getUsuario().getNombre());
