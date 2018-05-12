@@ -1,3 +1,4 @@
+<%@page import="clase.Usuario"%>
 <%@page import="modelo.CatPubliModelo"%>
 <%@page import="modelo.MejorPublicacionModelo"%>
 <%@page import="modelo.EtiquetaModelo"%>
@@ -15,6 +16,16 @@
     
     
     <%
+    Usuario usuario = null;
+	Object u = session.getAttribute("iniciado");
+
+	String id = request.getParameter("id");
+	if (u != null) {
+		usuario = (Usuario) u;
+	}
+    
+    
+    
     String o=request.getParameter("opcion");
     String c=request.getParameter("categoria");
     String e=request.getParameter("etiqueta");
@@ -81,21 +92,46 @@
   <body>
     <!-- Navigation -->
  <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="?">IMAGEN</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="index.jsp">Mejores</a></li>
-      <li><a href="index.jsp?opcion=ultimos">Ultimos</a></li>
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.jsp" id="logo"><img src="./imgs/logo1.png" width="70px" /></a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="index.jsp">Mejores</a></li>
+				<li><a href="index.jsp?opcion=ultimos">Ultimos</a></li>
 
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Registrarse</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesion</a></li>
-    </ul>
-  </div>
-</nav> 
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+
+				<%
+					if (u != null) {
+							usuario = (Usuario) u;
+							
+								out.print("<li class='dropdown'>");
+								out.print("<a class='dropdown-toggle' data-toggle='dropdown' href='#'>" + usuario.getNombre());
+				%>
+				<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<%if(usuario.getRol().equals("admin")){
+						%>
+						<li><a href="Administrador/gestor.jsp">Gestion</a></li>
+					<% }%>
+					<li><a href="logout.jsp">Cerrar Sesion</a></li>
+					<li><a href="nueva_publicacion.jsp" ><span class="glyphicon glyphicon-plus"></span>Añadir publicacion</a></li>
+				</ul>
+				</li>
+				<%
+					
+						} else {
+							out.print(" <li><a href='loginForm.jsp'><span class='glyphicon glyphicon-user'></span> Iniciar Sesion</a></li>");
+							out.print(" <li><a href='Administrador/crearUsuario.jsp'><span class='glyphicon glyphicon-user'></span> Registrarse</a></li>");
+						}
+				%>
+
+			</ul>
+		</div>
+	</nav>
 
     <!-- Page Content -->
     <div class="container">
@@ -177,6 +213,8 @@
 		extrasLink="categoria="+c+"&&";
 	}else if(e!=null){
 		extrasLink="etiqueta="+e+"&&";
+	}else if(b!=null){
+		extrasLink="busqueda="+b+"&&";
 	}
 
 %>

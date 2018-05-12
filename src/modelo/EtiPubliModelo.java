@@ -42,7 +42,7 @@ public class EtiPubliModelo{
 		PreparedStatement pst;
 		ArrayList<Publicacion> publicaciones=new ArrayList<>();
 		try {
-			pst = conexion.prepareStatement("Select * from tiene_e where etiqueta=? ORDER BY fecha_subida desc LIMIT ?,5");
+			pst = conexion.prepareStatement("Select * from tiene_e e, publicaciones p where publicacion=p.id and etiqueta=? ORDER BY p.fecha_subida desc LIMIT ?,5");
 			pst.setInt(1, idEtiqueta);
 			pst.setInt(2, (pagina-1)*5);
 			ResultSet rs=pst.executeQuery();

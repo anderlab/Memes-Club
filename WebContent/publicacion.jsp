@@ -20,7 +20,9 @@
 	Object u = session.getAttribute("iniciado");
 
 	String id = request.getParameter("id");
-
+	if (u != null) {
+		usuario = (Usuario) u;
+	}
 
 	if (id == null) {
 		response.sendRedirect("index.jsp");
@@ -29,9 +31,7 @@
 		PublicacionModelo publicacionModelo = new PublicacionModelo();
 		Publicacion publicacion = publicacionModelo.select(id);
 		
-		if (u != null) {
-			usuario = (Usuario) u;
-		}
+		
 
 		String texto = request.getParameter("comentario");
 		
@@ -76,6 +76,8 @@
 	width: 100%;
 	border: 1px solid #F2F2F2;
 }
+
+
 </style>
 <title>Memes Club</title>
 
@@ -93,7 +95,7 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="index.jsp">IMAGEN</a>
+				<a class="navbar-brand" href="index.jsp" id="logo"><img src="./imgs/logo1.png" width="70px" /></a>
 			</div>
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="index.jsp">Mejores</a></li>
