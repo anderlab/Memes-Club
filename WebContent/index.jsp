@@ -106,6 +106,10 @@
         <div class="col-md-8">
 
 		<%
+		if (publicaciones.isEmpty()){
+			
+			out.print("<h3 style='color: grey;'>Lo siento pero no hay publicaciones :'(</h3>");
+		}
 		Iterator<Publicacion> i=publicaciones.iterator();
     		while(i.hasNext()){
     			Publicacion publicacion=i.next();
@@ -212,7 +216,7 @@
               <form method="get" action="index.jsp">
                 <input type="text" class="form-control" name="busqueda">
                 <span class="input-group-btn">
-                  <input type="submit" value="Buscar">
+                  <input type="submit" class="btn btn-secondary" value="Buscar">
                 </span>
                </form>
               </div>

@@ -172,7 +172,7 @@
 									while (j.hasNext()) {
 										Etiqueta etiqueta = j.next();
 							%>
-							<b> <a href="?etiqueta=<%=etiqueta.getNombre()%>">#<%=etiqueta.getNombre()%></a>
+							<b> <a href="index.jsp?etiqueta=<%=etiqueta.getNombre()%>">#<%=etiqueta.getNombre()%></a>
 							</b>
 							<%
 								}
@@ -211,6 +211,11 @@
 						ComentarioModelo cm = new ComentarioModelo();
 
 						ArrayList<Comentario> comentarios = cm.selectAllPublicacion(id);
+						
+						if (comentarios.isEmpty()){
+							
+							out.print("<h3 style='color: grey;'>No hay comentarios</h3>");
+						}
 
 						Iterator<Comentario> i = comentarios.iterator();
 
