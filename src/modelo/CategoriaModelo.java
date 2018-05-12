@@ -95,7 +95,7 @@ public class CategoriaModelo{
 		ArrayList<Categoria> categorias=new ArrayList<>();
 		PreparedStatement pst;
 		try {
-			pst = conexion.prepareStatement("Select * from categorias");
+			pst = conexion.prepareStatement("Select * from categorias order by nombre");
 			ResultSet rs=pst.executeQuery();
 			CatPubliModelo catPubliModelo=new CatPubliModelo();
 			

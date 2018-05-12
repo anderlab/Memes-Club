@@ -181,4 +181,44 @@ public class PublicacionModelo{
 			e.printStackTrace();
 		}
 	}
+	
+	public ArrayList<Publicacion> busquedaDePublicaciones(String busqueda,int pagina){
+		ArrayList<Publicacion> publicaciones=new ArrayList<>();
+		
+		UsuarioModelo usuarioModelo=new UsuarioModelo();
+		CatPubliModelo catPubliModelo=new CatPubliModelo();
+		EtiPubliModelo etiPubliModelo=new EtiPubliModelo();
+		VotoPubliModelo votoPubliModelo=new VotoPubliModelo();
+		
+		busqueda="%"+busqueda+"%";
+		PreparedStatement pst;
+		try {
+			pst = conexion.prepareStatement("SELECT * FROM publicaciones where titulo like ? ORDER BY fecha_subida desc, id desc LIMIT ?,5 ");
+			pst.setString(1, busqueda);
+			pst.setInt(2, (pagina-1)*5); 
+			ResultSet rs=pst.executeQuery();
+			while (rs.next()){
+				Publicacion publicacion=new Publicacion();
+				
+				publicacion.setId(rs.getString("id"));
+				publicacion.setTitulo(rs.getString("titulo"));
+				publicacion.setFecha_subida(rs.getDate("fecha_subida"));
+				publicacion.setUsuario(usuarioModelo.select(rs.getString("autor")));
+				publicacion.setCategorias(catPubliModelo.selectCatPorPublicacion(rs.getString("id")));
+				publicacion.setEtiquetas(etiPubliModelo.selectEtiPorPublicacion(rs.getString("id")));
+				publicacion.setVotos(votoPubliModelo.selectPorPublicacion(rs.getString("id")));
+				
+				publicaciones.add(publicacion);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return publicaciones;
+		
+		
+	}
 }

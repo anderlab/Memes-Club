@@ -19,12 +19,16 @@
     String c=request.getParameter("categoria");
     String e=request.getParameter("etiqueta");
     String paginaSTR=request.getParameter("pagina");
+    String b=request.getParameter("busqueda");
     
     int pagina=1;
     if(paginaSTR!=null){
     	pagina=Integer.parseInt(paginaSTR);
     	
     }
+    
+    
+    
     
     ArrayList<Publicacion> publicaciones=new ArrayList<Publicacion>();
     PublicacionModelo publicacionModelo=new PublicacionModelo();
@@ -40,6 +44,9 @@
 			Etiqueta etiqueta=etiquetaModelo.selectEtiConPubli(e,pagina);
 			publicaciones=etiqueta.getPublicaciones();
 			
+		}else if(b!=null){
+	    	if (!b.equals(""))
+				publicaciones=publicacionModelo.busquedaDePublicaciones(b,pagina);
 		}else{
 			MejorPublicacionModelo mejorPublicacionModelo=new MejorPublicacionModelo();
 		    publicaciones=mejorPublicacionModelo.selectMejores(pagina);
@@ -202,10 +209,12 @@
             <h5 class="card-header">Buscar</h5>
             <div class="card-body">
               <div class="input-group">
-                <input type="text" class="form-control">
+              <form method="get" action="index.jsp">
+                <input type="text" class="form-control" name="busqueda">
                 <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Buscar</button>
+                  <input type="submit" value="Buscar">
                 </span>
+               </form>
               </div>
             </div>
           </div>
@@ -222,7 +231,7 @@
               	while (j.hasNext()){
               		Categoria categoria=j.next();
               	%>
-				  <a href="?categoria=<%=categoria.getNombre() %>" class="list-group-item"><%=categoria.getNombre() %><span class="badge"><%=categoria.getPublicaciones().size() %></span></a>
+				  <a href="index.jsp?categoria=<%=categoria.getNombre() %>" class="list-group-item"><%=categoria.getNombre() %><span class="badge"><%=categoria.getPublicaciones().size() %></span></a>
 				 <%} %>
 				</div> 
             </div>
