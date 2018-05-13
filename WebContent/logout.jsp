@@ -1,7 +1,14 @@
+<%@page import="clase.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
     <%
+
+    Usuario usuario = null;
+    	Object u = session.getAttribute("iniciado");
+    	if (u != null) {
+    		usuario = (Usuario) u;
+
     session.removeAttribute("iniciado");
     out.print("<div class='alert alert-info'> <strong>Sesion cerrada correctamente</strong></div>");
     %>
@@ -20,4 +27,8 @@
 </body>
 </html>
 
-
+<%
+    	}else{
+    		response.sendRedirect("index.jsp");
+    	}
+%>

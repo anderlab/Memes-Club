@@ -5,7 +5,18 @@
 	<%@ page import="clase.*"%>
 	<%@ page import="java.util.ArrayList"%>
 	<%@ page import="java.util.Iterator"%>
+<%
 
+Usuario usuarioA=new Usuario();;
+Object u = session.getAttribute("iniciado");
+if (u != null) {
+	usuarioA = (Usuario) u;
+		
+}else{
+	response.sendRedirect("../index.jsp");	
+}
+	
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,10 +49,20 @@
 		
 		if(request.getParameter("seguro").equals("yes")){
 			
-			um.delete(nombre);
-			out.print(
-		
-					"	<div class='alert alert-success'> <span class='glyphicon glyphicon-ok'></span> <span class='sr-only'></span> USUARIO ELIMINADO</div>");
+			if (usuarioA.getRol().equals("admin")){
+				um.delete(nombre);
+				out.print("	<div class='alert alert-success'> <span class='glyphicon glyphicon-ok'></span> <span class='sr-only'></span> USUARIO ELIMINADO</div>");
+				
+				out.print("<a href='gestorUsuarios.jsp'><button type='button' class='btn btn-info'>Volver atras</button></a>");
+			}else if (usuario.getNombre().equals(usuarioA.getNombre())){
+				session.removeAttribute("iniciado");
+				um.delete(nombre);
+				out.print("	<div class='alert alert-success'> <span class='glyphicon glyphicon-ok'></span> <span class='sr-only'></span> USUARIO ELIMINADO</div>");
+				
+				out.print("<a href='gestorUsuarios.jsp'><button type='button' class='btn btn-info'>Volver atras</button></a>");
+			}
+			
+			out.print("	<div class='alert alert-danger'>NO TIENES PERMISOS PARA ELIMINAR ESTE USUARIO</div>");
 			
 			out.print("<a href='gestorUsuarios.jsp'><button type='button' class='btn btn-info'>Volver atras</button></a>");
 		}

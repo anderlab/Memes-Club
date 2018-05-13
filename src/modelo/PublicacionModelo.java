@@ -94,7 +94,7 @@ public class PublicacionModelo{
 		 */
 		ArrayList<Publicacion> publicaciones=new ArrayList<>();
 		try {
-			PreparedStatement pst=conexion.prepareStatement("select id from publicaciones p, votar_p v where p.id=v.publicacion and p.id not in(select publicacion from mejores_publicaciones) and v.fecha between (current_date() - interval ? day) and current_date group by p.id order by (sum(v.voto)/count(v.voto)) desc limit 10");
+			PreparedStatement pst=conexion.prepareStatement("select id from publicaciones p left join votar_p v on p.id=v.publicacion where p.id not in(select publicacion from mejores_publicaciones) and v.fecha between (current_date() - interval ? day) and current_date group by p.id order by (sum(v.voto)/count(v.voto)) desc limit 5");
 			pst.setInt(1, dias);
 			ResultSet rs= pst.executeQuery();
 			PublicacionModelo publicacionModelo=new PublicacionModelo();

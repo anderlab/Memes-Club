@@ -8,6 +8,18 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Iterator"%>
 <%@page import="org.mindrot.jbcrypt.BCrypt"%>
+<%
+
+	Object u = session.getAttribute("iniciado");
+	if (u != null) {
+		Usuario usuario = (Usuario) u;
+		
+		if (usuario.getRol().equals("usuario")){
+			response.sendRedirect("../index.jsp");
+		}
+	}
+	
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>

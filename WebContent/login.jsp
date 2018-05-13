@@ -7,7 +7,14 @@
 <%@page import="modelo.UsuarioModelo"%>
 <%@page import="clase.Usuario"%>
 <%@page import="org.mindrot.jbcrypt.BCrypt"%>
-    
+    <%
+
+Object u = session.getAttribute("iniciado");
+if (u != null) {
+	response.sendRedirect("index.jsp");	
+	
+}
+%>
 <%
 	String nombre = request.getParameter("usuario");
 	String password = request.getParameter("password");

@@ -1,3 +1,4 @@
+<%@page import="clase.Usuario"%>
 <%@page import="clase.Publicacion"%>
 <%@page import="modelo.PublicacionModelo"%>
 <%@page import="java.util.Iterator"%>
@@ -6,6 +7,19 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%
+Usuario usuario=new Usuario();;
+Object u = session.getAttribute("iniciado");
+if (u != null) {
+	usuario = (Usuario) u;
+		if (usuario.getRol().equals("usuario")){
+			response.sendRedirect("../index.jsp");	
+		}
+}else{
+	response.sendRedirect("../index.jsp");	
+}
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,27 +39,51 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
   </head>
 <body>
 	<!-- Navigation -->
 	 <nav class="navbar navbar-inverse">
-		  <div class="container-fluid">
-			    <div class="navbar-header">
-			      <a class="navbar-brand" href="#">IMAGEN</a>
-			    </div>
-			    <ul class="nav navbar-nav">
-			      <li class="active"><a href="#">Mejores</a></li>
-			      <li><a href="?opcion=ultimos">Ultimos</a></li>
-			
-			    </ul>
-			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Registrarse</a></li>
-			      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesion</a></li>
-			    </ul>
-		  </div>
-	</nav> 
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.jsp" id="logo"><img src="../imgs/logo1.png" width="70px" /></a>
+			</div>
+			<ul class="nav navbar-nav">
+			 	<li><a href="../index.jsp">Mejores</a></li>
+				<li><a href="../index.jsp?opcion=ultimos">Ultimos</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+
+				<%
+					if (u != null) {
+							usuario = (Usuario) u;
+							
+								out.print("<li class='dropdown'>");
+								out.print("<a class='dropdown-toggle' data-toggle='dropdown' href='#'>" + usuario.getNombre());
+				%>
+				<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<%if(usuario.getRol().equals("admin")){
+						%>
+						<li><a href="gestor.jsp">Gestion</a></li>
+					<% }%>
+					<li><a href="../logout.jsp">Cerrar Sesion</a></li>
+					<li><a href="../nueva_publicacion.jsp" ><span class="glyphicon glyphicon-plus"></span>Añadir publicacion</a></li>
+				</ul>
+				</li>
+				<%
+					
+						} else {
+							out.print(" <li><a href='../loginForm.jsp'><span class='glyphicon glyphicon-user'></span> Iniciar Sesion</a></li>");
+							out.print(" <li><a href='crearUsuario.jsp'><span class='glyphicon glyphicon-user'></span> Registrarse</a></li>");
+						}
+				%>
+
+			</ul>
+		</div>
+	</nav>
 	
 	
 	<h3>Gestor Publicaciones</h3>
@@ -76,7 +114,7 @@
 				}else if(publicaciones.size()<2){
 					%>
 					<div class="alert alert-warning">
-						  Solo se encontraron <strong><%=publicaciones.size() %> publicaciones</strong> (tienen que ser 10)
+						  Solo se encontraron <strong><%=publicaciones.size() %> publicaciones</strong> (tienen que ser 5)
 					</div>
 					<a href="?mejores=buscar&alargar=<%=dias%>">
 						<button >Alargar fecha limite</button>
@@ -106,5 +144,6 @@
 		}
 		}
 	%>
+
 </body>
 </html>

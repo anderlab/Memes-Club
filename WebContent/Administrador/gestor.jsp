@@ -1,5 +1,18 @@
+<%@page import="clase.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%
+Usuario usuarioA=new Usuario();;
+Object u = session.getAttribute("iniciado");
+if (u != null) {
+	usuarioA = (Usuario) u;
+		if (usuarioA.getRol().equals("usuario")){
+			response.sendRedirect("../index.jsp");	
+		}
+}else{
+	response.sendRedirect("../index.jsp");	
+}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,8 +37,8 @@
       <div class="panel-heading">GESTOR DE USUARIOS Y PUBLICACIONES</div>
       <div class="panel-body">
       
-      <button type="button" class="btn btn-primary" href="gestorUsuarios.jsp">Usuarios</button>
-      <button type="button" class="btn btn-primary" href="gestorPublicaciones.jsp">Publicaciones</button>
+      <a href="gestorUsuarios.jsp"><button type="button" class="btn btn-primary">Usuarios</button></a>
+      <a href="gestorPublicaciones.jsp"><button type="button" class="btn btn-primary" >Publicaciones</button></a>
       
       
       </div>

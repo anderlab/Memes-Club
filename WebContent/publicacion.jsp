@@ -98,7 +98,7 @@
 				<a class="navbar-brand" href="index.jsp" id="logo"><img src="./imgs/logo1.png" width="70px" /></a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="index.jsp">Mejores</a></li>
+				<li><a href="index.jsp">Mejores</a></li>
 				<li><a href="index.jsp?opcion=ultimos">Ultimos</a></li>
 
 			</ul>

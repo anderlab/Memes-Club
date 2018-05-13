@@ -5,9 +5,7 @@
 <%
 	Usuario usuarioA = null;
 	Object u = session.getAttribute("iniciado");
-%>
 
-<%
 	if (u != null) {
 		usuarioA = (Usuario) u;
 		if (usuarioA.getRol().equals("admin")) {
@@ -38,15 +36,7 @@
 		$('#tabla').DataTable();
 	});
 </script>
-<style type="text/css">
-.entregado {
-	background-color: #99ff66;
-}
 
-.noEntregado {
-	background-color: #ff4d4d;
-}
-</style>
 </head>
 <body>
 	<%@ page import="java.util.List"%>

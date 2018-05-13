@@ -19,6 +19,14 @@
 <%@page import="org.apache.tomcat.util.http.fileupload.FileItemFactory"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%
+Usuario usuario = null;
+	Object u = session.getAttribute("iniciado");
+	if (u != null) {
+		usuario = (Usuario) u;
+	
+	
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,8 +43,7 @@ final String carpeta="C:/Users/Artola/ProyectosJava/memes/WebContent/imagenesDeP
 
 FileItemFactory factory = new DiskFileItemFactory();
 ServletFileUpload upload = new ServletFileUpload(factory);
-UsuarioModelo usuarioModelo=new UsuarioModelo();
-Usuario usuario=usuarioModelo.select("artola");
+
 
 //obtener datos
 String id=null;
@@ -168,9 +175,14 @@ ArrayList<Etiqueta> etiquetas=new ArrayList();
 	   
 	   publicacionModelo.insertarCompleto(publicacion);
 	   
+	   
+	   
+	   
+	   
+	   
 	   %>
 	   <h3>Publicacion subida</h3>
-	   <a href="nueva_publicacion.jsp">Volver</a>
+	   <a href="index.jsp">Volver</a>
 	   
 	   <%
 	   
@@ -181,6 +193,10 @@ ArrayList<Etiqueta> etiquetas=new ArrayList();
 		   
 		   <%
 	   }
+	   
+	}else{
+		response.sendRedirect("loginForm.jsp");
+	}
 
       
       %>

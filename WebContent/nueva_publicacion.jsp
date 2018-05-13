@@ -1,3 +1,4 @@
+<%@page import="clase.Usuario"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="modelo.CategoriaModelo"%>
 <%@page import="clase.Categoria"%>
@@ -5,6 +6,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
+<%
+Usuario usuario = null;
+	Object u = session.getAttribute("iniciado");
+	if (u != null) {
+		usuario = (Usuario) u;
+	
+	
+%>
     
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -69,7 +78,8 @@
       			cont=0;
       		}
       	}
-      %>
+      	
+	%>
       
       	</table>
       </div>
@@ -84,9 +94,14 @@
   </div>
   <div class="form-group row">
     <div class="col-sm-10">
-      <input type="submit" value="Subir" name="subir" class="btn btn-primary">
+      <input type="submit" value="Subir" name="subir" class="btn btn-primary"><a class="btn btn-secondary">Cancelar</a>
     </div>
   </div>
 </form>
 </body>
 </html>
+<%
+}else{
+		response.sendRedirect("loginForm.jsp");
+	}
+      %>
