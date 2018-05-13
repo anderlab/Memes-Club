@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-05-2018 a las 13:49:53
+-- Tiempo de generación: 13-05-2018 a las 11:59:18
 -- Versión del servidor: 10.1.30-MariaDB
 -- Versión de PHP: 7.2.1
 
@@ -87,7 +87,9 @@ INSERT INTO `comentarios` (`id`, `autor`, `publicacion`, `texto`, `fecha`) VALUE
 (13, 'usuario2', '1.jpg', 'hola iker', '2018-05-10 00:00:00'),
 (14, 'ibai', '1.jpg', 'FUNCIONA?', '2018-05-11 00:00:00'),
 (15, 'ibai', '1.jpg', 'SIIIIIIIIIIIUUUUUUUUUUUUUUUUUUUUUUU', '2018-05-11 00:00:00'),
-(16, 'ibai', '1.jpg', 'hmmmmmmmmmmmmmmmmmm', '2018-05-11 13:05:51');
+(16, 'ibai', '1.jpg', 'hmmmmmmmmmmmmmmmmmm', '2018-05-11 13:05:51'),
+(17, 'ibai', '1.jpg', 'Vendo Opel Corsa', '2018-05-12 15:10:11'),
+(18, 'ibai', '2.jpg', 'jajajajaajaj XDXDXDXDXD', '2018-05-13 10:23:34');
 
 -- --------------------------------------------------------
 
@@ -106,6 +108,16 @@ CREATE TABLE `esta_categorias` (
 
 INSERT INTO `esta_categorias` (`publicacion`, `categoria`) VALUES
 ('1.jpg', 2),
+('11.png', 2),
+('12.png', 10),
+('13.png', 2),
+('13.png', 9),
+('14.png', 2),
+('14.png', 12),
+('14.png', 14),
+('14.png', 15),
+('15.jpg', 2),
+('16.jpg', 15),
 ('4.jpg', 7),
 ('5.jpg', 12),
 ('6.jpg', 10),
@@ -141,7 +153,14 @@ INSERT INTO `etiquetas` (`id`, `nombre`) VALUES
 (9, 'Avengers'),
 (10, 'Pokemon'),
 (11, ''),
-(12, 'mark');
+(12, 'mark'),
+(13, 'policia'),
+(14, 'Matematicas'),
+(15, 'numeros'),
+(16, 'africa'),
+(17, 'ropa'),
+(18, 'fail'),
+(19, 'amigos');
 
 -- --------------------------------------------------------
 
@@ -160,7 +179,12 @@ CREATE TABLE `mejores_publicaciones` (
 
 INSERT INTO `mejores_publicaciones` (`publicacion`, `fecha_llegada`) VALUES
 ('1.jpg', '2018-05-02 13:21:11'),
-('2.jpg', '2018-05-02 13:21:11');
+('12.png', '2018-05-13 11:54:02'),
+('2.jpg', '2018-05-02 13:21:11'),
+('3.jpg', '2018-05-13 11:54:02'),
+('4.jpg', '2018-05-13 11:54:02'),
+('5.jpg', '2018-05-13 11:54:02'),
+('6.jpg', '2018-05-13 11:54:02');
 
 -- --------------------------------------------------------
 
@@ -171,7 +195,7 @@ INSERT INTO `mejores_publicaciones` (`publicacion`, `fecha_llegada`) VALUES
 CREATE TABLE `publicaciones` (
   `id` varchar(45) NOT NULL,
   `titulo` varchar(200) NOT NULL,
-  `fecha_subida` date NOT NULL,
+  `fecha_subida` datetime NOT NULL,
   `autor` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -180,15 +204,21 @@ CREATE TABLE `publicaciones` (
 --
 
 INSERT INTO `publicaciones` (`id`, `titulo`, `fecha_subida`, `autor`) VALUES
-('1.jpg', 'Cuando te preguntan como funciona la pagina', '2018-04-25', 'artola'),
-('2.jpg', 'No hay bug si el cliente no se da cuenta', '2018-05-01', 'artola'),
-('3.jpg', 'Perdon por el spoiler :)', '2018-05-06', 'ander'),
-('4.jpg', 'La historia de Los Vengadores contada con esta mítica escena de Toy Story', '2018-05-11', 'artola'),
-('5.jpg', 'Tienes que lanzar la pokéball directamente y rezar', '2018-05-11', 'artola'),
-('6.jpg', 'La adolescencia es dura', '2018-05-11', 'artola'),
-('7.jpg', 'Todo son ventajas siendo la hija de Mark', '2018-05-11', 'artola'),
-('8.jpg', 'Hay que compartir... o no', '2018-05-11', 'artola'),
-('9.jpg', 'La otra cara de Los Vengadores', '2018-05-11', 'artola');
+('1.jpg', 'Cuando te preguntan como funciona la pagina', '2018-04-25 00:00:00', 'artola'),
+('11.png', 'Cuando se te olvida la pistola en casa', '2018-05-12 15:58:08', 'artola'),
+('12.png', 'Like si lo entendiste', '2018-05-12 15:58:27', 'artola'),
+('13.png', '¡¡¡NADIE ME PUEDE PARAR!!!', '2018-05-12 15:58:44', 'artola'),
+('14.png', 'El mejor anuncio de la historia', '2018-05-12 15:59:00', 'artola'),
+('15.jpg', 'Momento muy incómodo con la ropa', '2018-05-13 11:37:54', 'ander'),
+('16.jpg', '¿Por que siempre me pasan estas cosas?', '2018-05-13 11:41:46', 'ander'),
+('2.jpg', 'No hay bug si el cliente no se da cuenta', '2018-05-01 00:00:00', 'artola'),
+('3.jpg', 'Perdon por el spoiler :)', '2018-05-06 00:00:00', 'ander'),
+('4.jpg', 'La historia de Los Vengadores contada con esta mítica escena de Toy Story', '2018-05-11 00:00:00', 'artola'),
+('5.jpg', 'Tienes que lanzar la pokéball directamente y rezar', '2018-05-11 00:00:00', 'artola'),
+('6.jpg', 'La adolescencia es dura', '2018-05-11 00:00:00', 'artola'),
+('7.jpg', 'Todo son ventajas siendo la hija de Mark', '2018-05-11 00:00:00', 'artola'),
+('8.jpg', 'Hay que compartir... o no', '2018-05-11 00:00:00', 'artola'),
+('9.jpg', 'La otra cara de Los Vengadores', '2018-05-11 00:00:00', 'artola');
 
 -- --------------------------------------------------------
 
@@ -208,6 +238,14 @@ CREATE TABLE `tiene_e` (
 INSERT INTO `tiene_e` (`publicacion`, `etiqueta`) VALUES
 ('1.jpg', 2),
 ('1.jpg', 3),
+('11.png', 13),
+('12.png', 14),
+('12.png', 15),
+('13.png', 16),
+('14.png', 11),
+('15.jpg', 17),
+('16.jpg', 18),
+('16.jpg', 19),
 ('4.jpg', 6),
 ('4.jpg', 7),
 ('4.jpg', 8),
@@ -238,13 +276,14 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`nombre`, `contrasena`, `imagen`, `rol`, `email`) VALUES
-('ander', '$2y$10$vKoXw7DB./KTQ.5DBmgpo.BuifU9RCzAF5P865KRBn/fNtDiSI7eG', NULL, 'usuario', 'ander@sjdv.com'),
-('artola', '$2y$10$vKoXw7DB./KTQ.5DBmgpo.BuifU9RCzAF5P865KRBn/fNtDiSI7eG', NULL, 'usuario', 'artola@zubiri.com'),
-('Eneko', '$2a$12$hbdVYM5n9qdvVoYPSc0O7.fi9d9QKsSDAJ6nl6JZYYKuPhH.X..sy', NULL, 'usuario', 'Eneko@gmail.com'),
-('gas', '$2y$10$vKoXw7DB./KTQ.5DBmgpo.BuifU9RCzAF5P865KRBn/fNtDiSI7eG', NULL, 'usuario', 'aaa@gbdrg.com'),
+('ander', '$2a$12$gAuDfrT3dllEqdmJShVd8u9P5.YikGXLwRC7pBEiT84EFceD9Y0PG', NULL, 'usuario', 'ander@sjdv.com'),
+('artola', '$2a$12$gAuDfrT3dllEqdmJShVd8u9P5.YikGXLwRC7pBEiT84EFceD9Y0PG', NULL, 'usuario', 'artola@zubiri.com'),
+('Eneko', '$2a$12$gAuDfrT3dllEqdmJShVd8u9P5.YikGXLwRC7pBEiT84EFceD9Y0PG', NULL, 'usuario', 'Eneko@gmail.com'),
+('gas', '$2a$12$gAuDfrT3dllEqdmJShVd8u9P5.YikGXLwRC7pBEiT84EFceD9Y0PG', NULL, 'usuario', 'aaa@gbdrg.com'),
 ('hola', '$2a$12$YMFnvdTAY.Oby/sGgojOruxZNvZRvFN22acEOAlUNhLLsAh7o.R1u', NULL, 'usuario', 'hola@hola.com'),
 ('ibai', '$2a$12$pZGVdL/xAHrlyYPyFkrOZODqJyib5yhoqvet2zfLoVXrdvwPrzpIG', NULL, 'admin', 'ibai@ibai.com'),
-('usuario2', '$2y$10$vKoXw7DB./KTQ.5DBmgpo.BuifU9RCzAF5P865KRBn/fNtDiSI7eG', NULL, 'usuario', '');
+('jon', '$2a$12$gAuDfrT3dllEqdmJShVd8u9P5.YikGXLwRC7pBEiT84EFceD9Y0PG', NULL, 'usuario', 'jaja@jajaja.com'),
+('usuario2', '$2a$12$gAuDfrT3dllEqdmJShVd8u9P5.YikGXLwRC7pBEiT84EFceD9Y0PG', NULL, 'usuario', '');
 
 -- --------------------------------------------------------
 
@@ -277,9 +316,21 @@ CREATE TABLE `votar_p` (
 
 INSERT INTO `votar_p` (`usuario`, `publicacion`, `voto`, `fecha`) VALUES
 ('ander', '1.jpg', 1, '2018-05-02 00:00:00'),
+('ander', '4.jpg', 1, '2018-05-12 00:00:00'),
+('ander', '6.jpg', 1, '2018-05-11 00:00:00'),
 ('artola', '1.jpg', 1, '2018-04-25 12:00:00'),
 ('artola', '2.jpg', 0, '2018-04-30 00:00:00'),
-('usuario2', '1.jpg', 1, '2018-05-02 00:00:00');
+('artola', '4.jpg', 1, '2018-05-11 00:00:00'),
+('artola', '5.jpg', 1, '2018-05-11 00:00:00'),
+('artola', '7.jpg', 1, '2018-05-09 00:00:00'),
+('Eneko', '4.jpg', 1, '2018-05-04 00:00:00'),
+('gas', '12.png', 1, '2018-05-10 00:00:00'),
+('gas', '4.jpg', 0, '2018-05-11 00:00:00'),
+('hola', '3.jpg', 0, '2018-05-11 00:00:00'),
+('hola', '6.jpg', 1, '2018-05-11 00:00:00'),
+('ibai', '4.jpg', 1, '2018-05-11 00:00:00'),
+('usuario2', '1.jpg', 1, '2018-05-02 00:00:00'),
+('usuario2', '6.jpg', 1, '2018-05-10 00:00:00');
 
 --
 -- Índices para tablas volcadas
@@ -367,13 +418,13 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `etiquetas`
 --
 ALTER TABLE `etiquetas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas
