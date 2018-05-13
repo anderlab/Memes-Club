@@ -95,12 +95,15 @@
 				<a class="navbar-brand" href="index.jsp" id="logo"><img src="./imgs/logo1.png" width="70px" /></a>
 			</div>
 			<ul class="nav navbar-nav">
-			 <%if (o==null){%>
+			 <%if (o==null && c==null && e==null && b==null){%>
 				<li class="active"><a href="index.jsp">Mejores</a></li>
 				<li><a href="index.jsp?opcion=ultimos">Ultimos</a></li>
-			 <%}else{%>
+			 <%}else if(o!=null) {%>
 			 	<li><a href="index.jsp">Mejores</a></li>
 				<li class="active"><a href="index.jsp?opcion=ultimos">Ultimos</a></li>
+			<%}else{%>
+			 	<li><a href="index.jsp">Mejores</a></li>
+				<li><a href="index.jsp?opcion=ultimos">Ultimos</a></li>
 			<%}%>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

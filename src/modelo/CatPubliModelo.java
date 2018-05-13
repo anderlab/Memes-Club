@@ -53,7 +53,6 @@ public class CatPubliModelo{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("hementxe jajajaj");
 		}
 		
 		return publicaciones;

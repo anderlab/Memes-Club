@@ -256,84 +256,46 @@
 
 			</div>
 
+
 			<!-- Sidebar Widgets Column -->
-			<div class="col-md-4">
+        <div class="col-md-4">
 
-				<!-- Search Widget -->
-				<div class="card my-4">
-					<h5 class="card-header">Buscar</h5>
-					<div class="card-body">
-						<div class="input-group">
-							<input type="text" class="form-control"> <span
-								class="input-group-btn">
-								<button class="btn btn-secondary" type="button">Buscar</button>
-							</span>
-						</div>
-					</div>
-				</div>
+          <!-- Search Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Buscar</h5>
+            <div class="card-body">
+              <div class="input-group">
+              <form method="get" action="index.jsp">
+                <input type="text" class="form-control" name="busqueda">
+                <span class="input-group-btn">
+                  <input type="submit" class="btn btn-secondary" value="Buscar">
+                </span>
+               </form>
+              </div>
+            </div>
+          </div>
 
-				<!-- Categories Widget -->
-				<div class="card my-4">
-					<h5 class="card-header">Categorias</h5>
-					<div class="card-body">
-						<div class="list-group">
-							<%
-								CategoriaModelo categoriaModelo = new CategoriaModelo();
-									ArrayList<Categoria> categorias = categoriaModelo.selectAllConPublicaciones();
-									Iterator<Categoria> n = categorias.iterator();
-									while (n.hasNext()) {
-										Categoria categoria = n.next();
-							%>
-							<a href="?categoria='<%=categoria.getNombre()%>'"
-								class="list-group-item"><%=categoria.getNombre()%><span
-								class="badge"><%=categoria.getPublicaciones().size()%></span></a>
-							<%
-								}
-							%>
-						</div>
-					</div>
-				</div>
+          <!-- Categories Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Categorias</h5>
+            <div class="card-body">
+              <div class="list-group">
+              	<%
+              	CategoriaModelo categoriaModelo=new CategoriaModelo();
+              	ArrayList<Categoria> categorias=categoriaModelo.selectAllConPublicaciones();
+              	Iterator<Categoria> k =categorias.iterator();
+              	while (k.hasNext()){
+              		Categoria categoria=k.next();
+              	%>
+				  <a href="index.jsp?categoria=<%=categoria.getNombre() %>" class="list-group-item"><%=categoria.getNombre() %><span class="badge"><%=categoria.getPublicaciones().size() %></span></a>
+				 <%} %>
+				</div> 
+            </div>
+          </div>
 
-				<!-- Side Widget -->
-				<div class="card my-4">
-					<h5 class="card-header">Etiquetas</h5>
+          
 
-					<div class="row">
-						<%
-							EtiquetaModelo etiquetaModelo = new EtiquetaModelo();
-								ArrayList<Etiqueta> etiquetas = etiquetaModelo.selectAll();
-								Iterator<Etiqueta> k = etiquetas.iterator();
-								int countEti = 0;
-								while (k.hasNext()) {
-									Etiqueta etiqueta = k.next();
-									if (countEti == 0) {
-						%>
-						<div class="col-lg-6">
-							<ul class="list-unstyled mb-0">
-								<%
-									}
-											countEti++;
-								%>
-								<li><a href="?etiqueta=<%=etiqueta.getNombre()%>"><%=etiqueta.getNombre()%></a>
-								</li>
-								<%
-									if (countEti == 2) {
-								%>
-							</ul>
-						</div>
-						<%
-							countEti = 0;
-									}
-								}
-						%>
-
-
-
-
-					</div>
-				</div>
-
-			</div>
+        </div>
 
 		</div>
 		<!-- /.row -->
