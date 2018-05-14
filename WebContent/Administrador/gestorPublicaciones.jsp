@@ -47,7 +47,7 @@ if (u != null) {
 	 <nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="index.jsp" id="logo"><img src="../imgs/logo1.png" width="70px" /></a>
+				<a class="navbar-brand" href="../index.jsp" id="logo"><img src="../imgs/logo1.png" width="70px" /></a>
 			</div>
 			<ul class="nav navbar-nav">
 			 	<li><a href="../index.jsp">Mejores</a></li>

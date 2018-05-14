@@ -94,7 +94,7 @@ Usuario usuario = null;
   </div>
   <div class="form-group row">
     <div class="col-sm-10">
-      <input type="submit" value="Subir" name="subir" class="btn btn-primary"><a class="btn btn-secondary">Cancelar</a>
+      <input type="submit" value="Subir" name="subir" class="btn btn-primary"><a href="index.jsp" class="btn btn-secondary">Cancelar</a>
     </div>
   </div>
 </form>
