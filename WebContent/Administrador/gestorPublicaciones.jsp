@@ -111,7 +111,7 @@ if (u != null) {
 						<button >Alargar fecha limite</button>
 					</a>
 					<%
-				}else if(publicaciones.size()<2){
+				}else if(publicaciones.size()<5){
 					%>
 					<div class="alert alert-warning">
 						  Solo se encontraron <strong><%=publicaciones.size() %> publicaciones</strong> (tienen que ser 5)
