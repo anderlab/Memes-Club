@@ -38,8 +38,8 @@ Usuario usuario = null;
 </head>
 <body>
 <%
-//final String carpeta="D:/proyectos de java/Memes/WebContent/imagenesDePublicaciones/";
-final String carpeta="C:/Users/Artola/ProyectosJava/memes/WebContent/imagenesDePublicaciones/";
+final String carpeta="D:/proyectos de java/Memes/WebContent/imagenesDePublicaciones/";
+
 
 FileItemFactory factory = new DiskFileItemFactory();
 ServletFileUpload upload = new ServletFileUpload(factory);
