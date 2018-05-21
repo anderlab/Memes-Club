@@ -260,4 +260,19 @@ public class PublicacionModelo{
 
 		return publicaciones;
 	}
+	
+	public void updateTitulo (Publicacion publicacion){
+		
+		try {
+			PreparedStatement pst = conexion.prepareStatement("UPDATE publicaciones SET titulo=? WHERE id=?");
+			pst.setString(1, publicacion.getTitulo());
+			pst.setString(2, publicacion.getId());
+			pst.execute();
+		
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	
+	}
 }
