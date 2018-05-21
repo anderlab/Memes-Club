@@ -20,24 +20,20 @@ public class EditarPublicacion {
 		// String nombre=request.getParameter("nombre");
 
 		HttpSession session = request.getSession();
-		String idPubli= request.getParameter("id");
-		
-		Usuario usuarioLogeado = (Usuario) session.getAttribute("iniciado");
-		if (usuarioLogeado != null) {
+		String idPubli = request.getParameter("id");
+
+		Usuario u = (Usuario) session.getAttribute("iniciado");
+		if (u != null) {
 			UsuarioModelo usuarioModelo = new UsuarioModelo();
-			
-			
-			
-			PublicacionModelo publicacionModelo= new PublicacionModelo();
-			 Publicacion publicacion = publicacionModelo.select(idPubli);
-			 request.setAttribute("publicacion", publicacion);
+
+			PublicacionModelo publicacionModelo = new PublicacionModelo();
+			Publicacion publicacion = publicacionModelo.select(idPubli);
+			request.setAttribute("publicacion", publicacion);
 
 			// guardar en variable para enviar
-	
-			 
 
 			// redirijir a la pagina con la variable creada
-			RequestDispatcher rd = request.getRequestDispatcher("../WebContent/editarPublicacion.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("editar_publicacion.jsp");
 			rd.forward(request, response);
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("index.html");
