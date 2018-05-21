@@ -1,73 +1,28 @@
-<%@page import="clase.Usuario"%>
-<%@page import="modelo.CatPubliModelo"%>
-<%@page import="modelo.MejorPublicacionModelo"%>
-<%@page import="modelo.EtiquetaModelo"%>
 <%@page import="clase.Categoria"%>
 <%@page import="modelo.CategoriaModelo"%>
 <%@page import="clase.Etiqueta"%>
-<%@page import="clase.EtiquetaPublicacion"%>
-<%@page import="clase.VotoPublicacion"%>
 <%@page import="java.util.Iterator"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="modelo.PublicacionModelo"%>
+<%@page import="clase.Usuario"%>
 <%@page import="clase.Publicacion"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-    
-    <%
-    Usuario usuario = null;
+<%
+	ArrayList<Publicacion> publicaciones=(ArrayList<Publicacion>)request.getAttribute("publicaciones");
+	boolean esEl=(Boolean) request.getAttribute("esEl");
+	Usuario usuario = null;
 	Object u = session.getAttribute("iniciado");
 	if (u != null) {
 		usuario = (Usuario) u;
 	}
-    
-    
-    
-    String o=request.getParameter("opcion");
-    String c=request.getParameter("categoria");
-    String e=request.getParameter("etiqueta");
-    String paginaSTR=request.getParameter("pagina");
-    String b=request.getParameter("busqueda");
-    
-    int pagina=1;
-    if(paginaSTR!=null){
-    	pagina=Integer.parseInt(paginaSTR);
-    	
-    }
-    
-    
-    
-    
-    ArrayList<Publicacion> publicaciones=new ArrayList<Publicacion>();
-    PublicacionModelo publicacionModelo=new PublicacionModelo();
+	int pagina=(Integer)request.getAttribute("pagina");
+	
+	
+%>
 
-	    if (o!=null){
-		    publicaciones=publicacionModelo.selectUltimasPublicaciones(pagina);
-		}else if(c!=null){
-			CategoriaModelo categoriaModelo=new CategoriaModelo();
-			Categoria categoria=categoriaModelo.selectCatConPubli(c,pagina);
-			publicaciones=categoria.getPublicaciones();
-		}else if(e!=null){
-			EtiquetaModelo etiquetaModelo=new EtiquetaModelo();
-			Etiqueta etiqueta=etiquetaModelo.selectEtiConPubli(e,pagina);
-			publicaciones=etiqueta.getPublicaciones();
-			
-		}else if(b!=null){
-	    	if (!b.equals(""))
-				publicaciones=publicacionModelo.busquedaDePublicaciones(b,pagina);
-		}else{
-			MejorPublicacionModelo mejorPublicacionModelo=new MejorPublicacionModelo();
-		    publicaciones=mejorPublicacionModelo.selectMejores(pagina);
-		}
-    
-    
-    %>
-<!DOCTYPE html>
-<html lang="en">
-
-  <head>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -83,28 +38,17 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
-
-  </head>
-
-  <body>
-    <!-- Navigation -->
+    <link href="css/style.css" rel="stylesheet"></head>
+<body>
+<!-- Navigation -->
  <nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="index.jsp" id="logo"><img src="./imgs/logo1.png" width="70px" /></a>
 			</div>
 			<ul class="nav navbar-nav">
-			 <%if (o==null && c==null && e==null && b==null){%>
-				<li class="active"><a href="index.jsp">Mejores</a></li>
-				<li><a href="index.jsp?opcion=ultimos">Ultimos</a></li>
-			 <%}else if(o!=null) {%>
-			 	<li><a href="index.jsp">Mejores</a></li>
-				<li class="active"><a href="index.jsp?opcion=ultimos">Ultimos</a></li>
-			<%}else{%>
 			 	<li><a href="index.jsp">Mejores</a></li>
 				<li><a href="index.jsp?opcion=ultimos">Ultimos</a></li>
-			<%}%>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 
@@ -161,7 +105,7 @@
             <div class="card-body">
               <h2 class="card-title"><%=publicacion.getTitulo()%></h2>
               <div class="text-muted">
-              Subido el <%=publicacion.getFecha_subida() %> por <a href="PerfilUsuario?nombre=<%=publicacion.getUsuario().getNombre()%>"><%=publicacion.getUsuario().getNombre() %></a>
+              Subido el <%=publicacion.getFecha_subida() %> por <a href="#"><%=publicacion.getUsuario().getNombre() %></a>
             </div>
               <a href="publicacion.jsp?id=<%=publicacion.getId() %>">
               	<img class="card-img-top"  src="./imagenesDePublicaciones/<%=publicacion.getId() %>" alt="Card image cap" width="750px" onerror="this.src='./imagenesDePublicaciones/404meme.jpg';">
@@ -206,20 +150,9 @@
 	
 	int anteriorPagina=0;
 	int proximaPagina=2;
-	if(paginaSTR!=null){
+	if(pagina!=1){
 		anteriorPagina=pagina-1;
 		proximaPagina=pagina+1;
-	}
-
-	String extrasLink="";
-	if (o!=null){
-		extrasLink="opcion="+o+"&&";
-	}else if(c!=null){
-		extrasLink="categoria="+c+"&&";
-	}else if(e!=null){
-		extrasLink="etiqueta="+e+"&&";
-	}else if(b!=null){
-		extrasLink="busqueda="+b+"&&";
 	}
 
 %>
@@ -231,18 +164,18 @@
           	if(anteriorPagina==0){
 		          %>
 		          	<li class="page-item disabled">
-		          	<a class="page-link" href="?<%=extrasLink%>">&larr; Nuevos </a>
+		          	<a class="page-link" href="?">&larr; Nuevos </a>
 		          <%
           	}else{
           		 %>
                	<li class="page-item">
-               	<a class="page-link" href="?<%=extrasLink%>pagina=<%=anteriorPagina%>">&larr; Nuevos </a>
+               	<a class="page-link" href="?pagina=<%=anteriorPagina%>">&larr; Nuevos </a>
                <%
           	}
           %>
             </li>
             <li class="page-item">
-              <a class="page-link" href="?<%=extrasLink%>pagina=<%=proximaPagina%>">Viejos &rarr;</a>
+              <a class="page-link" href="?pagina=<%=proximaPagina%>">Viejos &rarr;</a>
             </li>
           </ul>
 
@@ -306,6 +239,5 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  </body>
-
+</body>
 </html>

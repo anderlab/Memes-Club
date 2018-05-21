@@ -236,7 +236,7 @@ public class PublicacionModelo{
 		try {
 			pst = conexion.prepareStatement("SELECT * FROM publicaciones where autor=? ORDER BY fecha_subida desc, id desc LIMIT ?,5");
 			pst.setString(1, autor.getNombre());
-			pst.setInt(1, (pagina-1)*5);
+			pst.setInt(2, (pagina-1)*5);
 			ResultSet rs=pst.executeQuery();
 			while (rs.next()){
 				Publicacion publicacion=new Publicacion();

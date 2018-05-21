@@ -30,6 +30,7 @@ public class PerfilUsuario extends HttpServlet{
 		PublicacionModelo publicacionModelo=new PublicacionModelo();
 		ArrayList<Publicacion> publicaciones=publicacionModelo.selectPorAutor(autor,pagina); 
 		request.setAttribute("publicaciones", publicaciones);
+		request.setAttribute("pagina", pagina);
 		
 		
 		HttpSession session=request.getSession();
@@ -37,7 +38,7 @@ public class PerfilUsuario extends HttpServlet{
 		
 		Usuario usuarioConectado=(Usuario) session.getAttribute("usuario");
 		boolean esEl=false;
-		if (autor.getNombre().equals(usuarioConectado.getNombre())){
+		if (usuarioConectado!=null && autor.getNombre().equals(usuarioConectado.getNombre())){
 			esEl=true;
 		}
 		request.setAttribute("esEl", esEl);
