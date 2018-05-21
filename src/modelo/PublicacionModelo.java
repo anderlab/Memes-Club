@@ -11,6 +11,7 @@ import clase.Etiqueta;
 import clase.EtiquetaPublicacion;
 import clase.MejorPublicacion;
 import clase.Publicacion;
+import clase.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -219,5 +220,44 @@ public class PublicacionModelo{
 		return publicaciones;
 		
 		
+	}
+
+
+	public ArrayList<Publicacion> selectPorAutor(Usuario autor, int pagina) {
+		// TODO Auto-generated method stub
+		PreparedStatement pst;
+		ArrayList<Publicacion> publicaciones=new ArrayList<>();
+		
+		UsuarioModelo usuarioModelo=new UsuarioModelo();
+		CatPubliModelo catPubliModelo=new CatPubliModelo();
+		EtiPubliModelo etiPubliModelo=new EtiPubliModelo();
+		VotoPubliModelo votoPubliModelo=new VotoPubliModelo();
+		
+		try {
+			pst = conexion.prepareStatement("SELECT * FROM publicaciones where autor=? ORDER BY fecha_subida desc, id desc LIMIT ?,5");
+			pst.setString(1, autor.getNombre());
+			pst.setInt(1, (pagina-1)*5);
+			ResultSet rs=pst.executeQuery();
+			while (rs.next()){
+				Publicacion publicacion=new Publicacion();
+				
+				publicacion.setId(rs.getString("id"));
+				publicacion.setTitulo(rs.getString("titulo"));
+				publicacion.setFecha_subida(rs.getDate("fecha_subida"));
+				publicacion.setUsuario(autor);
+				publicacion.setCategorias(catPubliModelo.selectCatPorPublicacion(rs.getString("id")));
+				publicacion.setEtiquetas(etiPubliModelo.selectEtiPorPublicacion(rs.getString("id")));
+				publicacion.setVotos(votoPubliModelo.selectPorPublicacion(rs.getString("id")));
+				
+				publicaciones.add(publicacion);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return publicaciones;
 	}
 }
