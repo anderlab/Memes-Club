@@ -22,7 +22,15 @@
         <url-pattern>/PerfilUsuario</url-pattern>
     </servlet-mapping>
     
-    
+        <servlet>
+        <servlet-name>EditarPublicacion</servlet-name>
+        <servlet-class>controlador.EditarPublicacion</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditarPublicacion</servlet-name>
+        <url-pattern>/EditarPublicacion</url-pattern>
+    </servlet-mapping>
 
 <!-- Fin de la publicacion de servlets -->
 

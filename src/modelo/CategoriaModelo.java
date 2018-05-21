@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.sun.corba.se.impl.ior.GenericTaggedComponent;
 
 import clase.Categoria;
 
