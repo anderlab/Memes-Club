@@ -130,7 +130,7 @@
                             
               <div class="text-muted autor">
               Subido el <%=publicacion.getFecha_subida() %> por <a href="#"><%=publicacion.getUsuario().getNombre() %></a>
-              
+      			<%if (esEl){ %>
             	  <a href="EditarPublicacion?id=<%=publicacion.getId()%>">
               			<button class="btn btn-success" type="button" >
                       		Editar Publicacion
@@ -140,7 +140,7 @@
                     	Eliminar Publicacion
                     </button>
               
-              		
+             	<%} %>
             </div>
               <a href="publicacion.jsp?id=<%=publicacion.getId() %>">
               	<img class="card-img-top"  src="./imagenesDePublicaciones/<%=publicacion.getId() %>" alt="Card image cap" width="750px" onerror="this.src='./imagenesDePublicaciones/404meme.jpg';">
