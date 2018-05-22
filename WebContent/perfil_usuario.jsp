@@ -7,6 +7,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+
 <%
 	ArrayList<Publicacion> publicaciones=(ArrayList<Publicacion>)request.getAttribute("publicaciones");
 	boolean esEl=(Boolean) request.getAttribute("esEl");
@@ -94,34 +96,19 @@
         	<div class="panel panel-default">
                 <div class="panel-body">
                     <span>
-                        <h1 class="panel-title pull-left" style="font-size:30px;"><%=autor.getNombre() %><small>example@pods.tld</small> <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+                        <h1 class="panel-title pull-left" style="font-size:30px;"><%=autor.getNombre() %> </h1>
+                        <%if (esEl){ %>
                         <div class="dropdown pull-right">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Friends
-                                <span class="caret"></span>
+                            <button class="btn btn-success dropdown-toggle" type="button">
+                                Editar
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">Familly</a></li>
-                                <li><a href="#"><i class="fa fa-fw fa-check" aria-hidden="true"></i> Friends</a></li>
-                                <li><a href="#">Work</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add a new aspect</a></li>
-                            </ul>
+                            
                         </div>
+                        <%} %>
                     </span>
-                    <br><br>
-                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="/tags/diaspora" class="tag">#diaspora</a> <a href="/tags/hashtag" class="tag">#hashtag</a> <a href="/tags/caturday" class="tag">#caturday</a>
-                    <br><br><hr>
-                    <span class="pull-left">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos <span class="badge">42</span></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts <span class="badge">42</span></a>
-                    </span>
-                    <span class="pull-right">
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
-                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a>
-                    </span>
+                    
+                    <br><br><br><br>
+                    
                 </div>
             </div>
             <hr>
@@ -212,18 +199,18 @@
           	if(anteriorPagina==0){
 		          %>
 		          	<li class="page-item disabled">
-		          	<a class="page-link" href="?">&larr; Nuevos </a>
+		          	<a class="page-link" href="?nombre=<%=autor.getNombre() %>">&larr; Nuevos </a>
 		          <%
           	}else{
           		 %>
                	<li class="page-item">
-               	<a class="page-link" href="?pagina=<%=anteriorPagina%>">&larr; Nuevos </a>
+               	<a class="page-link" href="?nombre=<%=autor.getNombre() %>&&pagina=<%=anteriorPagina%>">&larr; Nuevos </a>
                <%
           	}
           %>
             </li>
             <li class="page-item">
-              <a class="page-link" href="?pagina=<%=proximaPagina%>">Viejos &rarr;</a>
+              <a class="page-link" href="?nombre=<%=autor.getNombre() %>&&pagina=<%=proximaPagina%>">Viejos &rarr;</a>
             </li>
           </ul>
 

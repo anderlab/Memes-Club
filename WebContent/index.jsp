@@ -122,6 +122,7 @@
 						%>
 						<li><a href="Administrador/gestor.jsp">Gestion</a></li>
 					<% }%>
+					<li><a href="PerfilUsuario?nombre=<%=usuario.getNombre()%>" >Ver perfil</a></li>
 					<li><a href="logout.jsp">Cerrar Sesion</a></li>
 					<li><a href="nueva_publicacion.jsp" ><span class="glyphicon glyphicon-plus"></span>Añadir publicacion</a></li>
 				</ul>
