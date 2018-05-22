@@ -23,19 +23,15 @@ public class EditarPublicacion {
 		HttpSession session = request.getSession();
 		String idPubli = request.getParameter("id");
 
-		Usuario u = (Usuario) session.getAttribute("iniciado");
-		if (u != null) {
-			UsuarioModelo usuarioModelo = new UsuarioModelo();
-
+		Usuario usuario = (Usuario) session.getAttribute("iniciado");
+		if (usuario != null) {
+			
+			
 			PublicacionModelo publicacionModelo = new PublicacionModelo();
 			Publicacion publicacion = publicacionModelo.select(idPubli);
 			request.setAttribute("publicacion", publicacion);
 			
-			String lineaEtiquetas= "";
-			for(Etiqueta etiqueta : publicacion.getEtiquetas()){
-				lineaEtiquetas=lineaEtiquetas+", "+etiqueta.getNombre();
-			}
-			request.setAttribute("lineaEtiquetas", lineaEtiquetas);
+	
 			
 
 			// guardar en variable para enviar

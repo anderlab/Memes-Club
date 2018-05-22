@@ -1,3 +1,4 @@
+<%@page import="clase.Etiqueta"%>
 <%@page import="clase.Publicacion"%>
 <%@page import="clase.Usuario"%>
 <%@page import="java.util.Iterator"%>
@@ -8,7 +9,6 @@
     pageEncoding="ISO-8859-1"%>
    <%
 Publicacion publicacion= (Publicacion) request.getAttribute("publicacion");
-   String lineaEtiquetas= (String) request.getAttribute("lineaEtiquetas");
     %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -88,6 +88,13 @@ Publicacion publicacion= (Publicacion) request.getAttribute("publicacion");
   <div class="form-group row">
     <label for="etiquetas" class="col-sm-2 col-form-label">Etiquetas (opcional)</label>
     <div class="col-sm-10">
+    
+    
+    <%String lineaEtiquetas= "";
+	for(Etiqueta etiqueta : publicacion.getEtiquetas()){
+		lineaEtiquetas=lineaEtiquetas+", "+etiqueta.getNombre();
+		
+	} %>
       <input type="text" name="etiquetas" class="form-control" placeholder="etiqueta1, etiqueta2, etiqueta3" value="<%=lineaEtiquetas %>">
       <p style="color:orange;">*Separa las etiquetas por coma y espacio*</p>
     </div>
