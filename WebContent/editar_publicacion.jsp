@@ -1,3 +1,4 @@
+<%@page import="clase.Publicacion"%>
 <%@page import="clase.Usuario"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="modelo.CategoriaModelo"%>
@@ -5,9 +6,10 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
-
-    
+   <%
+Publicacion publicacion= (Publicacion) request.getAttribute("publicacion");
+   String lineaEtiquetas= (String) request.getAttribute("lineaEtiquetas");
+    %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -34,13 +36,7 @@
   <div class="form-group row">
     <label for="titulo" class="col-sm-2 col-form-label">Titulo</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" name="titulo" placeholder="Titulo">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="imagen" class="col-sm-2 col-form-label">Imagen</label>
-    <div class="col-sm-10">
-      <input type="File" name="imagen">
+      <input type="text" class="form-control" name="titulo" placeholder="Titulo" value="<%=publicacion.getTitulo()%>">
     </div>
   </div>
   <div class="form-group row">
@@ -58,6 +54,16 @@
       		if (cont==1){
       			%><tr><%
       		}
+      		if (publicacion.getCategorias().contains(categoria)){
+      			%>
+	      		<td class="categoria">
+	      			<input class="form-check-input" type="checkbox"  id="<%=categoria.getId()%>" name="<%=categoria.getNombre()%>" value="<%=categoria.getNombre()%>" checked>
+			        <label class="form-check-label" for="<%=categoria.getId()%>">
+			          <%=categoria.getNombre() %>
+			        </label>
+	        	</td>
+	        	<%
+      		}else{
       			%>
 	      		<td class="categoria">
 	      			<input class="form-check-input" type="checkbox" id="<%=categoria.getId()%>" name="<%=categoria.getNombre()%>" value="<%=categoria.getNombre()%>">
@@ -66,6 +72,7 @@
 			        </label>
 	        	</td>
 	        	<%
+      		}
         	if (cont==4){
       			%></tr><%
       			cont=0;
@@ -81,7 +88,7 @@
   <div class="form-group row">
     <label for="etiquetas" class="col-sm-2 col-form-label">Etiquetas (opcional)</label>
     <div class="col-sm-10">
-      <input type="text" name="etiquetas" class="form-control" placeholder="etiqueta1, etiqueta2, etiqueta3">
+      <input type="text" name="etiquetas" class="form-control" placeholder="etiqueta1, etiqueta2, etiqueta3" value="<%=lineaEtiquetas %>">
       <p style="color:orange;">*Separa las etiquetas por coma y espacio*</p>
     </div>
   </div>
