@@ -20,6 +20,7 @@ public class PerfilUsuario extends HttpServlet{
 		UsuarioModelo usuarioModelo=new UsuarioModelo();
 		Usuario autor=usuarioModelo.select(request.getParameter("nombre"));
 		
+		
 		String paginaSTR=request.getParameter("pagina");
 		int pagina=1;
 	    if(paginaSTR!=null){
@@ -31,6 +32,7 @@ public class PerfilUsuario extends HttpServlet{
 		ArrayList<Publicacion> publicaciones=publicacionModelo.selectPorAutor(autor,pagina); 
 		request.setAttribute("publicaciones", publicaciones);
 		request.setAttribute("pagina", pagina);
+		request.setAttribute("autor", autor);
 		
 		
 		HttpSession session=request.getSession();
