@@ -13,9 +13,10 @@ $(document).ready(function(){
 
 	    
 	    //enviar info
-	    $.post( "VotarPublicacion",  { voto: voto, idPublicacion:idPublicacion })
-			.done(function( data ) {
-				alert( data );
+	    $.post( "VotarPublicacion",  { voto: voto, idPublicacion:idPublicacion },
+			function(data, status){
+		        alert("Data: " + data + "\nStatus: " + status);
+		    
 		});
 
    });

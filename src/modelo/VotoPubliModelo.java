@@ -68,10 +68,28 @@ public class VotoPubliModelo{
 		// TODO Auto-generated method stub
 		PreparedStatement pst;
 		try {
-			pst = conexion.prepareStatement("Insert into votar_p(usuario,publicacion,voto,fecha) values(?,?,?,curdate())");
+			pst = conexion.prepareStatement("Insert into votar_p(usuario,publicacion,voto,fecha) values(?,?,?,now())");
 			pst.setString(1, votoPublicacion.getUsuario().getNombre());
 			pst.setString(2, votoPublicacion.getPublicacion().getId());
 			pst.setBoolean(3, votoPublicacion.isVoto());
+			pst.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void update(VotoPublicacion votoPublicacion) {
+		// TODO Auto-generated method stub
+		PreparedStatement pst;
+		try {
+			pst = conexion.prepareStatement("update votar_p set voto=?, fecha=now() where usuario=? and publicacion=?");
+			pst.setBoolean(1, votoPublicacion.isVoto());
+			
+			pst.setString(2, votoPublicacion.getUsuario().getNombre());
+			pst.setString(3, votoPublicacion.getPublicacion().getId());
+			
 			pst.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
