@@ -7,7 +7,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
 	ArrayList<Publicacion> publicaciones=(ArrayList<Publicacion>)request.getAttribute("publicaciones");
@@ -118,20 +118,19 @@
 			
 			out.print("<h3 style='color: grey;'>Lo siento pero no hay publicaciones :'(</h3>");
 		}
-		Iterator<Publicacion> i=publicaciones.iterator();
-    		while(i.hasNext()){
-    			Publicacion publicacion=i.next();
 		%>
+		<c:forEach items="${publicaciones}" var="publicacion">
+		
           <!-- Blog Post -->
           <div class="card mb-4">
             
             <div class="card-body">
-              <h2 class="card-title"><%=publicacion.getTitulo()%></h2>
+              <h2 class="card-title">${publicacion.titulo}</h2>
                             
               <div class="text-muted autor">
-              Subido el <%=publicacion.getFecha_subida() %> por <a href="#"><%=publicacion.getUsuario().getNombre() %></a>
+              Subido el ${publicacion.fecha_subida} por <a href="#">${publicacion.usuario.nombre}</a>
       			<%if (esEl){ %>
-            	  <a href="EditarPublicacion?id=<%=publicacion.getId()%>">
+            	  <a href="EditarPublicacion?id=${publicacion.id}">
               			<button class="btn btn-success" type="button" >
                       		Editar Publicacion
                     	</button>
@@ -142,8 +141,8 @@
               
              	<%} %>
             </div>
-              <a href="publicacion.jsp?id=<%=publicacion.getId() %>">
-              	<img class="card-img-top"  src="./imagenesDePublicaciones/<%=publicacion.getId() %>" alt="Card image cap" width="750px" onerror="this.src='./imagenesDePublicaciones/404meme.jpg';">
+              <a href="publicacion.jsp?id=${publicacion.getId()}">
+              	<img class="card-img-top"  src="./imagenesDePublicaciones/${publicacion.id}" alt="Card image cap" width="750px" onerror="this.src='./imagenesDePublicaciones/404meme.jpg';">
               	</a>
               <div class="opciones">
               	<a href=#>
@@ -156,29 +155,20 @@
               			<span class="glyphicon glyphicon-thumbs-down"></span>
               		</button>
               	</a>
-              	<%=publicacion.getVotosPositivos().size()%>
+              	
               </div>
              <p class="card-text etiquetas" >
-             <%
-             	Iterator<Etiqueta> j=publicacion.getEtiquetas().iterator();
-             	while (j.hasNext()){
-             		Etiqueta etiqueta=j.next();
-             	
-             %>
-              	<b>
-              		<a href="?etiqueta=<%=etiqueta.getNombre()%>">#<%=etiqueta.getNombre()%></a>
-              	</b> 
-			<%
-			}
-			%>
+             	<c:forEach items="${publicacion.etiquetas}" var="etiqueta">
+             		<b>
+              			<a href="?etiqueta=${etiqueta.nombre}">#${etiqueta.nombre}</a>
+              		</b>
+             	</c:forEach>
 			</p>
               
             </div>
             
           </div>
-		<%
-    		}
-		%>
+		</c:forEach>
 
 
 <%

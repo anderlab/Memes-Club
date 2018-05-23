@@ -84,6 +84,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <script src="js/script.js"></script>
 
   </head>
 
@@ -168,16 +170,12 @@
               	<img class="card-img-top"  src="./imagenesDePublicaciones/<%=publicacion.getId() %>" alt="Card image cap" width="750px" onerror="this.src='./imagenesDePublicaciones/404meme.jpg';">
               	</a>
               <div class="opciones">
-              	<a href=#>
-              		<button type="button" class="btn activo">
+              		<button type="button" class="btn activo" value="like-<%=publicacion.getId() %>">
               			<span class="glyphicon glyphicon-thumbs-up"></span>
               		</button>
-              	</a>
-              	<a href=#>
-              		<button type="button" class="btn btn-outline-danger">
+              		<button type="button" class="btn" value="dislike-<%=publicacion.getId() %>">
               			<span class="glyphicon glyphicon-thumbs-down"></span>
               		</button>
-              	</a>
               	<%=publicacion.getVotosPositivos().size()%>
               </div>
              <p class="card-text etiquetas" >

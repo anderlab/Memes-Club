@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import clase.Categoria;
+import clase.Publicacion;
+import clase.Usuario;
 import clase.VotoPublicacion;
 
 public class VotoPubliModelo{
@@ -37,5 +39,45 @@ public class VotoPubliModelo{
 		
 		return votos;
 	}
+	public VotoPublicacion selectPorPubliUsuario(Publicacion publicacion, Usuario usuario) {
+		// TODO Auto-generated method stub
+		PreparedStatement pst;
+		VotoPublicacion votoPublicacion=null;
+		try {
+			pst = conexion.prepareStatement("Select * from votar_p where publicacion=? and usuario=?");
+			pst.setString(1, publicacion.getId());
+			pst.setString(2, usuario.getNombre());
+			ResultSet rs=pst.executeQuery();
+			while(rs.next()){
+				votoPublicacion=new VotoPublicacion();
+				votoPublicacion.setPublicacion(publicacion);
+				votoPublicacion.setUsuario(usuario);
+				votoPublicacion.setVoto(rs.getBoolean("voto"));
+				votoPublicacion.setFecha(rs.getDate("fecha"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return votoPublicacion;
+	}
+	public void insert(VotoPublicacion votoPublicacion) {
+		// TODO Auto-generated method stub
+		PreparedStatement pst;
+		try {
+			pst = conexion.prepareStatement("Insert into votar_p(usuario,publicacion,voto,fecha) values(?,?,?,curdate())");
+			pst.setString(1, votoPublicacion.getUsuario().getNombre());
+			pst.setString(2, votoPublicacion.getPublicacion().getId());
+			pst.setBoolean(3, votoPublicacion.isVoto());
+			pst.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
 }
