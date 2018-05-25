@@ -38,7 +38,7 @@ public class PerfilUsuario extends HttpServlet{
 		HttpSession session=request.getSession();
 		
 		
-		Usuario usuarioConectado=(Usuario) session.getAttribute("usuario");
+		Usuario usuarioConectado=(Usuario) session.getAttribute("iniciado");
 		boolean esEl=false;
 		if (usuarioConectado!=null && autor.getNombre().equals(usuarioConectado.getNombre())){
 			esEl=true;
