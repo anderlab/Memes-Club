@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import clase.Categoria;
 import clase.CategoriaPublicacion;
@@ -94,6 +95,21 @@ public class CatPubliModelo{
 		
 	}
 	
+	public void deletePorPublicacion(Publicacion publicacion) {
+		// TODO Auto-generated method stub
+		try {
+			PreparedStatement pst=conexion.prepareStatement("DELETE FROM esta_categorias where publicacion=?");
+			pst.setString(1, publicacion.getId());
+			pst.execute();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+
 	
 	
 	

@@ -29,14 +29,15 @@ Publicacion publicacion= (Publicacion) request.getAttribute("publicacion");
 <%
 	CategoriaModelo categoriaModelo=new CategoriaModelo();
 	ArrayList<Categoria> categorias=categoriaModelo.selectAll();
+	
 %>
 <h3>Nueva Publicacion</h3>
 
-	<form action="subir_publicacion.jsp" method="post" enctype="multipart/form-data">
+	<form action="CambiarPublicacion" method="post">
   <div class="form-group row">
     <label for="titulo" class="col-sm-2 col-form-label">Titulo</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" name="titulo" placeholder="Titulo" value="<%=publicacion.getTitulo()%>">
+      <input type="text" class="form-control" name="tituloNuevo" placeholder="Titulo" value="<%=publicacion.getTitulo()%>">
     </div>
   </div>
   <div class="form-group row">
@@ -54,10 +55,10 @@ Publicacion publicacion= (Publicacion) request.getAttribute("publicacion");
       		if (cont==1){
       			%><tr><%
       		}
-      		if (publicacion.getCategorias().contains(categoria)){
+      		if (publicacion.tieneCategoria(categoria)){
       			%>
 	      		<td class="categoria">
-	      			<input class="form-check-input" type="checkbox"  id="<%=categoria.getId()%>" name="<%=categoria.getNombre()%>" value="<%=categoria.getNombre()%>" checked>
+	      			<input class="form-check-input" type="checkbox"  id="<%=categoria.getId()%>" name="categoriasNuevas" value="<%=categoria.getNombre()%>" checked>
 			        <label class="form-check-label" for="<%=categoria.getId()%>">
 			          <%=categoria.getNombre() %>
 			        </label>
@@ -66,7 +67,7 @@ Publicacion publicacion= (Publicacion) request.getAttribute("publicacion");
       		}else{
       			%>
 	      		<td class="categoria">
-	      			<input class="form-check-input" type="checkbox" id="<%=categoria.getId()%>" name="<%=categoria.getNombre()%>" value="<%=categoria.getNombre()%>">
+	      			<input class="form-check-input" type="checkbox" id="<%=categoria.getId()%>" name="categoriasNuevas" value="<%=categoria.getNombre()%>">
 			        <label class="form-check-label" for="<%=categoria.getId()%>">
 			          <%=categoria.getNombre() %>
 			        </label>
@@ -101,7 +102,7 @@ Publicacion publicacion= (Publicacion) request.getAttribute("publicacion");
   </div>
   <div class="form-group row">
     <div class="col-sm-10">
-      <input type="submit" value="Subir" name="subir" class="btn btn-primary"><a href="index.jsp" class="btn btn-secondary">Cancelar</a>
+      <input type="submit" value="Cambiar" name="cambiar" class="btn btn-primary"><a href="index.jsp" class="btn btn-secondary">Cancelar</a>
     </div>
   </div>
 </form>

@@ -32,6 +32,17 @@
         <url-pattern>/EditarPublicacion</url-pattern>
     </servlet-mapping>
 
+
+	       <servlet>
+        <servlet-name>CambiarPublicacion</servlet-name>
+        <servlet-class>controlador.CambiarPublicacion</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CambiarPublicacion</servlet-name>
+        <url-pattern>/CambiarPublicacion</url-pattern>
+    </servlet-mapping>
+
 <!-- Fin de la publicacion de servlets -->
 
 </web-app>

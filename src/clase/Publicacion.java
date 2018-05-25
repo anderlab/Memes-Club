@@ -85,7 +85,14 @@ public class Publicacion {
 		this.etiquetas = etiquetas;
 	}
 	
-	
+	public boolean tieneCategoria(Categoria categoria){
+		for (Categoria c:this.getCategorias()){
+			if (c.getId()==categoria.getId()){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 
 }
