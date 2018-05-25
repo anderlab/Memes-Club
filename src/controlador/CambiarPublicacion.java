@@ -34,9 +34,11 @@ public class CambiarPublicacion extends HttpServlet {
 		Publicacion publicacion = publicacionModelo.select(idPubli);
 
 		Usuario usuario = (Usuario) session.getAttribute("iniciado");
-		if (usuario != null && usuario.getNombre().equals(publicacion.getUsuario().getNombre())) {
+		
+
+		if (usuario != null ) {
 			
-			
+			if(usuario.getNombre().equals(publicacion.getUsuario().getNombre())){
 			publicacion.setTitulo(tituloNuevo);	
 			publicacionModelo.updateTitulo(publicacion);
 			
@@ -59,7 +61,7 @@ public class CambiarPublicacion extends HttpServlet {
 			
 		
 
-			RequestDispatcher rd = request.getRequestDispatcher("perfil_usuario.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
@@ -68,7 +70,7 @@ public class CambiarPublicacion extends HttpServlet {
 
 	}
 	
-	
+	}
 	
 	
 }

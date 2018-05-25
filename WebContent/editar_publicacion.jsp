@@ -34,6 +34,7 @@ Publicacion publicacion= (Publicacion) request.getAttribute("publicacion");
 <h3>Nueva Publicacion</h3>
 
 	<form action="CambiarPublicacion" method="post">
+	<input type="text" name="id" value="<%=publicacion.getId() %>" hidden>
   <div class="form-group row">
     <label for="titulo" class="col-sm-2 col-form-label">Titulo</label>
     <div class="col-sm-10">
