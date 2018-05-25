@@ -13,6 +13,7 @@ import modelo.VotoPubliModelo;
 
 public class VotarPublicacion extends HttpServlet{
 	public void doPost(HttpServletRequest request, HttpServletResponse response){
+		
 		HttpSession session=request.getSession();
 		Object u=session.getAttribute("iniciado");
 		if (u!=null){
@@ -20,7 +21,7 @@ public class VotarPublicacion extends HttpServlet{
 			
 			
 			String idPublicacion=request.getParameter("idPublicacion");
-			String voto=request.getParameter("opcion");
+			String voto=request.getParameter("voto");
 			
 			PublicacionModelo publicacionModelo=new PublicacionModelo();
 			Publicacion publicacion=publicacionModelo.select(idPublicacion);
@@ -29,6 +30,7 @@ public class VotarPublicacion extends HttpServlet{
 			VotoPublicacion votoPublicacion=new VotoPublicacion();
 			votoPublicacion.setUsuario(usuario);
 			votoPublicacion.setPublicacion(publicacion);
+			
 			if (voto.equals("like")){
 				votoPublicacion.setVoto(true);
 			}else{
@@ -45,10 +47,11 @@ public class VotarPublicacion extends HttpServlet{
 				votoPubliModelo.update(votoPublicacion);
 			}
 		}
+	}	
+	
+
 		
 		
-		
-		
-	}
+	
 
 }

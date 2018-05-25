@@ -1,3 +1,4 @@
+<%@page import="modelo.VotoPubliModelo"%>
 <%@page import="clase.Usuario"%>
 <%@page import="modelo.CatPubliModelo"%>
 <%@page import="modelo.MejorPublicacionModelo"%>
@@ -170,13 +171,61 @@
               	<img class="card-img-top"  src="./imagenesDePublicaciones/<%=publicacion.getId() %>" alt="Card image cap" width="750px" onerror="this.src='./imagenesDePublicaciones/404meme.jpg';">
               	</a>
               <div class="opciones">
-              		<button type="button" class="btn activo" value="like-<%=publicacion.getId() %>">
+              <span style="color:green;">+<%=publicacion.getVotosPositivos().size()%></span>
+              
+              <%
+              VotoPubliModelo votoPubliModelo=new VotoPubliModelo();
+              
+              if (usuario!=null){
+            	  VotoPublicacion votoDeUsuario=votoPubliModelo.selectPorPubliUsuario(publicacion, usuario);
+            	  if (votoDeUsuario!=null){
+	            	  if (votoDeUsuario.isVoto()){
+	            		  %>
+	                		<button type="button" class="btn activo" value="like-<%=publicacion.getId() %>">
+	                			<span class="glyphicon glyphicon-thumbs-up"></span>
+	                		</button>
+	                		<button type="button" class="btn" value="dislike-<%=publicacion.getId() %>">
+	                			<span class="glyphicon glyphicon-thumbs-down"></span>
+	                		</button>
+	                	<%
+	            		  
+	            	  }else{
+	            		  %>
+	              		<button type="button" class="btn" value="like-<%=publicacion.getId() %>">
+	              			<span class="glyphicon glyphicon-thumbs-up"></span>
+	              		</button>
+	              		<button type="button" class="btn activo" value="dislike-<%=publicacion.getId() %>">
+	              			<span class="glyphicon glyphicon-thumbs-down"></span>
+	              		</button>
+	              	<%
+	            	  }
+            	  }else{
+            		  %>
+                		<button type="button" class="btn" value="like-<%=publicacion.getId() %>">
+                			<span class="glyphicon glyphicon-thumbs-up"></span>
+                		</button>
+                		<button type="button" class="btn" value="dislike-<%=publicacion.getId() %>">
+                			<span class="glyphicon glyphicon-thumbs-down"></span>
+                		</button>
+  	           	<%
+            	  }
+            	  
+              }else{
+              
+              %>
+              		<button type="button" class="btn" value="like-<%=publicacion.getId() %>">
               			<span class="glyphicon glyphicon-thumbs-up"></span>
               		</button>
               		<button type="button" class="btn" value="dislike-<%=publicacion.getId() %>">
               			<span class="glyphicon glyphicon-thumbs-down"></span>
               		</button>
-              	<%=publicacion.getVotosPositivos().size()%>
+	           	<%
+	           	}
+	           	%>
+              	
+              	
+              	<span style="color:red;">-<%=publicacion.getVotosNegativos().size()%></span>
+              	
               </div>
              <p class="card-text etiquetas" >
              <%
