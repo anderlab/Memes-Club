@@ -75,5 +75,19 @@ public class EtiPubliModelo{
 			e.printStackTrace();
 		}
 	}
+	
+	public void deletePorPublicacion (Publicacion publicacion){
+		
+		try{
+			PreparedStatement pst= conexion.prepareStatement("DELETE FROM tiene_e WHERE publicacion=?");
+			pst.setString(1, publicacion.getId());
+			pst.execute();
+			
+		}
+		 catch (SQLException e) {
+		
+				e.printStackTrace();
+			}
+	}
 
 }

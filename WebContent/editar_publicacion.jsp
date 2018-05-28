@@ -96,7 +96,11 @@ Publicacion publicacion= (Publicacion) request.getAttribute("publicacion");
 	for(Etiqueta etiqueta : publicacion.getEtiquetas()){
 		lineaEtiquetas=lineaEtiquetas+", "+etiqueta.getNombre();
 		
-	} %>
+	}
+	
+	
+	
+	%>
       <input type="text" name="etiquetas" class="form-control" placeholder="etiqueta1, etiqueta2, etiqueta3" value="<%=lineaEtiquetas %>">
       <p style="color:orange;">*Separa las etiquetas por coma y espacio*</p>
     </div>

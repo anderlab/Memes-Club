@@ -155,7 +155,7 @@
 						</div>
 						<img class="card-img-top"
 							src="./imagenesDePublicaciones/<%=publicacion.getId()%>"
-							alt="Card image cap">
+							alt="Card image cap"style="width:90%">
 						<div class="opciones">
 							<a href=#>
 								<button type="button" class="btn activo">
