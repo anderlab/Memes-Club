@@ -13,6 +13,8 @@
 	ArrayList<Publicacion> publicaciones=(ArrayList<Publicacion>)request.getAttribute("publicaciones");
 	boolean esEl=(Boolean) request.getAttribute("esEl");
 	Usuario usuario = null;
+	
+	
 	Object u = session.getAttribute("iniciado");
 	if (u != null) {
 		usuario = (Usuario) u;
