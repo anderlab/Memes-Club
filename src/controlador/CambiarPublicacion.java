@@ -76,8 +76,6 @@ public class CambiarPublicacion extends HttpServlet {
 			   }
 			   
 			 
-			   
-			 
 			
 			catPubliModelo.deletePorPublicacion(publicacion);
 			categoriaPublicacion.setPublicacion(publicacion);
