@@ -118,6 +118,7 @@
 						%>
 						<li><a href="Administrador/gestor.jsp">Gestion</a></li>
 					<% }%>
+					<li><a href="PerfilUsuario?nombre=<%=usuario.getNombre()%>" >Ver perfil</a></li>
 					<li><a href="logout.jsp">Cerrar Sesion</a></li>
 					<li><a href="nueva_publicacion.jsp" ><span class="glyphicon glyphicon-plus"></span>Añadir publicacion</a></li>
 				</ul>
@@ -149,13 +150,11 @@
 					<div class="card-body">
 						<h2 class="card-title"><%=publicacion.getTitulo()%></h2>
 						<div class="text-muted">
-							Subido el
-							<%=publicacion.getFecha_subida()%>
-							por <a href="#"><%=publicacion.getUsuario().getNombre()%></a>
+							Subido el <%=publicacion.getFecha_subida() %> por <a href="PerfilUsuario?nombre=<%=publicacion.getUsuario().getNombre()%>"><%=publicacion.getUsuario().getNombre() %></a>
 						</div>
 						<img class="card-img-top"
 							src="./imagenesDePublicaciones/<%=publicacion.getId()%>"
-							alt="Card image cap">
+							alt="Card image cap"style="width:90%">
 						<div class="opciones">
 							<a href=#>
 								<button type="button" class="btn activo">

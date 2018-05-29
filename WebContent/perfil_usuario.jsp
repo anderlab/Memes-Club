@@ -13,6 +13,8 @@
 	ArrayList<Publicacion> publicaciones=(ArrayList<Publicacion>)request.getAttribute("publicaciones");
 	boolean esEl=(Boolean) request.getAttribute("esEl");
 	Usuario usuario = null;
+	
+	
 	Object u = session.getAttribute("iniciado");
 	if (u != null) {
 		usuario = (Usuario) u;
@@ -70,6 +72,7 @@
 						%>
 						<li><a href="Administrador/gestor.jsp">Gestion</a></li>
 					<% }%>
+					<li><a href="PerfilUsuario?nombre=<%=usuario.getNombre()%>" >Ver perfil</a></li>
 					<li><a href="logout.jsp">Cerrar Sesion</a></li>
 					<li><a href="nueva_publicacion.jsp" ><span class="glyphicon glyphicon-plus"></span>Añadir publicacion</a></li>
 				</ul>
@@ -135,9 +138,12 @@
                       		Editar Publicacion
                     	</button>
                     </a>
+                    
+                     <a href="EliminarPublicacion?id=${publicacion.id}">
                     <button class="btn btn-danger" type="button" >
                     	Eliminar Publicacion
                     </button>
+                    </a>
               
              	<%} %>
             </div>

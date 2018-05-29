@@ -71,8 +71,10 @@
 
 							out.println("<tr> <td> " + usuario.getNombre() + "</td>");
 							out.println("<td>" + usuario.getPassword() + "</td>");
+							
+							
 
-							out.println("<td><a href='infoUsuario.jsp?nombre=" + usuario.getNombre()
+							out.println("<td><a href='../PerfilUsuario?nombre=" + usuario.getNombre()
 									+ "'>Ver</a>   <a href='eliminarUsuario.jsp?nombre=" + usuario.getNombre()
 									+ "'>/Eliminar</a> <a href='banearUsuario.jsp?nombre=" + usuario.getNombre()
 									+ "'>/Banear</a></td> ");
