@@ -136,9 +136,12 @@
                       		Editar Publicacion
                     	</button>
                     </a>
+                    
+                     <a href="EliminarPublicacion?id=${publicacion.id}">
                     <button class="btn btn-danger" type="button" >
                     	Eliminar Publicacion
                     </button>
+                    </a>
               
              	<%} %>
             </div>

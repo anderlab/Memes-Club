@@ -275,6 +275,19 @@ public class PublicacionModelo{
 		}
 	
 	}
+	public void delete(Publicacion publicacion){
+		
+		try {
+			PreparedStatement pst = conexion.prepareStatement("DELETE from publicaciones where id=?");
+			pst.setString(1, publicacion.getId());
+			pst.execute();
+		
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 }
