@@ -59,9 +59,6 @@ public class CambiarPerfil extends HttpServlet {
 			
 			usuarioModelo.update(usuario);
 		
-
-	
-
 	
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);

@@ -22,12 +22,27 @@
 <body>
 
 
-<form action="CambiarPerfil" method="post">
-	Introduce tu nuevo Email: <input type="text" placeholder="<%=usuario.getEmail()%>" name="emailN"><br>
-	Introduce tu nueva contraseña: <input type="password" placeholder="**********" name="passwordN"><br>
-	<input type="submit" value="Cambiar" name="cambiar" class="btn btn-primary"><br>
 
-</form>
+	<form role="form" action="CambiarPerfil" method="post">
+	  <div class="form-group">
+	    <label for="email">Nuevo Email</label>
+	     <input type="email" placeholder="<%=usuario.getEmail()%>" name="emailN">>
+	  </div>
+	  <div class="form-group">
+	    <label for="pwd">Nueva Contraseña:</label>
+	    <input type="password" placeholder="**********" name="passwordN">
+	  </div>
+	  <button type="submit" class="btn btn-default" name="cambiar">Cambiar</button>
+	</form>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
