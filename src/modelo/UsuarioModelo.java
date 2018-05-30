@@ -142,13 +142,12 @@ public class UsuarioModelo {
 	public void update(Usuario usuario) {
 		try {
 			PreparedStatement pst = conexion
-					.prepareStatement("UPDATE usuarios SET contrasena=?,imagen=?, rol=?, email=? WHERE nombre=?");
+					.prepareStatement("UPDATE usuarios SET contrasena=?,imagen=?, email=? WHERE nombre=?");
 
 			pst.setString(1, usuario.getPassword());
 			pst.setString(2, usuario.getImagenPerfil());
-			pst.setString(3, usuario.getRol());
-			pst.setString(4, usuario.getNombre());
-			pst.setString(5, usuario.getEmail());
+			pst.setString(3, usuario.getNombre());
+			pst.setString(4, usuario.getEmail());
 
 			pst.execute();
 
