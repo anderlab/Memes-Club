@@ -12,8 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import clase.Publicacion;
 import clase.Usuario;
+import clase.VotoPublicacion;
 import modelo.PublicacionModelo;
 import modelo.UsuarioModelo;
+import modelo.VotoPubliModelo;
 
 public class PerfilUsuario extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
@@ -44,6 +46,22 @@ public class PerfilUsuario extends HttpServlet{
 			esEl=true;
 		}
 		request.setAttribute("esEl", esEl);
+		
+		
+		//votos
+		VotoPubliModelo votoPubliModelo=new VotoPubliModelo();
+		ArrayList<VotoPublicacion> votoPublicaciones =new ArrayList<>();
+		 if (usuarioConectado!=null){
+			 for(Publicacion publicacion :publicaciones){
+				 VotoPublicacion votoDeUsuario=votoPubliModelo.selectPorPubliUsuario(publicacion, usuarioConectado);
+				 votoPublicaciones.add(votoDeUsuario);
+			 }
+		 }
+		 request.setAttribute("votoPublicaciones", votoPublicaciones);
+		
+		
+		
+		
 		
 		RequestDispatcher rd=request.getRequestDispatcher("perfil_usuario.jsp");
 		rd.forward(request, response);

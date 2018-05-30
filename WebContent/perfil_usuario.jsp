@@ -151,16 +151,54 @@
               	<img class="card-img-top"  src="./imagenesDePublicaciones/${publicacion.id}" alt="Card image cap" width="750px" onerror="this.src='./imagenesDePublicaciones/404meme.jpg';">
               	</a>
               <div class="opciones">
-              	<a href=#>
-              		<button type="button" class="btn activo">
+              	<span style="color:green;" class="likes" ><%=publicacion.getVotosPositivos().size()%></span>
+              
+              		<!_______________________________________________________________________
+              		
+	                		<button type="button" class="btn activo utilizable" id="like-<%=publicacion.getId() %>">
+	                			<span class="glyphicon glyphicon-thumbs-up"></span>
+	                		</button>
+	                		<button type="button" class="btn utilizable" id="dislike-<%=publicacion.getId() %>">
+	                			<span class="glyphicon glyphicon-thumbs-down"></span>
+	                		</button>
+	                	<%
+	            		  
+	            	  }else{
+	            		  %>
+	              		<button type="button" class="btn utilizable" id="like-<%=publicacion.getId() %>">
+	              			<span class="glyphicon glyphicon-thumbs-up"></span>
+	              		</button>
+	              		<button type="button" class="btn activo utilizable" id="dislike-<%=publicacion.getId() %>">
+	              			<span class="glyphicon glyphicon-thumbs-down"></span>
+	              		</button>
+	              	<%
+	            	  }
+            	  }else{
+            		  %>
+                		<button type="button" class="btn utilizable" id="like-<%=publicacion.getId() %>">
+                			<span class="glyphicon glyphicon-thumbs-up"></span>
+                		</button>
+                		<button type="button" class="btn utilizable" id="dislike-<%=publicacion.getId() %>">
+                			<span class="glyphicon glyphicon-thumbs-down"></span>
+                		</button>
+  	           	<%
+            	  }
+            	  
+              }else{
+              
+              %>
+              		<button type="button" class="btn" id="like-<%=publicacion.getId() %>">
               			<span class="glyphicon glyphicon-thumbs-up"></span>
               		</button>
-              	</a>
-              	<a href=#>
-              		<button type="button" class="btn btn-outline-danger">
+              		<button type="button" class="btn" id="dislike-<%=publicacion.getId() %>">
               			<span class="glyphicon glyphicon-thumbs-down"></span>
               		</button>
-              	</a>
+	           	<%
+	           	}
+	           	%>
+              	
+              	
+              	<span style="color:red;" class="dislikes"><%=publicacion.getVotosNegativos().size()%></span>
               	
               </div>
              <p class="card-text etiquetas" >
